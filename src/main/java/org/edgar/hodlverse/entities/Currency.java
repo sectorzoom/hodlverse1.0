@@ -15,6 +15,9 @@ public class Currency {
     @Column(nullable = false, unique = true, length = 10)
     private String ticker;
 
+    @Column(nullable = false, length = 50)
+    private double current_price;
+
     @OneToMany(mappedBy = "currency", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Balance> balances;
 
