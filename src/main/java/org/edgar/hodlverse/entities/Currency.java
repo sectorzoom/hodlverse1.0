@@ -27,5 +27,8 @@ public class Currency {
     @OneToMany(mappedBy = "destinationCurrency", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Transaction> destinationTransactions;
 
+    @OneToMany(mappedBy = "currency", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<History> history;
+
     // Getters y Setters
 }

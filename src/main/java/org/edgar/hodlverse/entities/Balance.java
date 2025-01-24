@@ -21,4 +21,20 @@ public class Balance {
     private Currency currency;
 
     // Getters y Setters
+
+    public Long getBalanceId() {
+        return balanceId;
+    }
+
+    public BigDecimal getWalletAmount() {
+        return walletAmount;
+    }
+
+    public void setBalanceId(Long balanceId) {
+        this.balanceId = balanceId;
+    }
+
+    public void setWalletAmount(BigDecimal walletAmount) {
+        this.walletAmount = walletAmount;
+    }
 }
