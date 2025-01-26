@@ -13,18 +13,27 @@ body {
     background-color: var(--azulclaro);
     color: var(--azuloscuro);
     font-family: 'Roboto', sans-serif;
+    font-weight: bold;
 }
 main {
     flex: 1;
 }
 header{
     background-color: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    z-index: 2;
 }
 .nav{
     align-items: center;
 }
+.nav-item a:hover{
+    color: #656565 !important;
+}
 .navbar{
-    border-bottom: 1px solid var(--azuloscuro);
+    border-bottom: 2px solid var(--azuloscuro);
+}
+.active{
+    color: var(--oro) !important;
 }
 .search{
     border: 1px solid var(--azuloscuro);
@@ -39,8 +48,11 @@ header{
 .nav-item.dropdown:hover .dropdown-menu {
     display: block;
 }
+.nav-item .nav-link.active {
+    color: var(--oro) !important;  /* Asegúrate de que sea un enlace activo */
+}
 .wallet{
-    gap: 10px;
+    gap: 5px;
     margin-right: 15px;
 }
 footer {
@@ -54,4 +66,126 @@ footer a {
 }
 footer a:hover {
     color: var(--oro) !important;
+}
+/* Estilo del carrusel */
+.awards-carousel {
+    animation: scroll-continuous 25s linear infinite; /* Animación circular */
+    display: flex;
+    gap: 2rem; /* Espacio entre elementos */
+    will-change: transform; /* Optimización de rendimiento */
+    animation-play-state: running; /* Asegurarse de que la animación esté en marcha por defecto */
+    width: calc(200%); /* Duplica el ancho para un ciclo completo */
+}
+.awards-carousel p{
+    color: var(--oro) !important;
+}
+.percentage{
+    color: red !important;
+}
+
+@keyframes scroll-continuous {
+    0% {
+        transform: translateX(0); /* Comienza en el inicio */
+    }
+    100% {
+        transform: translateX(-100%); /* Se mueve la mitad del contenido */
+    }
+}
+
+/* Evitar problemas de diseño */
+.awards-item {
+    min-width: auto; /* Ancho mínimo para cada elemento */
+    flex-shrink: 0; /* Evita que los elementos se compriman */
+    margin-right: 15px;  /* Ajusta el margen para que no se solapen */
+    display: flex;
+}
+.config-item{
+    color: var(--azuloscuro) !important;
+}
+.config i {
+    cursor: pointer;
+    border-radius: 8px;
+    border: 1px solid var(--azuloscuro) !important;
+    width: 50px;
+    height: auto;
+    display: flex;
+}
+.config i:hover {
+    box-shadow: 0px 0px 3px 3px #bdd7fa;
+    color: var(--oro);
+}
+header .border-bottom{
+    border-bottom: 1px solid var(--azuloscuro) !important;
+}
+.offcanvas{
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+/* Asegurarte de que el contenido colapsado funcione correctamente */
+.offcanvas .collapse {
+    display: none !important; /* Por defecto, ocultar el contenido */
+    transition: height 0.3s ease; /* Animación suave */
+}
+.offcanvas .collapse.show {
+    display: block !important; /* Mostrar el contenido cuando esté expandido */
+}
+.btn-toggle {
+    background: transparent;
+    color: var(--azuloscuro);
+    font-weight: bold;
+    text-align: left;
+    padding: 0.5rem;
+    cursor: pointer;
+    border: none;
+}
+.btn-toggle:focus,
+.btn-toggle:hover {
+    color: var(--oro);
+}
+.btn-toggle-nav .link-body-emphasis {
+    color: var(--azuloscuro);
+}
+.btn-toggle-nav .link-body-emphasis:hover {
+    color: var(--oro);
+}
+i{
+    cursor: pointer;
+    margin-right: 5px;
+}
+/* Estilo para los enlaces de las listas en offcanvas */
+.offcanvas-body ul.btn-toggle-nav li a {
+    padding: 0.5rem 1rem; /* Espaciado interno */
+    margin-bottom: 0.5rem; /* Separación entre elementos */
+    display: flex;
+    align-items: center; /* Alinea texto e íconos */
+    text-decoration: none; /* Elimina subrayados */
+    border: 1px solid var(--azuloscuro); /* Borde */
+    border-radius: 8px; /* Bordes redondeados */
+    color: var(--azuloscuro); /* Color del texto */
+    background-color: var(--azulclaro); /* Fondo suave */
+    transition: all 0.3s ease; /* Transición suave */
+}
+
+.offcanvas-body ul.btn-toggle-nav li a:hover {
+    background-color: var(--oro); /* Cambia el fondo al pasar el cursor */
+    color: white; /* Cambia el color del texto */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2); /* Sombra para resaltar */
+}
+
+/* Íconos en las listas */
+.offcanvas-body ul.btn-toggle-nav li a i {
+    margin-right: 0.5rem; /* Espaciado entre ícono y texto */
+    font-size: 1.2rem; /* Tamaño del ícono */
+}
+
+/* Espaciado general */
+.offcanvas-body ul.btn-toggle-nav {
+    padding: 0; /* Elimina padding por defecto */
+    list-style: none; /* Sin viñetas */
+}
+hr{
+    border-color: var(--azuloscuro);
+    margin-right: 20px;
+    margin-left: 20px;
+    margin-top: 0;
+    margin-bottom: 0;
 }
