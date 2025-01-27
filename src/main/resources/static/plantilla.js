@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
     function duplicateItems() {
         const carouselWidth = carousel.offsetWidth;
 
-        while (itemsWrapper.scrollWidth < carouselWidth * 5) {
+        while (itemsWrapper.scrollWidth < carouselWidth * 10) {
             items.forEach(item => {
                 const clone = item.cloneNode(true);
                 itemsWrapper.appendChild(clone);
@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // Inicia el desplazamiento continuo
-    setInterval(scrollCarousel, 25);
+    setInterval(scrollCarousel, 80);
 });
 
 document.addEventListener("DOMContentLoaded", () => {
