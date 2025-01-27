@@ -41,7 +41,13 @@
     </div>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
-            <a class="navbar-brand" href="dashboard.html"><img src="images/logo.png" alt="Logo de la aplicación" height="55"></a>
+            <a class="navbar-brand mx-auto d-block d-lg-none" href="dashboard.html">
+                <img src="images/logo.png" alt="Logo de la aplicación" height="70">
+            </a>
+            <!-- Logo en su posición original en pantallas grandes -->
+            <a class="navbar-brand d-none d-lg-block" href="dashboard.html">
+                <img src="images/logo.png" alt="Logo de la aplicación" height="55">
+            </a>
             <!-- Botón para abrir el offcanvas en pantallas pequeñas -->
             <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -55,18 +61,18 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown" href="#" id="dropdownMenu" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa-solid fa-chart-line"></i>Highlights</a>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenu">
-                            <li><a class="dropdown-item" href="#">Trending Coins</a></li>
-                            <li><a class="dropdown-item" href="#">Top Gainers</a></li>
-                            <li><a class="dropdown-item" href="#">Top Losers</a></li>
-                            <li><a class="dropdown-item" href="#">New Coins</a></li>
+                            <li><a class="dropdown-item" href="trendingCoins.html">Trending Coins</a></li>
+                            <li><a class="dropdown-item" href="topGainers.html">Top Gainers</a></li>
+                            <li><a class="dropdown-item" href="topLosers.html">Top Losers</a></li>
+                            <li><a class="dropdown-item" href="newCoins.html">New Coins</a></li>
                         </ul>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown" href="#" id="dropdownMenu2" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa-solid fa-graduation-cap"></i>Learn</a>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenu">
-                            <li><a class="dropdown-item" href="#">Learn Crypto</a></li>
-                            <li><a class="dropdown-item" href="#">News</a></li>
-                            <li><a class="dropdown-item" href="#">Research Insights</a></li>
+                            <li><a class="dropdown-item" href="learnCrypto.html">Learn Crypto</a></li>
+                            <li><a class="dropdown-item" href="news.html">News</a></li>
+                            <li><a class="dropdown-item" href="researchInsights.html">Research Insights</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -103,10 +109,10 @@
                             </button>
                             <div class="collapse" id="dashboard-collapse">
                                 <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                                    <li><a href="#"><i class="fa-solid fa-fire"></i> Trending Coins</a></li>
-                                    <li><a href="#"><i class="fa-solid fa-arrow-up"></i> Top Gainers</a></li>
-                                    <li><a href="#"><i class="fa-solid fa-arrow-down"></i> Top Losers</a></li>
-                                    <li><a href="#"><i class="fa-solid fa-star"></i> New Coins</a></li>
+                                    <li><a href="trendingCoins.html"><i class="fa-solid fa-fire"></i> Trending Coins</a></li>
+                                    <li><a href="topGainers.html"><i class="fa-solid fa-arrow-up"></i> Top Gainers</a></li>
+                                    <li><a href="topLosers.html"><i class="fa-solid fa-arrow-down"></i> Top Losers</a></li>
+                                    <li><a href="newCoins.html"><i class="fa-solid fa-star"></i> New Coins</a></li>
                                 </ul>
                             </div>
                         </li>
@@ -116,9 +122,9 @@
                             </button>
                             <div class="collapse" id="orders-collapse">
                                 <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                                    <li><a href="#"><i class="fa-solid fa-book"></i> Learn Crypto</a></li>
-                                    <li><a href="#"><i class="fa-solid fa-newspaper"></i> News</a></li>
-                                    <li><a href="#"><i class="fa-solid fa-lightbulb"></i> Research Insights</a></li>
+                                    <li><a href="learnCrypto.html"><i class="fa-solid fa-book"></i> Learn Crypto</a></li>
+                                    <li><a href="news.html"><i class="fa-solid fa-newspaper"></i> News</a></li>
+                                    <li><a href="researchInsights.html"><i class="fa-solid fa-lightbulb"></i> Research Insights</a></li>
                                 </ul>
                             </div>
                         </li>
@@ -142,15 +148,15 @@
         <div class="container d-flex flex-wrap justify-content-between align-items-center py-3 my-4">
             <p class="col-md-4 mb-0 ">© 2025 HodlStakers, Inc</p>
 
-            <a href="/" class="col-md-4 d-flex align-items-center justify-content-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
+            <a href="hodlStakers.html" class="col-md-4 d-flex align-items-center justify-content-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
                 <img src="images/logo_hodlstakers.png" alt="Logo de HodlStakers" height="100">
             </a>
 
-            <ul class="nav col-md-4 justify-content-end">
+            <ul class="nav col-md-4 justify-content-end footer-info">
                 <li><a href="dashboard.html" class="px-2">Dashboard</a></li>
-                <li><a href="#" class="px-2">Features</a></li>
-                <li><a href="#" class="px-2">Pricing</a></li>
-                <li><a href="#" class="px-2">FAQs</a></li>
+                <li><a href="subscriptions.html" class="px-2">Subscriptions</a></li>
+                <li><a href="privacyPolicy.html" class="px-2">Privacy & Policy</a></li>
+                <li><a href="faqs.html" class="px-2">FAQs</a></li>
             </ul>
         </div>
     </div>
@@ -160,16 +166,16 @@
             <footer class="py-3 my-4">
                 <!-- Centrar la imagen -->
                 <!-- Enlace con imagen y margen inferior directamente en el HTML -->
-                <a href="/" class="d-flex align-items-center justify-content-center mb-3 me-md-auto link-body-emphasis text-decoration-none">
+                <a href="hodlStakers.html" class="d-flex align-items-center justify-content-center mb-3 me-md-auto link-body-emphasis text-decoration-none">
                     <img src="images/logo_hodlstakers.png" alt="Logo de HodlStakers" height="100" style="margin-bottom: 20px;">
                 </a>
 
                 <!-- Centrar los enlaces -->
                 <ul class="nav justify-content-center border-bottom pb-3 mb-3">
                     <li><a href="dashboard.html" class="px-2">Dashboard</a></li>
-                    <li><a href="#" class="px-2">Features</a></li>
-                    <li><a href="#" class="px-2">Pricing</a></li>
-                    <li><a href="#" class="px-2">FAQs</a></li>
+                    <li><a href="subscriptions.html" class="px-2">Subscriptions</a></li>
+                    <li><a href="privacyPolicy.html" class="px-2">Privacy & Policy</a></li>
+                    <li><a href="faqs.html" class="px-2">FAQs</a></li>
                 </ul>
                 <p class="text-center">© 2025 HodlStakers, Inc</p>
             </footer>
