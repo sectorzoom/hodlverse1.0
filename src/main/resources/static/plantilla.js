@@ -49,3 +49,37 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 });
+
+document.addEventListener("DOMContentLoaded", () => {
+    const toggleDarkModeSwitches = document.querySelectorAll(".dark-mode-toggle");
+    const body = document.body;
+
+    // Cargar el estado inicial desde localStorage (por defecto: modo claro)
+    const darkMode = localStorage.getItem("darkMode");
+
+    if (darkMode === "enabled") {
+        body.classList.add("dark-mode");
+        toggleDarkModeSwitches.forEach(switchElement => {
+            switchElement.checked = true;
+        });
+    } else {
+        body.classList.remove("dark-mode");
+        toggleDarkModeSwitches.forEach(switchElement => {
+            switchElement.checked = false;
+        });
+    }
+
+    // Cambiar entre modo oscuro y claro
+    toggleDarkModeSwitches.forEach(switchElement => {
+        switchElement.addEventListener("change", () => {
+            if (switchElement.checked) {
+                body.classList.add("dark-mode");
+                localStorage.setItem("darkMode", "enabled");
+            } else {
+                body.classList.remove("dark-mode");
+                localStorage.setItem("darkMode", "disabled");
+            }
+        });
+    });
+});
+
