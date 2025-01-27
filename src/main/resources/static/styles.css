@@ -195,3 +195,8 @@ hr{
     margin-top: 0;
     margin-bottom: 0;
 }
+@media (max-width: 1399px) {
+    .footer-info {
+        max-width: 30%;
+    }
+}
