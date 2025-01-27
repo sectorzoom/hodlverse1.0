@@ -189,7 +189,7 @@ i{
     list-style: none; /* Sin viñetas */
 }
 hr{
-    border-color: var(--azuloscuro);
+    border: 1px solid var(--azuloscuro);
     margin-right: 20px;
     margin-left: 20px;
     margin-top: 0;
