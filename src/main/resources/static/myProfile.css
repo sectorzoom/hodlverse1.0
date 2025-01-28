@@ -1,0 +1,59 @@
+<!-- CSS MAIN PROFILE-->
+    /* Contenedor General */
+#section-1, #section-2 {
+    background-color: var(--azulclaro);
+    border-radius: 8px;
+    min-height: 400px; /* Asegura que las secciones tengan un tamaño mínimo uniforme */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Títulos */
+h1 span {
+    color: var(--oro);
+}
+
+/* Contenedor General */
+#main-sections {
+    max-width: 1200px;
+    margin: 0 auto; /* Centra todo el contenedor */
+    background-color: var(--azulclaro);
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Secciones Internas */
+#section-1, #section-2-info, #section-2-plans, #chart-section {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Botones */
+.btn-azuloscuro {
+    background-color: var(--azuloscuro);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 14px;
+    border-radius: 6px;
+}
+
+.btn-azuloscuro:hover {
+    background-color: var(--oro);
+    color: white;
+}
+.btn-oro {
+    background-color: var(--oro);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 14px;
+    border-radius: 6px;
+}
+
+.btn-oro:hover {
+    background-color: darkgoldenrod;
+}
+.progress-bar{
+    background: var(--oro);
+}
