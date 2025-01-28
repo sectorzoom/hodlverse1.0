@@ -22,19 +22,36 @@ public class Balance {
 
     // Getters y Setters
 
+
     public Long getBalanceId() {
         return balanceId;
-    }
-
-    public BigDecimal getWalletAmount() {
-        return walletAmount;
     }
 
     public void setBalanceId(Long balanceId) {
         this.balanceId = balanceId;
     }
 
+    public BigDecimal getWalletAmount() {
+        return walletAmount;
+    }
+
     public void setWalletAmount(BigDecimal walletAmount) {
         this.walletAmount = walletAmount;
+    }
+
+    public Wallet getWallet() {
+        return wallet;
+    }
+
+    public void setWallet(Wallet wallet) {
+        this.wallet = wallet;
+    }
+
+    public Currency getCurrency() {
+        return currency;
+    }
+
+    public void setCurrency(Currency currency) {
+        this.currency = currency;
     }
 }

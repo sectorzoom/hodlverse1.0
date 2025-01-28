@@ -2,67 +2,69 @@ package org.edgar.hodlverse.controllers;
 
 import org.edgar.hodlverse.entities.Balance;
 import org.edgar.hodlverse.services.BalanceService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
-@RequestMapping("/balances")
+@RequestMapping("/balances") // Ruta base para el controlador
 public class BalanceController {
 
-    @Autowired
-    private BalanceService balanceService;
+    private final BalanceService balanceService;
 
-    // Obtener todos los balances de una wallet
-    @GetMapping("/wallet/{walletId}")
-    public List<Balance> getBalancesByWalletId(@PathVariable Long walletId) {
-        return balanceService.getBalancesByWalletId(walletId);
+    public BalanceController(BalanceService balanceService) {
+        this.balanceService = balanceService;
     }
 
-    // Obtener todos los balances de una divisa
-    @GetMapping("/currency/{currencyId}")
-    public List<Balance> getBalancesByCurrencyId(@PathVariable Long currencyId) {
-        return balanceService.getBalancesByCurrencyId(currencyId);
-    }
-
-    // Obtener un balance por su ID
-    @GetMapping("/{id}")
-    public Optional<Balance> getBalanceById(@PathVariable Long id) {
-        return balanceService.getBalanceById(id);
+    // Obtener todos los balances
+    @GetMapping
+    public List<Balance> all() {
+        return balanceService.findAll();
     }
 
     // Crear un nuevo balance
     @PostMapping
-    public Balance createBalance(@RequestBody Balance balance) {
-        return balanceService.createBalance(balance);
+    public Balance newBalance(@RequestBody Balance newBalance) {
+        return balanceService.save(newBalance);
+    }
+
+    // Obtener un balance específico por su ID
+    @GetMapping("/{id}")
+    public Balance one(@PathVariable Long id) {
+        return balanceService.findById(id)
+                .orElseThrow(() -> new RuntimeException("Balance con ID " + id + " no encontrado."));
     }
 
     // Actualizar un balance existente
     @PutMapping("/{id}")
-    public Balance updateBalance(@RequestBody Balance balance, @PathVariable Long id) {
-        // Buscar el balance existente
-        Optional<Balance> existingBalance = balanceService.getBalanceById(id);
-
-        if (existingBalance.isPresent()) {
-            Balance updatedBalance = existingBalance.get();
-            // Actualizar los campos necesarios, excepto el ID
-            updatedBalance.setWalletAmount(balance.getWalletAmount()); // Ejemplo de campo a actualizar
-            updatedBalance.setDescription(balance.getDescription()); // Otro campo
-
-            // Guardar los cambios
-            return balanceService.updateBalance(updatedBalance);
-        } else {
-            throw new RuntimeException("Balance con ID " + id + " no encontrado.");
-        }
+    public Balance replaceBalance(@RequestBody Balance newBalance, @PathVariable Long id) {
+        return balanceService.findById(id)
+                .map(balance -> {
+                    balance.setWalletAmount(newBalance.getWalletAmount());
+                    balance.setWallet(newBalance.getWallet());
+                    balance.setCurrency(newBalance.getCurrency());
+                    return balanceService.save(balance);
+                })
+                .orElseGet(() -> {
+                    newBalance.setBalanceId(id);
+                    return balanceService.save(newBalance);
+                });
     }
-
 
     // Eliminar un balance por su ID
     @DeleteMapping("/{id}")
     public void deleteBalance(@PathVariable Long id) {
-        balanceService.deleteBalance(id);
+        balanceService.deleteById(id);
     }
-}
 
+    @GetMapping("/wallet/{walletId}")
+    public List<Balance> balancesByWallet(@PathVariable Long walletId) {
+        return balanceService.findByWalletId(walletId);
+    }
+
+    @GetMapping("/currency/{currencyId}")
+    public List<Balance> balancesByCurrency(@PathVariable Long currencyId) {
+        return balanceService.findByCurrencyId(currencyId);
+    }
+
+}

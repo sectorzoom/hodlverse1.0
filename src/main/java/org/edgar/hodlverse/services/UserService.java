@@ -2,7 +2,6 @@ package org.edgar.hodlverse.services;
 
 import org.edgar.hodlverse.entities.User;
 import org.edgar.hodlverse.repositories.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,41 +10,29 @@ import java.util.Optional;
 @Service
 public class UserService {
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
-    // Registrar un nuevo usuario
-    public User registerUser(User user) {
-        return userRepository.save(user);
-    }
-
-    // Obtener un usuario por su ID
-    public Optional<User> getUserById(Long userId) {
-        return userRepository.findById(userId);
+    public UserService(UserRepository userRepository) {
+        this.userRepository = userRepository;
     }
 
     // Obtener todos los usuarios
-    public List<User> getAllUsers() {
+    public List<User> findAll() {
         return userRepository.findAll();
     }
 
-    // Actualizar un usuario
-    public User updateUser(User user) {
+    // Guardar un nuevo usuario
+    public User save(User user) {
         return userRepository.save(user);
     }
 
+    // Buscar un usuario por su ID
+    public Optional<User> findById(Long id) {
+        return userRepository.findById(id);
+    }
+
     // Eliminar un usuario por su ID
-    public void deleteUser(Long userId) {
-        userRepository.deleteById(userId);
-    }
-
-    // Verificar si un email ya está registrado
-    public boolean isEmailRegistered(String email) {
-        return userRepository.existsByEmail(email);
-    }
-
-    // Buscar usuario por email
-    public Optional<User> findByEmail(String email) {
-        return Optional.ofNullable(userRepository.findByEmail(email));
+    public void deleteById(Long id) {
+        userRepository.deleteById(id);
     }
 }

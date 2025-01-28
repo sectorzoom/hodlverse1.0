@@ -8,7 +8,7 @@ public class History {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long historyId;
 
     @ManyToOne
     @JoinColumn(name = "currency_id", nullable = false) // Foreign key referencing Divisa
@@ -21,12 +21,12 @@ public class History {
     private LocalDate date;
 
     // Getters and Setters
-    public Long getId() {
-        return id;
+    public Long getHistoryId() {
+        return historyId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setHistoryId(Long id) {
+        this.historyId = id;
     }
 
     public Currency getCurrency() {

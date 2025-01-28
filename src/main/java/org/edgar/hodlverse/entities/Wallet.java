@@ -16,7 +16,7 @@ public class Wallet {
     @Column(nullable = false)
     private LocalDate creationDate;
 
-    @ManyToOne
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
@@ -24,5 +24,45 @@ public class Wallet {
     private List<Balance> balances;
 
     // Getters y Setters
+
+    public Long getWalletId() {
+        return walletId;
+    }
+
+    public void setWalletId(Long walletId) {
+        this.walletId = walletId;
+    }
+
+    public String getWalletName() {
+        return walletName;
+    }
+
+    public void setWalletName(String walletName) {
+        this.walletName = walletName;
+    }
+
+    public LocalDate getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(LocalDate creationDate) {
+        this.creationDate = creationDate;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public List<Balance> getBalances() {
+        return balances;
+    }
+
+    public void setBalances(List<Balance> balances) {
+        this.balances = balances;
+    }
 }
 
