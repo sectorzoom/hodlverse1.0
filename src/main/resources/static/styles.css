@@ -86,6 +86,7 @@ footer a:hover {
     animation-play-state: paused;
 }
 
+
 @keyframes scroll-continuous {
     0% {
         transform: translateX(0); /* Comienza en el inicio */
@@ -94,6 +95,7 @@ footer a:hover {
         transform: translateX(-100%); /* Se mueve la mitad del contenido */
     }
 }
+
 
 /* Evitar problemas de diseño */
 .awards-item {
@@ -171,11 +173,13 @@ i{
     transition: all 0.3s ease; /* Transición suave */
 }
 
+
 .offcanvas-body ul.btn-toggle-nav li a:hover {
     background-color: var(--oro); /* Cambia el fondo al pasar el cursor */
     color: white; /* Cambia el color del texto */
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2); /* Sombra para resaltar */
 }
+
 
 /* Íconos en las listas */
 .offcanvas-body ul.btn-toggle-nav li a i {
@@ -183,20 +187,47 @@ i{
     font-size: 1.2rem; /* Tamaño del ícono */
 }
 
+
 /* Espaciado general */
 .offcanvas-body ul.btn-toggle-nav {
     padding: 0; /* Elimina padding por defecto */
     list-style: none; /* Sin viñetas */
 }
 hr{
-    border-color: var(--azuloscuro);
-    margin-right: 20px;
-    margin-left: 20px;
-    margin-top: 0;
-    margin-bottom: 0;
+    border: 1px solid var(--azuloscuro);
+    margin-right: 3%;
+    margin-left: 3%;
 }
 @media (max-width: 1399px) {
     .footer-info {
         max-width: 30%;
     }
+}
+.form-check-input {
+    width: 40px;
+    height: 20px;
+    background-color: var(--azulclaro);
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+
+.form-check-input:checked {
+    background-color: var(--azuloscuro);
+}
+
+
+.form-check-input:checked:focus {
+    box-shadow: none;
+}
+.modal-content {
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+}
+.modal-title {
+    font-weight: bold;
+    color: var(--azuloscuro);
+}
+.modal-backdrop {
+    display: none;
 }
