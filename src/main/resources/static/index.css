@@ -227,5 +227,31 @@ hr{
 
 
 /*CSS PÁGINA INDEX */
-
-
+.btn-sign{
+    background-color: var(--azuloscuro);
+    color: white;
+    transition: all 0.3s ease;
+}
+.btn-sign:hover{
+    background-color: var(--oro);
+    color: var(--azuloscuro);
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+    border: 1px solid var(--azuloscuro);
+}
+.btn-outline-dark{
+    color: var(--azuloscuro);
+    border-color: var(--azuloscuro);
+    transition: all 0.3s ease;
+}
+.btn-outline-dark:hover{
+    background-color: var(--oro);
+    color: var(--azuloscuro);
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+}
+.btn-changeLogin{
+    color: var(--azuloscuro);
+    cursor: pointer;
+}
+.btn-changeLogin:hover{
+    color: var(--oro);
+}
