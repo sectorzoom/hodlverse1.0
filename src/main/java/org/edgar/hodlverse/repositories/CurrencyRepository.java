@@ -9,5 +9,6 @@ import java.util.Optional;
 @Repository
 public interface CurrencyRepository extends JpaRepository<Currency, Long> {
     // Métodos personalizados (si los necesitas)
-    Optional<Currency> findByTicker(String ticker); // Buscar divisa por su ticker (ej: "BTC")
+    Optional<Currency> findByTicker(String ticker);// Buscar divisa por su ticker (ej: "BTC")
+    Optional<Currency> findByNameIgnoreCase(String name);
 }
