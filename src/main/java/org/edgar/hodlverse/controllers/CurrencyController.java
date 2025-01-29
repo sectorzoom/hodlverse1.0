@@ -40,7 +40,6 @@ public class CurrencyController {
     public Currency replaceCurrency(@RequestBody Currency newCurrency, @PathVariable Long id) {
         return currencyService.findById(id)
                 .map(currency -> {
-                    currency.setCurrencyName(newCurrency.getCurrencyName());
                     currency.setTicker(newCurrency.getTicker());
                     currency.setSymbol(newCurrency.getSymbol());
                     currency.setName(newCurrency.getName());
