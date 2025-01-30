@@ -63,14 +63,14 @@ function getDateSevenDaysAgo() {
 
 async function fetchCryptoData7Days(coin) {
     // Obtener los datos históricos de la moneda en los últimos 7 días
-    let historicalData = await fetch(`https://api.coingecko.com/api/v3/coins/${coin.id}/history?date=${getDateSevenDaysAgo()}&localization=false`);
+    let historicalData = await fetch(`https://api.coingecko.com/api/v3/coins/${coin.id}/history?date=${getDateSevenDaysAgo()}&localization=false&x_cg_demo_api_key=CG-5XtP4exze6boDu6Tj6Ly3bwD`);
     let historicalPriceData = await historicalData.json();
     return historicalPriceData;
 }
 
 async function fetchCryptoData() {
     try {
-        const response = await fetch(`https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=40&page=${currentPage}`);
+        const response = await fetch(`https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=40&page=${currentPage}&x_cg_demo_api_key=CG-5XtP4exze6boDu6Tj6Ly3bwD`);
         const data = await response.json();
 
         console.log("Datos obtenidos:", data); // Para depuración
