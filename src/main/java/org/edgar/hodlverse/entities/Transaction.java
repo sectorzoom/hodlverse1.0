@@ -1,9 +1,17 @@
 package org.edgar.hodlverse.entities;
-
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
+@Setter
+@Getter
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 public class Transaction {
     @Id
@@ -40,85 +48,5 @@ public class Transaction {
     @JoinColumn(name = "destination_currency_id", nullable = false)
     private Currency destinationCurrency;
 
-    // Getters y Setters
 
-    public Long getTransactionId() {
-        return transactionId;
-    }
-
-    public String getTransactionType() {
-        return transactionType;
-    }
-
-    public BigDecimal getOriginTransactionAmount() {
-        return originTransactionAmount;
-    }
-
-    public BigDecimal getDestinationTransactionAmount() {
-        return destinationTransactionAmount;
-    }
-
-    public BigDecimal getOriginUnitPrice() {
-        return originUnitPrice;
-    }
-
-    public BigDecimal getDestinationUnitPrice() {
-        return destinationUnitPrice;
-    }
-
-    public LocalDate getTransactionDate() {
-        return transactionDate;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public Currency getOriginCurrency() {
-        return originCurrency;
-    }
-
-    public Currency getDestinationCurrency() {
-        return destinationCurrency;
-    }
-
-    public void setTransactionId(Long transactionId) {
-        this.transactionId = transactionId;
-    }
-
-    public void setTransactionType(String transactionType) {
-        this.transactionType = transactionType;
-    }
-
-    public void setOriginTransactionAmount(BigDecimal originTransactionAmount) {
-        this.originTransactionAmount = originTransactionAmount;
-    }
-
-    public void setDestinationTransactionAmount(BigDecimal destinationTransactionAmount) {
-        this.destinationTransactionAmount = destinationTransactionAmount;
-    }
-
-    public void setOriginUnitPrice(BigDecimal originUnitPrice) {
-        this.originUnitPrice = originUnitPrice;
-    }
-
-    public void setDestinationUnitPrice(BigDecimal destinationUnitPrice) {
-        this.destinationUnitPrice = destinationUnitPrice;
-    }
-
-    public void setTransactionDate(LocalDate transactionDate) {
-        this.transactionDate = transactionDate;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public void setOriginCurrency(Currency originCurrency) {
-        this.originCurrency = originCurrency;
-    }
-
-    public void setDestinationCurrency(Currency destinationCurrency) {
-        this.destinationCurrency = destinationCurrency;
-    }
 }
