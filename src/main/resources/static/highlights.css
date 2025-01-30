@@ -19,15 +19,15 @@
 .coin-item {
     animation: fadeIn 0.5s ease-out;
 }
-
 .card {
     box-shadow: 0 7px 10px rgba(0, 0, 0, 0.1);
     position: relative;
     transition: height 0.3s ease; /* Transición para la altura */
+    z-index: 1; /* Valor por defecto para las tarjetas */
 }
 
 .view-more-btn {
-    background-color: #C58120; /* Color dorado */
+    background-color: var(--azuloscuro); /* Color dorado */
     color: white;
     border: none;
     padding: 10px 20px; /* Ajuste para que no ocupe todo el ancho */
@@ -36,18 +36,26 @@
     visibility: hidden;
     transition: opacity 0.3s ease, visibility 0s 0.3s;
     width: auto; /* Solo toma el ancho del contenido */
+    margin-bottom: 10px;
 }
 
 .card:hover {
     transform: scale(1.05);
-    height: calc(100% + 60px); /* Incrementa la altura de la tarjeta cuando se hace hover */
+    height: calc(100% + 30px); /* Incrementa la altura de la tarjeta cuando se hace hover */
+    z-index: 2; /* Asegura que la tarjeta se muestre por encima de las demás */
 }
+.view-more-btn:hover {
+    background-color: var(--oro); /* Color dorado en hover */
+}
+
 
 .card:hover .view-more-btn {
     opacity: 1;
     visibility: visible;
     transition: opacity 0.3s ease, visibility 0s 0s;
+    z-index: 3; /* Asegura que el botón esté encima de la tarjeta */
 }
+
 
 
 
