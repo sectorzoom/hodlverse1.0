@@ -1,6 +1,7 @@
 package org.edgar.hodlverse.controllers;
 
 import org.edgar.hodlverse.entities.User;
+import org.edgar.hodlverse.services.NotFoundException;
 import org.edgar.hodlverse.services.UserService;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,10 +31,11 @@ public class UserController {
 
     // Obtener un usuario específico por su ID
     @GetMapping("/{id}")
-    public User one(@PathVariable Long id) {
+    public User findUserById(@PathVariable Long id) {
         return userService.findById(id)
-                .orElseThrow(() -> new RuntimeException("Usuario con ID " + id + " no encontrado."));
+                .orElseThrow(() -> new NotFoundException("Usuario con ID " + id + " no encontrado."));
     }
+
 
     // Actualizar un usuario existente
     @PutMapping("/{id}")
@@ -56,6 +58,10 @@ public class UserController {
     // Eliminar un usuario por su ID
     @DeleteMapping("/{id}")
     public void deleteUser(@PathVariable Long id) {
+        if (userService.findById(id).isEmpty()) {
+            throw new NotFoundException("Usuario con ID " + id + " no encontrado.");
+        }
         userService.deleteById(id);
     }
+
 }

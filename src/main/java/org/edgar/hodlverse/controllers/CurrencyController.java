@@ -2,6 +2,7 @@ package org.edgar.hodlverse.controllers;
 
 import org.edgar.hodlverse.entities.Currency;
 import org.edgar.hodlverse.services.CurrencyService;
+import org.edgar.hodlverse.services.NotFoundException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -32,7 +33,7 @@ public class CurrencyController {
     @GetMapping("/{id}")
     public Currency one(@PathVariable Long id) {
         return currencyService.findById(id)
-                .orElseThrow(() -> new RuntimeException("Moneda con ID " + id + " no encontrada."));
+                .orElseThrow(() -> new NotFoundException("Moneda con ID " + id + " no encontrada."));
     }
 
     // Actualizar una moneda existente
@@ -74,6 +75,9 @@ public class CurrencyController {
     // Eliminar una moneda por su ID
     @DeleteMapping("/{id}")
     public void deleteCurrency(@PathVariable Long id) {
+        if (currencyService.findById(id).isEmpty()) {
+            throw new NotFoundException("Moneda con ID " + id + " no encontrada.");
+        }
         currencyService.deleteById(id);
     }
 }

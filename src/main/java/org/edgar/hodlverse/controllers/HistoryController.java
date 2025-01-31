@@ -3,6 +3,7 @@ package org.edgar.hodlverse.controllers;
 import org.edgar.hodlverse.entities.History;
 import org.edgar.hodlverse.repositories.HistoryRepository;
 import org.edgar.hodlverse.services.HistoryService;
+import org.edgar.hodlverse.services.NotFoundException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -33,7 +34,7 @@ public class HistoryController {
     @GetMapping("/{id}")
     public History one(@PathVariable Long id) {
         return historyService.findById(id)
-                .orElseThrow(() -> new RuntimeException("Historial con ID " + id + " no encontrado."));
+                .orElseThrow(() -> new NotFoundException("Historial con ID " + id + " no encontrado."));
     }
 
     // Actualizar una entrada de historial existente
@@ -55,6 +56,9 @@ public class HistoryController {
     // Eliminar una entrada de historial por su ID
     @DeleteMapping("/{id}")
     public void deleteHistory(@PathVariable Long id) {
+        if (historyService.findById(id).isEmpty()) {
+            throw new NotFoundException("Historial con ID " + id + " no encontrado.");
+        }
         historyService.deleteById(id);
     }
 }

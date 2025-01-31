@@ -2,6 +2,7 @@ package org.edgar.hodlverse.controllers;
 
 import org.edgar.hodlverse.entities.Balance;
 import org.edgar.hodlverse.services.BalanceService;
+import org.edgar.hodlverse.services.NotFoundException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -30,9 +31,9 @@ public class BalanceController {
 
     // Obtener un balance específico por su ID
     @GetMapping("/{id}")
-    public Balance one(@PathVariable Long id) {
+    public Balance findBalanceById(@PathVariable Long id) {
         return balanceService.findById(id)
-                .orElseThrow(() -> new RuntimeException("Balance con ID " + id + " no encontrado."));
+                .orElseThrow(() -> new NotFoundException("Balance con ID " + id + " no encontrado."));
     }
 
     // Actualizar un balance existente
@@ -54,16 +55,25 @@ public class BalanceController {
     // Eliminar un balance por su ID
     @DeleteMapping("/{id}")
     public void deleteBalance(@PathVariable Long id) {
+        if (balanceService.findById(id).isEmpty()) {
+            throw new NotFoundException("Usuario con ID " + id + " no encontrado.");
+        }
         balanceService.deleteById(id);
     }
 
     @GetMapping("/wallet/{walletId}")
     public List<Balance> balancesByWallet(@PathVariable Long walletId) {
+        if (balanceService.findByWalletId(walletId).isEmpty()) {
+            throw new NotFoundException("Cartera con ID " + walletId + " no encontrado.");
+        }
         return balanceService.findByWalletId(walletId);
     }
 
     @GetMapping("/currency/{currencyId}")
     public List<Balance> balancesByCurrency(@PathVariable Long currencyId) {
+        if (balanceService.findByCurrencyId(currencyId).isEmpty()) {
+            throw new NotFoundException("Divisa con ID " + currencyId + " no encontrado.");
+        }
         return balanceService.findByCurrencyId(currencyId);
     }
 

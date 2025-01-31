@@ -1,6 +1,7 @@
 package org.edgar.hodlverse.controllers;
 
 import org.edgar.hodlverse.entities.Wallet;
+import org.edgar.hodlverse.services.NotFoundException;
 import org.edgar.hodlverse.services.WalletService;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,7 +33,7 @@ public class WalletController {
     @GetMapping("/{id}")
     public Wallet one(@PathVariable Long id) {
         return walletService.findById(id)
-                .orElseThrow(() -> new RuntimeException("Billetera con ID " + id + " no encontrada."));
+                .orElseThrow(() -> new NotFoundException("Billetera con ID " + id + " no encontrada."));
     }
 
     // Actualizar una billetera existente
@@ -54,6 +55,9 @@ public class WalletController {
     // Eliminar una billetera por su ID
     @DeleteMapping("/{id}")
     public void deleteWallet(@PathVariable Long id) {
+        if (walletService.findById(id).isEmpty()) {
+            throw new NotFoundException("Wallet con ID " + id + " no encontrada.");
+        }
         walletService.deleteById(id);
     }
 }

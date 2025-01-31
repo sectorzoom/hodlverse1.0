@@ -1,6 +1,7 @@
 package org.edgar.hodlverse.controllers;
 
 import org.edgar.hodlverse.entities.Transaction;
+import org.edgar.hodlverse.services.NotFoundException;
 import org.edgar.hodlverse.services.TransactionService;
 import org.springframework.web.bind.annotation.*;
 
@@ -60,6 +61,9 @@ public class TransactionController {
     // Eliminar una transacción por su ID
     @DeleteMapping("/{id}")
     public void deleteTransaction(@PathVariable Long id) {
+        if (transactionService.findById(id).isEmpty()) {
+            throw new NotFoundException("Transacción con id " + id + " no encontrada.");
+        }
         transactionService.deleteById(id);
     }
 }
