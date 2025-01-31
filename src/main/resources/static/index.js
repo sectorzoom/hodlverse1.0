@@ -101,7 +101,7 @@ async function fetchCryptoData() {
             let row = `
                 <tr>
                     <td class="text-end">${coin.market_cap_rank}</td>
-                    <td class="text-start"><img src="${coin.image}" height="24"> ${coin.name} (${coin.symbol.toUpperCase()})</td>
+                    <td class="sticky-col start-0 text-start"><img src="${coin.image}" height="24"> ${coin.name} (${coin.symbol.toUpperCase()})</td>
                     <td class="text-end">${coin.current_price.toLocaleString()} US$</td>
                     <td class="${class1h}">${change1h.toFixed(1)}%</td>
                     <td class="${class24h}">${change24h}%</td>

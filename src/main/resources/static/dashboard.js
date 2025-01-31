@@ -49,76 +49,86 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 });
-document.addEventListener("DOMContentLoaded", function () {
-    var chartDom = document.getElementById('marketChart');
-    var myChart = echarts.init(chartDom);
-    var option;
 
-    option = {
-        title: {
-            text: 'Market Candlestick Chart',
-            left: 'center'
-        },
-        xAxis: {
-            type: 'category',
-            data: ['2025-02-02', '2025-02-01', '2025-01-31', '2025-01-30', '2025-01-29',
-                '2025-01-28', '2025-01-27', '2025-01-26', '2025-01-25', '2025-01-24',
-                '2025-01-23', '2025-01-22', '2025-01-21', '2025-01-20', '2025-01-19',
-                '2025-01-18', '2025-01-17', '2025-01-16', '2025-01-15', '2025-01-14',
-                '2025-01-13', '2025-01-12', '2025-01-11', '2025-01-10', '2025-01-09',
-                '2025-01-08', '2025-01-07', '2025-01-06', '2025-01-05', '2025-01-04','2025-01-03', '2025-01-02', '2025-01-01', '2024-12-31', '2024-12-30',
-                '2024-12-29', '2024-12-28', '2024-12-27', '2024-12-26', '2024-12-25',
-                '2024-12-24', '2024-12-23', '2024-12-22', '2024-12-21', '2024-12-20',
-                '2024-12-19', '2024-12-18', '2024-12-17', '2024-12-16', '2024-12-15' ]
-        },
-        yAxis: {
-            type: 'value'
-        },
-        series: [
-            {
-                type: 'candlestick',
-                data: [
-                    [12, 45, 7, 39],
-                    [23, 8, 30, 14],
-                    [36, 27, 18, 42],
-                    [9, 30, 5, 47],
-                    [41, 13, 32, 26],
-                    [16, 48, 8, 22],
-                    [29, 37, 6, 34],
-                    [19, 21, 11, 40],
-                    [44, 5, 31, 25],
-                    [35, 28, 17, 49],
-                    [5, 22, 47, 31],
-                    [14, 39, 8, 42],
-                    [27, 10, 36, 49],
-                    [3, 44, 19, 25],
-                    [35, 7, 18, 32],
-                    [11, 30, 41, 24],
-                    [6, 35, 16, 28],
-                    [40, 6, 45, 21],
-                    [9, 48, 33, 12],
-                    [38, 20, 4, 23],
-                    [13, 26, 4, 37],
-                    [29, 43, 17, 5],
-                    [21, 46, 9, 34],
-                    [32, 15, 48, 6],
-                    [11, 47, 3, 28],
-                    [25, 7, 45, 39],
-                    [19, 5, 30, 44],
-                    [8, 40, 12, 31],
-                    [22, 47, 16, 49],
-                    [10, 35, 41, 14],
-                    [24, 5, 37, 18], [9, 41, 27, 3], [20, 12, 45, 31], [14, 48, 6, 33], [11, 29, 43, 8],
-                    [17, 35, 22, 50], [2, 39, 13, 46], [30, 10, 28, 44], [7, 26, 47, 32], [19, 42, 4, 49],
-                    [15, 25, 36, 1], [40, 16, 21, 34], [23, 31, 5, 48], [12, 46, 7, 29], [38, 3, 18, 44],
-                    [9, 50, 27, 13], [8, 35, 22, 41], [30, 2, 45, 19], [17, 14, 33, 28], [42, 10, 26, 49],
-                ]
-            }
-        ]
-    };
+let currentPage = 1; // Página actual
 
-    myChart.setOption(option);
-    window.addEventListener("resize", function () {
-        myChart.resize();
-    });
-});
+function getDateSevenDaysAgo() {
+    let date = new Date();
+    date.setDate(date.getDate() - 7);  // Restar 7 días
+    let day = ("0" + date.getDate()).slice(-2);
+    let month = ("0" + (date.getMonth() + 1)).slice(-2); // Los meses empiezan desde 0
+    let year = date.getFullYear();
+    return `${day}-${month}-${year}`;
+}
+
+async function fetchCryptoData7Days(coin) {
+    // Obtener los datos históricos de la moneda en los últimos 7 días
+    let historicalData = await fetch(`https://api.coingecko.com/api/v3/coins/${coin.id}/history?date=${getDateSevenDaysAgo()}&localization=false&x_cg_demo_api_key=CG-5XtP4exze6boDu6Tj6Ly3bwD`);
+    let historicalPriceData = await historicalData.json();
+    return historicalPriceData;
+}
+
+async function fetchCryptoData() {
+    try {
+        const response = await fetch(`https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=40&page=${currentPage}&x_cg_demo_api_key=CG-5XtP4exze6boDu6Tj6Ly3bwD`);
+        const data = await response.json();
+
+        console.log("Datos obtenidos:", data); // Para depuración
+
+        let tableBody = document.getElementById("cryptoTableBody");
+        tableBody.innerHTML = ""; // Limpiar la tabla antes de actualizarla
+
+        // Iterar sobre cada criptomoneda
+        for (const coin of data) {
+            // Obtener los datos históricos de la moneda (cambio en 7 días)
+            let historicalPriceData = await fetchCryptoData7Days(coin);
+
+            // Calcular cambio en 1 hora manualmente
+            let price1hAgo = coin.current_price / (1 + coin.price_change_percentage_24h / 100);
+            let change1h = ((coin.current_price - price1hAgo) / price1hAgo) * 100;
+
+            // Calcular cambio en 24 horas
+            let change24h = coin.price_change_percentage_24h?.toFixed(1) ?? "N/A";
+            let class1h = change1h < 0 ? 'text-danger' : 'text-success';
+            let class24h = change24h < 0 ? 'text-danger' : 'text-success';
+
+            // Calcular cambio en 7 días (usando los datos históricos)
+            let price7dAgo = historicalPriceData.market_data?.current_price?.usd;
+            let change7d = price7dAgo ? ((coin.current_price - price7dAgo) / price7dAgo) * 100 : 0;
+            let class7d = change7d < 0 ? 'text-danger' : 'text-success';
+
+            // Construir la fila de la tabla con los datos calculados
+            let row = `
+                <tr>
+                    <td class="text-end">${coin.market_cap_rank}</td>
+                    <td class="sticky-col start-0 text-start"><img src="${coin.image}" height="24"> ${coin.name} (${coin.symbol.toUpperCase()})</td>
+                    <td class="text-end">${coin.current_price.toLocaleString()} US$</td>
+                    <td class="${class1h}">${change1h.toFixed(1)}%</td>
+                    <td class="${class24h}">${change24h}%</td>
+                    <td class="${class7d}">${change7d.toFixed(1)}%</td>
+                    <td class="text-end">${coin.total_volume.toLocaleString()} US$</td>
+                    <td class="text-end">${coin.market_cap.toLocaleString()} US$</td>
+                </tr>
+            `;
+            tableBody.innerHTML += row;
+        }
+
+        // Actualizar número de página
+        document.getElementById("currentPage").innerText = currentPage;
+
+    } catch (error) {
+        console.error("Error al obtener datos:", error);
+    }
+}
+
+function changePage(direction) {
+    if (direction === -1 && currentPage > 1) {
+        currentPage--; // Retroceder página
+    } else if (direction === 1) {
+        currentPage++; // Avanzar página
+    }
+    fetchCryptoData(); // Recargar datos con la nueva página
+}
+
+fetchCryptoData();
+setInterval(fetchCryptoData, 60000); // Actualiza cada 60s
