@@ -225,18 +225,20 @@ hr{
         max-width: 30%;
     }
     .highlightsMenu {
-        width: 50%;
+        width: 100%;
     }
     .myCrypto{
-        width: 50%;
+        width: 100%;
     }
 }
 @media (max-width: 992px) {
     .highlightsMenu{
         width: 100%;
     }
+    .myCrypto{
+        width: 100%;
+    }
 }
-
 
 /*CSS PÁGINA INDEX */
 .btn-sign{
@@ -277,8 +279,6 @@ hr{
     transition: transform 0.3s;
 }
 
-
-
 table {
     font-size: 14px;
 }
@@ -297,4 +297,15 @@ th {
 
 canvas {
     max-width: 50px;
+}
+
+.card{
+    border-radius: 20px;
+}
+.card:hover{
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+    border: 1px solid var(--azuloscuro);
+}
+.card-item:hover{
+    background-color: #e8e8e8;
 }

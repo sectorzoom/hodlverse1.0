@@ -8,6 +8,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
     <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet"/>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="index.css">
 </head>
 <body>
@@ -301,149 +302,90 @@
                     </div>
                 </div>
             </div>
-            <div class="row gx-3 px-2">
-                <!-- Trending Coins -->
-                <div class="col-6 col-lg-4 border-2 border-gray-200 py-2 px-3 rounded highlightsMenu">
-                    <div class="card shadow-sm">
-                        <div class="card-body">
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div class="d-flex align-items-center gap-1">
-                                    <img src="images/icons/fuego.png" height="20">
-                                    <h4 class="m-0">Trending Coins</h4>
+            <hr>
+            <div class="row gx-3 px-2 mt-3 d-flex">
+                <!-- Transactions -->
+                <div class="col-6 col-lg-4 border-2 border-gray-200 rounded highlightsMenu py-2 px-3">
+                    <div class="card shadow-sm ">
+                        <div class="card-body pb-1 mb-1">
+                            <ul class="list-unstyled">
+                                <div class="d-flex align-items-center gap-2 mb-3">
+                                    <h4 class="m-0">Transactions</h4>
                                 </div>
-                                <div class="d-flex align-items-center">
-                                    <a href="trendingCoins.html" class="btn">View more</a>
-                                    <i class="fa-solid fa-angle-right fa-xs"></i>
+                                <div class="row fw-bold text-muted border-bottom pb-2 extra-small-text">
+                                    <div class="col-6">Coin</div>
+                                    <div class="col-3 text-end">Price</div>
+                                    <div class="col-3 text-end">Gains</div>
                                 </div>
-                            </div>
-                            <ul class="list-unstyled mt-4">
-                                <li class="row mt-2 ">
-                                    <div class="col-6 d-flex">
-                                        <img src="https://cryptologos.cc/logos/bitcoin-btc-logo.png" alt="Bitcoin"
-                                             height="24" class="me-3" id="tredingImage1">
-                                        <p id="trendingCoin1">Bitcoin</p>
+                                <li class="row mt-1 card-item py-2 rounded align-items-center">
+                                    <div class="col-6 d-flex align-items-center">
+                                        <img src="https://cryptologos.cc/logos/bitcoin-btc-logo.png" alt="Icono de Bitcoin"
+                                             height="24" class="me-3 " id="transactionImage1">
+                                        <p id="transactionCoin1" class="mb-0">Bitcoin</p>
                                     </div>
-                                    <div class="col-3 text-end" id="trendingPrice1">$42,300</div>
-                                    <div class="col-3 text-end text-success fw-bold" id="trendingGain1">+3.5%</div>
+                                    <div class="col-3 text-end" id="transactionPrice1">$42,300</div>
+                                    <div class="col-3 text-end text-danger fw-bold" id="transactionGain1">+3.5%</div>
                                 </li>
-                                <li class="row mt-2 ">
-                                    <div class="col-6 d-flex">
-                                        <img src="https://cryptologos.cc/logos/ethereum-eth-logo.png" alt="Ethereum"
-                                             height="24" class="me-3" id="trendingImage2">
-                                        <p id="trendingCoin2">Ethereum</p>
-
+                                <li class="row mt-1 card-item py-2 rounded align-items-center">
+                                    <div class="col-6 d-flex align-items-center">
+                                        <img src="https://cryptologos.cc/logos/ethereum-eth-logo.png" alt="Icono de Ethereum"
+                                             height="24" class="me-3" id="transactionImage2">
+                                        <p id="transactionCoin2" class="mb-0">Ethereum</p>
                                     </div>
-                                    <div class="col-3 text-end" id="trendingPrice2">$2,850</div>
-                                    <div class="col-3 text-end text-success fw-bold" id="trendingGain2">+2.8%</div>
+                                    <div class="col-3 text-end" id="transactionPrice2">$2,850</div>
+                                    <div class="col-3 text-end text-danger fw-bold" id="transactionGain2">+2.8%</div>
                                 </li>
-                                <li class="row mt-2 ">
-                                    <div class="col-6 d-flex">
-                                        <img src="https://cryptologos.cc/logos/solana-sol-logo.png" alt="Solana"
-                                             height="24" class="me-3" id="trendingImage3">
-                                        <p id="trendingCoin3">Solana</p>
+                                <li class="row mt-1 py-2 rounded card-item align-items-center">
+                                    <div class="col-6 d-flex align-items-center">
+                                        <img src="https://cryptologos.cc/logos/bonk1-bonk-logo.png?v=040" alt="Icono de Bonk"
+                                             height="24" class="me-3" id="transactionImage3">
+                                        <p id="transactionCoin3" class="mb-0">Bonk</p>
                                     </div>
-                                    <div class="col-3 text-end" id="trendingPrice3">$98.50</div>
-                                    <div class="col-3 text-end text-danger fw-bold" id="trendingGain3">-1.2%</div>
+                                    <div class="col-3 text-end" id="transactionPrice3">$2.50</div>
+                                    <div class="col-3 text-end text-danger fw-bold" id="transactionGain3">+5.6%</div>
                                 </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Top Losers -->
-                <div class="col-6 col-lg-4 border-2 border-gray-200 py-2 px-3 rounded highlightsMenu">
-                    <div class="card shadow-sm">
-                        <div class="card-body">
-                            <div class="d-flex justify-content-between align-items-center mb-4">
-                                <div class="d-flex align-items-center gap-1 ">
-                                    <img src="images/icons/alarma.png" height="18">
-                                    <h4 class="m-0">Top Losers</h4>
-                                </div>
-                                <div class="d-flex align-items-center">
-                                    <a href="trendingCoins.html" class="btn">View more</a>
-                                    <i class="fa-solid fa-angle-right fa-xs"></i>
-                                </div>
-                            </div>
-                            <ul class="list-unstyled mt-2">
-                                <li class="row mt-2">
-                                    <div class="col-6 d-flex">
+                                <li class="row mt-1 py-2 rounded card-item align-items-center">
+                                    <div class="col-6 d-flex align-items-center">
                                         <img src="https://cryptologos.cc/logos/xrp-xrp-logo.png" alt="XRP"
-                                             height="24" class="me-3" id="topLoserImage1">
-                                        <p id="topLoserCoin1">XRP</p>
+                                             height="22" class="me-3 " id="topLoserImage1">
+                                        <p id="topLoserCoin1" class="mb-0">XRP</p>
                                     </div>
                                     <div class="col-3 text-end">$0.52</div>
                                     <div class="col-3 text-end text-danger fw-bold">-5.1%</div>
                                 </li>
-                                <li class="row mt-2">
-                                    <div class="col-6 d-flex">
-                                        <img src="https://cryptologos.cc/logos/dogecoin-doge-logo.png"
-                                             alt="Dogecoin" height="24" class="me-3" id="topLoserImage2">
-                                        <p id="topLoserCoin2">Dogecoin</p>
-                                    </div>
-                                    <div class="col-3 text-end">$0.075</div>
-                                    <div class="col-3 text-end text-danger fw-bold">-3.9%</div>
-                                </li>
-                                <li class="row mt-2">
-                                    <div class="col-6 d-flex">
+                                <li class="row mt-1 py-2 rounded card-item align-items-center">
+                                    <div class="col-6 d-flex align-items-center">
                                         <img src="https://cryptologos.cc/logos/shiba-inu-shib-logo.png"
                                              alt="Shiba Inu" height="24" class="me-3" id="topLoserImage3">
-                                        <p id="topLoserCoin3">Shiba Inu</p>
+                                        <p id="topLoserCoin3" class="mb-0">Shiba Inu</p>
                                     </div>
                                     <div class="col-3 text-end">$0.012</div>
                                     <div class="col-3 text-end text-danger fw-bold">-2.4%</div>
                                 </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- New Coins -->
-                <div class="col-6 col-lg-4 border-2 border-gray-200 py-2 px-3 rounded highlightsMenu">
-                    <div class="card shadow-sm">
-                        <div class="card-body">
-                            <div class="d-flex justify-content-between align-items-center mb-4">
-                                <div class="d-flex align-items-center gap-1">
-                                    <img src="images/icons/estrellas.png" height="22">
-                                    <h4 class="m-0">New Coins</h4>
-                                </div>
-                                <div class="d-flex align-items-center">
-                                    <a href="trendingCoins.html" class="btn">View more</a>
-                                    <i class="fa-solid fa-angle-right fa-xs"></i>
-                                </div>
-                            </div>
-                            <ul class="list-unstyled mt-2">
-                                <li class="row mt-2 ">
-                                    <div class="col-6 d-flex">
-                                        <img src="https://cryptologos.cc/logos/pancakeswap-cake-logo.png?v=040"
-                                             alt="HyperCoin" height="24" class="me-2" id="newCoinImage1">
-                                        <p id="newCoin1">PancakeSwap</p>
-                                    </div>
-                                    <div class="col-3 text-end">$1.20</div>
-                                    <div class="col-3 text-end text-success fw-bold">+10%</div>
-                                </li>
-                                <li class="row mt-2">
-                                    <div class="col-6 d-flex">
+                                <li class="row mt-1 py-2 rounded card-item align-items-center">
+                                    <div class="col-6 d-flex align-items-center">
                                         <img src="https://cryptologos.cc/logos/based-brett-brett-logo.png?v=040"
                                              alt="MetaToken" height="24" class="me-2" id="newCoinImage2">
-                                        <p id="newCoin2">Brett</p>
+                                        <p id="newCoin2" class="mb-0">Brett</p>
                                     </div>
                                     <div class="col-3 text-end">$0.85</div>
                                     <div class="col-3 text-end text-success fw-bold">+7.3%</div>
                                 </li>
-                                <li class="row mt-2">
-                                    <div class="col-6 d-flex">
-                                        <img src="https://cryptologos.cc/logos/bonk1-bonk-logo.png?v=040"
-                                             alt="Web3Token" height="24" class="me-2" id="newCoinImage3">
-                                        <p id="newCoin3">Bonk</p>
-                                    </div>
-                                    <div class="col-3 text-end">$2.50</div>
-                                    <div class="col-3 text-end text-success fw-bold">+5.6%</div>
-                                </li>
                             </ul>
                         </div>
                     </div>
                 </div>
+                <div class="col-6 col-lg-8 border-2 border-gray-200 rounded highlightsMenu py-2 px-3">
+                    <div class="card shadow-sm">
+                        <div class="card-body">
+                            <div class=" d-flex justify-content-center" style="height: 350px;">
+                                <img src="images/ejemplos/transactions.png" height="350" class="img-fluid" alt="Grafica de transacciones" width="1072">
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
+            <hr>
             <div class="row mt-4 mb-2 px-3">
                 <div class="table-responsive mb-3">
                     <table class="table table-hover text-center shadow-sm">
@@ -523,6 +465,5 @@
     </div>
 </footer>
 <script src="index.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
