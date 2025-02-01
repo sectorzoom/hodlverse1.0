@@ -1,0 +1,28 @@
+.crypto-info {
+    background: white;
+    border-radius: 10px;
+    padding: 20px;
+}
+.crypto-price{
+    color: var(--oro);
+}
+.btn-BuySell{
+    border-radius: 20px;
+}
+.btn-sell{
+    background-color: var(--azuloscuro);
+    color: white;
+}
+.btn-sell:hover{
+    background-color: var(--oro);
+}
+.crypto-chart-container {
+    background: linear-gradient(to right, #E0EBFB, #C58120);
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+#crypto-chart {
+    border-radius: 10px;
+}
