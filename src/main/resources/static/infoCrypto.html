@@ -279,7 +279,7 @@
 
             <!-- Sección de información adicional (Fundadores y datos interesantes) -->
             <div class="col-12 mb-3 mt-3">
-                <div class="additional-info p-4 rounded-3 shadow-sm bg-light">
+                <div class="additional-info p-4 rounded-3 shadow-sm">
                     <h4 class="fw-bold mb-3 text-center">About Bitcoin</h4>
                     <p class="text-muted">
                         Bitcoin was created in 2009 by an unknown person or group of people using the pseudonym <strong>Satoshi Nakamoto</strong>.
@@ -311,12 +311,12 @@
 
         <!-- Gráfico Interactivo -->
         <!-- Contenedor principal para el gráfico (precio y volumen) -->
-        <div class="col-lg-8 col-md-6 col-sm-12 mb-3 h-100 p-5 rounded shadow-lg bg-white">
+        <div class="col-lg-8 col-md-6 col-sm-12 mb-3 h-100 p-5 rounded-3 shadow-lg bg-white">
 
             <!-- Contenedor del gráfico de Price Evolution -->
             <div class="crypto-chart-container">
                 <!-- Título del gráfico de evolución de precios -->
-                <h4 class="fw-bold mb-3 text-center">Price Evolution</h4>
+                <h4 class=" mb-3 text-center">Price Evolution</h4>
 
                 <!-- Contenedor interno que define el área y tamaño del canvas -->
                 <div class="chart-wrapper">
@@ -328,7 +328,7 @@
             <!-- Contenedor del gráfico complementario de Volume Evolution -->
             <div class="crypto-chart-container mt-5">
                 <!-- Título del gráfico de evolución de volumen -->
-                <h4 class="fw-bold mb-3 text-center">Volume Evolution</h4>
+                <h4 class=" mb-3 text-center">Volume Evolution</h4>
 
                 <!-- Contenedor interno que define el área y tamaño del canvas -->
                 <div class="chart-wrapper">
@@ -339,45 +339,63 @@
         </div>
 
 
-        <!-- Comparativa de criptomonedas -->
-        <div class="col-12 mb-4">
-            <div class="comparison-section p-4 rounded shadow-lg bg-white">
-                <h4 class="fw-bold mb-3">Crypto Market Comparison</h4>
-                <table class="table">
-                    <thead>
-                    <tr>
-                        <th>Cryptocurrency</th>
-                        <th>Price</th>
-                        <th>24h Change</th>
-                        <th>Market Cap</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td>Bitcoin</td>
-                        <td>$668.31</td>
-                        <td class="text-danger">-2.7%</td>
-                        <td>$97.5B</td>
-                    </tr>
-                    <tr>
-                        <td>Ethereum</td>
-                        <td>$4,200</td>
-                        <td class="text-success">+1.5%</td>
-                        <td>$500B</td>
-                    </tr>
-                    <tr>
-                        <td>Ripple</td>
-                        <td>$1.25</td>
-                        <td class="text-danger">-0.8%</td>
-                        <td>$60B</td>
-                    </tr>
-                    </tbody>
-                </table>
+        <!-- TARJETAS TOP LOSERS -->
+        <div class="row d-flex justify-content-center rounded-3 shadow-lg bg-white p-3">
+            <h4 class="fw-bold mb-4 text-center">More Crypto</h4>
+            <!-- Card 1 -->
+            <div class="col-md-4 mb-4">
+                <div class="card p-4 text-center rounded-4" style="background-color: #ffffff;">
+                    <div class="card-body d-flex align-items-center justify-content-center">
+                        <!-- Imagen y nombre de la criptomoneda -->
+                        <img src="https://cryptologos.cc/logos/xrp-xrp-logo.png" alt="XRP logo" class="img-fluid me-3" style="max-height: 40px;">
+                        <div>
+                            <h5 class="fw-bold">XRP </h5>
+                            <h4 class="fw-bold text-dark">$34.50</h4>
+                            <p class="text-danger">-8.2% (24h)</p>
+                        </div>
+                    </div>
+                    <a href="#" class="btn btn-sell btn-sm w-100 mt-3 rounded-5">See More</a>
+                </div>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="col-md-4 ">
+                <div class="card p-4 text-center rounded-4" style="background-color: #ffffff;">
+                    <div class="card-body d-flex align-items-center justify-content-center">
+                        <!-- Imagen y nombre de la criptomoneda -->
+                        <img src="https://cryptologos.cc/logos/dogecoin-doge-logo.png" alt="Dogecoin logo" class="img-fluid me-3" style="max-height: 40px;">
+                        <div>
+                            <h5 class="fw-bold">Dogecoin</h5>
+                            <h4 class="fw-bold text-dark">$0.075</h4>
+                            <p class="text-danger">-5.7% (24h)</p>
+                        </div>
+                    </div>
+                    <a href="#" class="btn btn-sell btn-sm w-100 mt-3 rounded-5">See More</a>
+                </div>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="col-md-4 mb-4">
+                <div class="card p-4 text-center rounded-4" style="background-color: #ffffff;">
+                    <div class="card-body d-flex align-items-center justify-content-center">
+                        <!-- Imagen y nombre de la criptomoneda -->
+                        <img src="https://cryptologos.cc/logos/shiba-inu-shib-logo.png" alt="Shiba Inu logo" class="img-fluid me-3" style="max-height: 40px;">
+                        <div>
+                            <h5 class="fw-bold">Shiba Inu </h5>
+                            <h4 class="fw-bold text-dark">$5.20</h4>
+                            <p class="text-danger">-4.9% (24h)</p>
+                        </div>
+                    </div>
+                    <a href="#" class="btn btn-sell btn-sm w-100 mt-3 rounded-5">See More</a>
+                </div>
             </div>
         </div>
+
+
+
     </div>
 </main>
-<!-- MODAL (Debe estar fuera de <main>) -->
+<!-- CONFIRMATION MODAL -->
 <div class="modal fade" id="confirm-modal" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -385,16 +403,43 @@
                 <h5 class="modal-title">Confirm Purchase</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
-            <div class="modal-body">
-                Are you sure you want to proceed with this purchase?
+            <div class="modal-body text-center">
+                <i class="bi bi-exclamation-triangle text-warning" style="font-size: 3rem;"></i>
+                <p class="mt-3 fw-bold">Are you sure you want to proceed?</p>
+                <p class="text-muted">Investing in crypto involves risks. Make sure you understand the market.</p>
             </div>
             <div class="modal-footer">
-                <button class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                <button class="btn btn-primary" id="confirm-buy">Confirm</button>
+                <button class="btn btn-sell py-2 btn-BuySell " data-bs-dismiss="modal">Cancel</button>
+                <button class="btn btn-danger py-2 btn-BuySell" id="confirm-buy">Continue</button>
             </div>
         </div>
     </div>
 </div>
+
+<!-- PURCHASE MODAL -->
+<div class="modal fade" id="purchase-modal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Complete Your Purchase</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <label for="crypto-amount" class="form-label">Enter amount to purchase:</label>
+                <div class="input-group">
+                    <input type="number" id="crypto-amount" class="form-control" placeholder="Amount" min="0.01" step="0.01">
+                    <span class="input-group-text">BTC</span>
+                </div>
+                <p class="text-muted mt-2">Your wallet balance will be updated after confirmation.</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button class="btn btn-success" id="finalize-purchase">Confirm Purchase</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 
 

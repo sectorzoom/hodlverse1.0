@@ -156,30 +156,22 @@ window.onload = function () {
     });
 };
 
-/* CONFIRMATION MODAL */
-const buyButton = document.getElementById('buy-btn');
 const confirmModal = new bootstrap.Modal(document.getElementById('confirm-modal'));
-const confirmBuyButton = document.getElementById('confirm-buy');
+const purchaseModal = new bootstrap.Modal(document.getElementById('purchase-modal'));
 
-buyButton.addEventListener('click', function () {
-    confirmModal.show();
+document.getElementById('buy-btn').addEventListener('click', () => confirmModal.show());
+
+document.getElementById('confirm-buy').addEventListener('click', () => {
+    confirmModal.hide();
+    setTimeout(() => purchaseModal.show(), 500); // Pequeño delay para mejor transición
 });
 
-confirmBuyButton.addEventListener('click', function () {
-    document.querySelector('.modal-body').innerHTML = `
-      <i class="bi bi-check-circle text-success" style="font-size: 3rem;"></i>
-      <p class="mt-3 fw-bold">Purchase Confirmed!</p>
-      <p class="text-muted">Thank you for your transaction.</p>
-    `;
-    setTimeout(() => confirmModal.hide(), 1000); // Cierra el modal después de 1s
-});
-
-const mainContent = document.querySelector("main"); // Asegúrate de que <main> existe
-
-document.getElementById("confirm-modal").addEventListener("show.bs.modal", function () {
-    mainContent.classList.add("blurred");
-});
-
-document.getElementById("confirm-modal").addEventListener("hidden.bs.modal", function () {
-    mainContent.classList.remove("blurred");
+document.getElementById('finalize-purchase').addEventListener('click', () => {
+    let amount = document.getElementById('crypto-amount').value;
+    if (amount && amount > 0) {
+        purchaseModal.hide();
+        alert(`✅ Purchase successful! You bought ${amount} BTC.`);
+    } else {
+        alert("⚠️ Please enter a valid amount.");
+    }
 });
