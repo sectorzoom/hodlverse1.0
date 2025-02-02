@@ -1,0 +1,208 @@
+.card{
+    border-radius: 20px;
+}
+.card:hover{
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+    border: 1px solid var(--azuloscuro);
+}
+/* GRAFICO INTERACTIVO*/
+
+.crypto-chart-container {
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    background: #fff;
+}
+
+.chart-wrapper {
+    position: relative;
+    width: 100%;
+    height: 400px; /* Ajusta según necesidad */
+}
+
+#crypto-chart {
+    border-radius: 10px;
+    background: rgba(240, 240, 240, 0.5);
+}
+
+
+/* Contenedor principal */
+.container {
+    max-width: 1200px;
+    margin: auto;
+}
+
+/* Tarjetas (secciones) */
+.shadow-lg {
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08) !important;
+}
+
+.rounded-3 {
+    border-radius: 15px !important;
+}
+
+/* Sección de información de la criptomoneda */
+.crypto-info {
+    background: #fff;
+    padding: 1.5rem;
+    border: 1px solid #eaeaea;
+    transition: transform 0.3s ease;
+}
+
+/* Detalles de la criptomoneda */
+.crypto-stats {
+    background: #f2f6fa;
+    padding: 1rem;
+    border-radius: 10px;
+    border: 1px solid #e0e6ed;
+}
+
+/* Botones Buy/Sell */
+.btn-BuySell{
+    border-radius: 20px;
+}
+.btn-sell{
+    background-color: var(--azuloscuro);
+    color: white;
+}
+.btn-sell:hover{
+    background-color: var(--oro);
+}
+
+/* Sección adicional "About Bitcoin" */
+.additional-info {
+    background: #fff;
+    border: 1px solid #eaeaea;
+    padding: 1.5rem;
+    transition: transform 0.3s ease;
+}
+
+/* Gráficos */
+.crypto-chart-container,
+.chart-wrapper {
+    background: #fff;
+}
+.chart-wrapper {
+    border: 1px solid #eaeaea;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+/* Sección de Comparación */
+.comparison-section {
+    background: #fff;
+    border: 1px solid #eaeaea;
+    padding: 1.5rem;
+}
+.comparison-section table {
+    border-collapse: separate;
+    border-spacing: 0 10px;
+}
+.comparison-section th {
+    background: #f2f6fa;
+    padding: 0.75rem;
+    border-bottom: 2px solid #e0e6ed;
+}
+.comparison-section td {
+    background: #fff;
+    padding: 0.75rem;
+    border-top: 1px solid #eaeaea;
+}
+
+/* Noticias / Análisis y Redes Sociales */
+.news-section,
+.social-sentiment-section {
+    background: #fff;
+    border: 1px solid #eaeaea;
+    padding: 1.5rem;
+    transition: transform 0.3s ease;
+}
+.news-section:hover,
+.social-sentiment-section:hover {
+    transform: translateY(-5px);
+}
+.news-section ul li {
+    border-bottom: 1px solid #eaeaea;
+    padding: 0.5rem 0;
+}
+.news-section ul li:last-child {
+    border-bottom: none;
+}
+.social-widget {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: #f2f6fa;
+    padding: 0.5rem;
+    border-radius: 10px;
+    flex: 1;
+}
+.social-widget p {
+    margin: 0;
+    font-size: 0.9rem;
+}
+
+/* Ajustes de espaciado */
+.my-5 {
+    margin-top: 3rem !important;
+    margin-bottom: 3rem !important;
+}
+.mb-4 {
+    margin-bottom: 1.5rem !important;
+}
+.mt-4 {
+    margin-top: 1.5rem !important;
+}
+.mb-3 {
+    margin-bottom: 1rem !important;
+}
+
+
+/* Media Query para pantallas pequeñas */
+@media (max-width: 1000px) {
+    .crypto-highlights {
+        display: grid;
+        grid-template-columns: 1fr; /* 1 columna */
+        gap: 20px; /* Espaciado entre elementos */
+    }
+
+    /* Ajusta los gráficos para pantallas más pequeñas */
+    .crypto-chart-container,
+    .additional-info {
+        margin-bottom: 20px; /* Añadido un pequeño margen entre secciones */
+    }
+}
+/* Personalización del modal (opcional) */
+#confirm-modal .modal-content {
+    border-radius: 15px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+#confirm-modal .modal-header {
+    background-color: #f8f9fa;
+}
+
+#confirm-modal .modal-footer {
+    justify-content: center;
+}
+.modal-header {
+    border-bottom: none;
+}
+
+.modal-footer {
+    border-top: none;
+}
+
+.modal-body p {
+    font-size: 0.8rem;
+}
+/* Solo aplica el blur al contenido detrás del modal */
+body.modal-open main {
+    filter: blur(5px);
+    pointer-events: none; /* Evita clics en el fondo */
+}
+
+
+
+
+
