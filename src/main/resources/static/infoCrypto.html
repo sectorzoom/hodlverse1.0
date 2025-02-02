@@ -221,9 +221,9 @@
     </nav>
 </header>
 <main class="container my-5">
-    <div class="row align-items-start">
+    <div class="row align-items-stretch" style="min-height: 600px;">
         <!-- Información de la criptomoneda -->
-        <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+        <div class="col-lg-4 col-md-6 col-sm-12 mb-4 h-100">
             <div class="crypto-info p-4 rounded-3 shadow-lg bg-white">
                 <!-- Header con logo y cambio de precio -->
                 <div class="d-flex align-items-center mb-3">
@@ -281,40 +281,68 @@
 
             <!-- Sección de información adicional (Fundadores y datos interesantes) -->
             <div class="col-12 mb-3 mt-4">
-                <div class="additional-info p-4 rounded shadow-lg bg-white">
-                    <h4 class="fw-bold mb-3">About Bitcoin</h4>
-                    <p>
+                <div class="additional-info p-4 rounded-3 shadow-sm bg-light">
+                    <h4 class="fw-bold mb-3 text-center">About Bitcoin</h4>
+                    <p class="text-muted">
                         Bitcoin was created in 2009 by an unknown person or group of people using the pseudonym <strong>Satoshi Nakamoto</strong>.
-                        It was the first decentralized digital currency, and its creation marked the beginning of a new era in finance.
+                        It was the first decentralized digital currency, marking the beginning of a new era in finance.
                     </p>
-                    <ul class="list-unstyled">
-                        <li><strong>Whitepaper:</strong> "Bitcoin: A Peer-to-Peer Electronic Cash System" published in 2008.</li>
-                        <li><strong>Concept:</strong> Decentralized, transparent, and secure digital currency based on blockchain technology.</li>
-                        <li><strong>Innovation:</strong> Introduced the concept of a blockchain, allowing for a trustless and distributed ledger.</li>
-                        <li><strong>Community & Impact:</strong> Bitcoin has inspired thousands of other cryptocurrencies and has revolutionized finance globally.</li>
-                    </ul>
+
+                    <div class="history-list">
+                        <div class="d-flex justify-content-between mb-2">
+                            <span class="fw-semibold text-dark">Whitepaper:</span>
+                            <span class="text-muted">"Bitcoin: A Peer-to-Peer Electronic Cash System" (2008)</span>
+                        </div>
+                        <div class="d-flex justify-content-between mb-2">
+                            <span class="fw-semibold text-dark">Concept:</span>
+                            <span class="text-muted">Decentralized, transparent, and secure digital currency.</span>
+                        </div>
+                        <div class="d-flex justify-content-between mb-2">
+                            <span class="fw-semibold text-dark">Innovation:</span>
+                            <span class="text-muted">Introduced blockchain technology, creating a trustless ledger.</span>
+                        </div>
+                        <div class="d-flex justify-content-between mb-2">
+                            <span class="fw-semibold text-dark">Impact:</span>
+                            <span class="text-muted">Revolutionized finance and inspired thousands of cryptocurrencies.</span>
+                        </div>
+                    </div>
                 </div>
             </div>
+
         </div>
 
         <!-- Gráfico Interactivo -->
-        <div class="col-lg-8 col-md-6 col-sm-12 mb-4 p-4 rounded shadow-lg bg-white">
-            <div class="crypto-chart-container">
-                <h4 class="fw-bold mb-3">Price Evolution</h4>
+        <!-- Contenedor principal para el gráfico (precio y volumen) -->
+        <div class="col-lg-8 col-md-6 col-sm-12 mb-4 h-100 p-5 rounded shadow-lg bg-white">
 
+            <!-- Contenedor del gráfico de Price Evolution -->
+            <div class="crypto-chart-container">
+                <!-- Título del gráfico de evolución de precios -->
+                <h4 class="fw-bold mb-3 text-center">Price Evolution</h4>
+
+                <!-- Contenedor interno que define el área y tamaño del canvas -->
                 <div class="chart-wrapper">
+                    <!-- Canvas donde se dibujará el gráfico de precios con Chart.js -->
                     <canvas id="crypto-chart"></canvas>
                 </div>
             </div>
+
+            <!-- Línea horizontal para separar secciones -->
             <hr>
-            <!-- Gráfico complementario: Volumen -->
-            <div class=" crypto-chart-container mt-6">
-                <h4 class="fw-bold">Volume Evolution</h4>
+
+            <!-- Contenedor del gráfico complementario de Volume Evolution -->
+            <div class="crypto-chart-container mt-6">
+                <!-- Título del gráfico de evolución de volumen -->
+                <h4 class="fw-bold mb-3 text-center">Volume Evolution</h4>
+
+                <!-- Contenedor interno que define el área y tamaño del canvas -->
                 <div class="chart-wrapper">
+                    <!-- Canvas donde se dibujará el gráfico de volumen con Chart.js -->
                     <canvas id="volume-chart"></canvas>
                 </div>
             </div>
         </div>
+
 
         <!-- Comparativa de criptomonedas -->
         <div class="col-12 mb-4">

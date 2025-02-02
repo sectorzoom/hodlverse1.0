@@ -22,7 +22,7 @@
 /* Tipografía y fondo general */
 body {
     font-family: 'Roboto', sans-serif;
-    background-color: #f7f9fc;
+    background-color: var(--azulclaro);
     color: #333;
 }
 
