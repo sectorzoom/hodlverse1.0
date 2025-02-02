@@ -33,52 +33,27 @@ document.addEventListener("DOMContentLoaded", () => {
     setInterval(scrollCarousel, 80);
 });
 
-document.addEventListener("DOMContentLoaded", function() {
-    var ctx = document.getElementById('radarChart').getContext('2d');
+const ctx1 = document.getElementById('holdingsChart').getContext('2d');
+new Chart(ctx1, {
+    type: 'doughnut',
+    data: {
+        labels: ['BTC', 'USDT', 'ETH', 'USDC', 'XRP', 'Others'],
+        datasets: [{
+            data: [30.8, 19.2, 13.2, 9.1, 8.9, 18.8],
+            backgroundColor: ['#FF9900', '#26A17B', '#627EEA', '#2775CA', '#346AA9', '#CCCCCC']
+        }]
+    }
+});
 
-    var radarChart = new Chart(ctx, {
-        type: 'radar',
-        data: {
-            labels: ["Bitcoin", "Ethereum", "Cardano", "Solana", "Polkadot", "Dogecoin"],
-            datasets: [{
-                label: "Crypto Wallet",
-                data: [0.8, 0.6, 0.5, 0.7, 0.4, 0.3],
-                backgroundColor: "#E0EBFB", // Color de fondo de las áreas
-                borderColor: "#061428", // Color del borde
-                borderWidth: 2,
-                pointBackgroundColor: "rgba(0, 123, 255, 1)", // Color de los puntos
-                pointBorderColor: "#fff", // Borde de los puntos
-                pointHoverBackgroundColor: "#fff", // Color de fondo del punto al pasar el ratón
-                pointHoverBorderColor: "rgba(0, 123, 255, 1)", // Borde del punto al pasar el ratón
-            }]
-        },
-        options: {
-            responsive: true,
-            scale: {
-                ticks: {
-                    beginAtZero: true,  // Empieza en 0
-                    max: 1,             // Valor máximo
-                    stepSize: 0.2       // Espaciado entre las marcas
-                },
-                pointLabels: {
-                    fontSize: 14,       // Tamaño de la fuente de las etiquetas
-                }
-            },
-            plugins: {
-                tooltip: {
-                    enabled: true,  // Habilitar tooltips (información al pasar el ratón)
-                    callbacks: {
-                        label: function(tooltipItem) {
-                            return tooltipItem.label + ": " + tooltipItem.raw * 100 + "%";  // Mostrar el valor como porcentaje
-                        }
-                    },
-                    backgroundColor: "white",
-                    titleColor: "black",
-                    bodyColor: "black",
-                    borderColor: "#ddd",
-                    borderWidth: 1
-                }
-            }
-        }
-    });
+const ctx2 = document.getElementById('performanceChart').getContext('2d');
+new Chart(ctx2, {
+    type: 'line',
+    data: {
+        labels: ['15:00', '18:00', '21:00'],
+        datasets: [{
+            data: [500, 520, 600],
+            borderColor: '#061428',
+            fill: false
+        }]
+    }
 });
