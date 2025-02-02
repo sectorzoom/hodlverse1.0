@@ -41,7 +41,7 @@ window.onload = function () {
             maintainAspectRatio: false,             // Permite que la altura sea flexible.
             scales: {
                 x: {
-                    title: { display: true, text: 'Months' },  // Título del eje X.
+                    title: {display: true, text: 'Months'},  // Título del eje X.
                     ticks: {                                 // Opciones de las etiquetas en el eje X.
                         maxRotation: 45,                       // Rotación máxima.
                         minRotation: 30,                       // Rotación mínima.
@@ -50,7 +50,7 @@ window.onload = function () {
                     }
                 },
                 y: {
-                    title: { display: true, text: 'Price ($)' }, // Título del eje Y.
+                    title: {display: true, text: 'Price ($)'}, // Título del eje Y.
                     beginAtZero: false,                           // El eje Y no empieza en 0.
                     ticks: {
                         // Formatea las etiquetas del eje Y para que se vean como precios.
@@ -123,7 +123,7 @@ window.onload = function () {
             maintainAspectRatio: false,
             scales: {
                 x: {
-                    title: { display: true, text: 'Months' },
+                    title: {display: true, text: 'Months'},
                     ticks: {
                         maxRotation: 45,
                         minRotation: 30,
@@ -132,7 +132,7 @@ window.onload = function () {
                     }
                 },
                 y: {
-                    title: { display: true, text: 'Volume' },
+                    title: {display: true, text: 'Volume'},
                     beginAtZero: true,                       // El eje Y empieza en 0.
                     ticks: {
                         callback: function (value) {
@@ -155,3 +155,31 @@ window.onload = function () {
         }
     });
 };
+
+/* CONFIRMATION MODAL */
+const buyButton = document.getElementById('buy-btn');
+const confirmModal = new bootstrap.Modal(document.getElementById('confirm-modal'));
+const confirmBuyButton = document.getElementById('confirm-buy');
+
+buyButton.addEventListener('click', function () {
+    confirmModal.show();
+});
+
+confirmBuyButton.addEventListener('click', function () {
+    document.querySelector('.modal-body').innerHTML = `
+      <i class="bi bi-check-circle text-success" style="font-size: 3rem;"></i>
+      <p class="mt-3 fw-bold">Purchase Confirmed!</p>
+      <p class="text-muted">Thank you for your transaction.</p>
+    `;
+    setTimeout(() => confirmModal.hide(), 1000); // Cierra el modal después de 1s
+});
+
+const mainContent = document.querySelector("main"); // Asegúrate de que <main> existe
+
+document.getElementById("confirm-modal").addEventListener("show.bs.modal", function () {
+    mainContent.classList.add("blurred");
+});
+
+document.getElementById("confirm-modal").addEventListener("hidden.bs.modal", function () {
+    mainContent.classList.remove("blurred");
+});
