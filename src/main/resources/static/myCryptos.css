@@ -312,3 +312,6 @@ hr{
     font-size: 2rem;
     color: #2b6cb0;
 }
+.card-item:hover{
+    background-color: #e8e8e8;
+}

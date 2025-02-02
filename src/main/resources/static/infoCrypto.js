@@ -175,3 +175,6 @@ document.getElementById('finalize-purchase').addEventListener('click', () => {
         alert("⚠️ Please enter a valid amount.");
     }
 });
+document.getElementById("dropdownMenu").addEventListener("click", function(event) {
+    window.location.href = "highlights.html";
+});
