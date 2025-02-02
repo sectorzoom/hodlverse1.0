@@ -132,3 +132,28 @@ function changePage(direction) {
 
 fetchCryptoData();
 setInterval(fetchCryptoData, 60000); // Actualiza cada 60s
+document.getElementById("dropdownMenu").addEventListener("click", function(event) {
+    window.location.href = "highlights.html";
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+    const button = document.getElementById("dropdownButton");
+    const menu = document.getElementById("dashboard-collapse");
+
+    button.addEventListener("mouseenter", function () {
+        menu.classList.add("show"); // Abre el menú
+    });
+
+    menu.addEventListener("mouseleave", function () {
+        menu.classList.remove("show"); // Cierra el menú al salir
+    });
+
+    // Opcional: Cerrar el menú si el mouse sale del botón y menú
+    button.addEventListener("mouseleave", function () {
+        setTimeout(() => {
+            if (!menu.matches(":hover")) {
+                menu.classList.remove("show");
+            }
+        }, 200);
+    });
+});

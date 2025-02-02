@@ -132,3 +132,6 @@ function changePage(direction) {
 
 fetchCryptoData();
 setInterval(fetchCryptoData, 60000); // Actualiza cada 60s
+document.getElementById("dropdownMenu").addEventListener("click", function(event) {
+    window.location.href = "highlights.html";
+});

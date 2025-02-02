@@ -308,6 +308,11 @@ canvas {
 .card-item:hover{
     background-color: #e8e8e8;
 }
+#dropdownButton:hover + #dashboard-collapse,
+#dashboard-collapse:hover {
+    display: block !important;
+}
+
 
 
 
