@@ -15,6 +15,7 @@ import org.springframework.web.client.RestTemplate;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -47,7 +48,6 @@ public class CurrencyService {
                     .orElseGet(() -> {
                         Currency newCurrency = new Currency();
                         newCurrency.setName(cryptoData.getName());
-                        newCurrency.setSymbol(cryptoData.getSymbol());
                         newCurrency.setImage(cryptoData.getImage());
                         newCurrency.setTicker(cryptoData.getSymbol());
                         logger.info("Creando nueva entrada de Currency para: {}", cryptoData.getName());
@@ -98,4 +98,31 @@ public class CurrencyService {
     private BigDecimal getSafeValue(BigDecimal value) {
         return Optional.ofNullable(value).orElse(BigDecimal.ZERO);
     }
+
+    // Obtener todas las monedas
+    public List<Currency> findAll() {
+        return currencyRepository.findAll();
+    }
+
+    // Guardar una nueva moneda
+    public Currency save(Currency currency) {
+        return currencyRepository.save(currency);
+    }
+
+    // Buscar una moneda por su ID
+    public Optional<Currency> findById(Long id) {
+        return currencyRepository.findById(id);
+    }
+
+    // Buscar una moneda por su nombre (insensible a mayúsculas/minúsculas)
+    public Optional<Currency> findByName(String name) {
+        return currencyRepository.findByNameIgnoreCase(name.trim());
+    }
+
+    // Eliminar una moneda por su ID
+    public void deleteById(Long id) {
+        currencyRepository.deleteById(id);
+    }
+
 }
+

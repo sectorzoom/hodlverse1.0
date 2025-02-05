@@ -1,5 +1,5 @@
 package org.edgar.hodlverse.services;
-/*
+
 import org.edgar.hodlverse.entities.Transaction;
 import org.edgar.hodlverse.repositories.TransactionRepository;
 import org.springframework.stereotype.Service;
@@ -36,5 +36,3 @@ public class TransactionService {
         transactionRepository.deleteById(id);
     }
 }
-
- */

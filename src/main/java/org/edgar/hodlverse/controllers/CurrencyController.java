@@ -3,9 +3,14 @@ package org.edgar.hodlverse.controllers;
 import org.edgar.hodlverse.entities.Currency;
 import org.edgar.hodlverse.services.CurrencyService;
 import org.edgar.hodlverse.services.NotFoundException;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/currencies") // Ruta base para el controlador
@@ -19,65 +24,66 @@ public class CurrencyController {
 
     // Obtener todas las monedas
     @GetMapping
-    public List<Currency> all() {
-        return currencyService.findAll();
+    public ResponseEntity<List<Currency>> all() {
+        List<Currency> currencies = currencyService.findAll();
+        return ResponseEntity.ok(currencies);
     }
 
     // Crear una nueva moneda
     @PostMapping
-    public Currency newCurrency(@RequestBody Currency newCurrency) {
-        return currencyService.save(newCurrency);
+    public ResponseEntity<Currency> newCurrency(@RequestBody Currency newCurrency) {
+        Currency savedCurrency = currencyService.save(newCurrency);
+        return ResponseEntity.status(HttpStatus.CREATED).body(savedCurrency);
     }
 
     // Obtener una moneda específica por su ID
     @GetMapping("/{id}")
-    public Currency one(@PathVariable Long id) {
-        return currencyService.findById(id)
+    public ResponseEntity<Currency> one(@PathVariable Long id) {
+        Currency currency = currencyService.findById(id)
                 .orElseThrow(() -> new NotFoundException("Moneda con ID " + id + " no encontrada."));
+        return ResponseEntity.ok(currency);
     }
 
     // Actualizar una moneda existente
     @PutMapping("/{id}")
-    public Currency replaceCurrency(@RequestBody Currency newCurrency, @PathVariable Long id) {
+    public ResponseEntity<Currency> replaceCurrency(@RequestBody Currency newCurrency, @PathVariable Long id) {
         return currencyService.findById(id)
                 .map(currency -> {
                     currency.setTicker(newCurrency.getTicker());
-                    currency.setSymbol(newCurrency.getSymbol());
                     currency.setName(newCurrency.getName());
                     currency.setImage(newCurrency.getImage());
-                    currency.setCurrentPrice(newCurrency.getCurrentPrice());
-                    currency.setMarketCap(newCurrency.getMarketCap());
-                    currency.setMarketCapRank(newCurrency.getMarketCapRank());
-                    currency.setTotalVolume(newCurrency.getTotalVolume());
-                    currency.setHigh24h(newCurrency.getHigh24h());
-                    currency.setLow24h(newCurrency.getLow24h());
-                    currency.setPriceChange24h(newCurrency.getPriceChange24h());
-                    currency.setPriceChangePercentage24h(newCurrency.getPriceChangePercentage24h());
-                    currency.setMarketCapChange24h(newCurrency.getMarketCapChange24h());
-                    currency.setMarketCapChangePercentage24h(newCurrency.getMarketCapChangePercentage24h());
-                    currency.setTotalSupply(newCurrency.getTotalSupply());
-                    currency.setAth(newCurrency.getAth());
-                    currency.setAthChangePercentage(newCurrency.getAthChangePercentage());
-                    currency.setAthDate(newCurrency.getAthDate());
-                    currency.setAtl(newCurrency.getAtl());
-                    currency.setAtlChangePercentage(newCurrency.getAtlChangePercentage());
-                    currency.setAtlDate(newCurrency.getAtlDate());
-                    currency.setRoi(newCurrency.getRoi());
-                    currency.setLastUpdated(newCurrency.getLastUpdated());
-                    return currencyService.save(currency);
+                    return ResponseEntity.ok(currencyService.save(currency));
                 })
                 .orElseGet(() -> {
                     newCurrency.setCurrencyId(id);
-                    return currencyService.save(newCurrency);
+                    return ResponseEntity.status(HttpStatus.CREATED).body(currencyService.save(newCurrency));
                 });
     }
 
     // Eliminar una moneda por su ID
     @DeleteMapping("/{id}")
-    public void deleteCurrency(@PathVariable Long id) {
-        if (currencyService.findById(id).isEmpty()) {
-            throw new NotFoundException("Moneda con ID " + id + " no encontrada.");
-        }
+    public ResponseEntity<Void> deleteCurrency(@PathVariable Long id) {
+        Currency currency = currencyService.findById(id)
+                .orElseThrow(() -> new NotFoundException("Moneda con ID " + id + " no encontrada."));
+
         currencyService.deleteById(id);
+        return ResponseEntity.noContent().build();
     }
+
+    /*@GetMapping
+    public List<Map<String, Object>> all() {
+        return currencyService.findAll().stream()
+                .map(currency -> {
+                    Map<String, Object> map = new HashMap<>();
+                    map.put("currencyId", currency.getCurrencyId());
+                    map.put("ticker", currency.getTicker());
+                    map.put("name", currency.getName());
+                    map.put("image", currency.getImage());
+                    return map;
+                })
+                .collect(Collectors.toList());
+    }*/
+
+
+
 }

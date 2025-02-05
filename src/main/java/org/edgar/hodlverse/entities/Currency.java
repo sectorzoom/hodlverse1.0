@@ -1,4 +1,5 @@
 package org.edgar.hodlverse.entities;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -23,9 +24,6 @@ public class Currency {
     @Column(nullable = false, unique = true, length = 10)
     private String ticker; // Símbolo corto de la criptomoneda
 
-    @Column(nullable = false, unique = true, length = 10)
-    private String symbol; // Ejemplo: btc
-
     @Column(nullable = false)
     private String name; // Ejemplo: Bitcoin
 
@@ -36,12 +34,15 @@ public class Currency {
     private List<Balance> balances = new ArrayList<>();
 
     @OneToMany(mappedBy = "originCurrency", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
     private List<Transaction> originTransactions = new ArrayList<>();
 
     @OneToMany(mappedBy = "destinationCurrency", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
     private List<Transaction> destinationTransactions = new ArrayList<>();
 
     @OneToMany(mappedBy = "currency", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
     private List<History> history = new ArrayList<>();
 
     public Long getCurrencyId() {
@@ -58,14 +59,6 @@ public class Currency {
 
     public void setTicker(String ticker) {
         this.ticker = ticker;
-    }
-
-    public String getSymbol() {
-        return symbol;
-    }
-
-    public void setSymbol(String symbol) {
-        this.symbol = symbol;
     }
 
     public String getName() {

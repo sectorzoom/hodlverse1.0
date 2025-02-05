@@ -7,9 +7,6 @@ import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-
-@Setter
-@Getter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
@@ -48,5 +45,83 @@ public class Transaction {
     @JoinColumn(name = "destination_currency_id", nullable = false)
     private Currency destinationCurrency;
 
+    public Long getTransactionId() {
+        return transactionId;
+    }
 
+    public void setTransactionId(Long transactionId) {
+        this.transactionId = transactionId;
+    }
+
+    public String getTransactionType() {
+        return transactionType;
+    }
+
+    public void setTransactionType(String transactionType) {
+        this.transactionType = transactionType;
+    }
+
+    public BigDecimal getOriginTransactionAmount() {
+        return originTransactionAmount;
+    }
+
+    public void setOriginTransactionAmount(BigDecimal originTransactionAmount) {
+        this.originTransactionAmount = originTransactionAmount;
+    }
+
+    public BigDecimal getDestinationTransactionAmount() {
+        return destinationTransactionAmount;
+    }
+
+    public void setDestinationTransactionAmount(BigDecimal destinationTransactionAmount) {
+        this.destinationTransactionAmount = destinationTransactionAmount;
+    }
+
+    public BigDecimal getOriginUnitPrice() {
+        return originUnitPrice;
+    }
+
+    public void setOriginUnitPrice(BigDecimal originUnitPrice) {
+        this.originUnitPrice = originUnitPrice;
+    }
+
+    public BigDecimal getDestinationUnitPrice() {
+        return destinationUnitPrice;
+    }
+
+    public void setDestinationUnitPrice(BigDecimal destinationUnitPrice) {
+        this.destinationUnitPrice = destinationUnitPrice;
+    }
+
+    public LocalDate getTransactionDate() {
+        return transactionDate;
+    }
+
+    public void setTransactionDate(LocalDate transactionDate) {
+        this.transactionDate = transactionDate;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Currency getOriginCurrency() {
+        return originCurrency;
+    }
+
+    public void setOriginCurrency(Currency originCurrency) {
+        this.originCurrency = originCurrency;
+    }
+
+    public Currency getDestinationCurrency() {
+        return destinationCurrency;
+    }
+
+    public void setDestinationCurrency(Currency destinationCurrency) {
+        this.destinationCurrency = destinationCurrency;
+    }
 }

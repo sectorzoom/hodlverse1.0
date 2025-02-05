@@ -1,5 +1,5 @@
 package org.edgar.hodlverse.services;
-/*
+
 import org.edgar.hodlverse.entities.History;
 import org.edgar.hodlverse.repositories.HistoryRepository;
 import org.springframework.stereotype.Service;
@@ -36,5 +36,3 @@ public class HistoryService {
         historyRepository.deleteById(id);
     }
 }
-
- */

@@ -1,5 +1,5 @@
 package org.edgar.hodlverse.services;
-/*
+
 import org.edgar.hodlverse.entities.Balance;
 import org.edgar.hodlverse.repositories.BalanceRepository;
 import org.springframework.stereotype.Service;
@@ -45,6 +45,3 @@ public class BalanceService {
     }
 
 }
-
-
- */

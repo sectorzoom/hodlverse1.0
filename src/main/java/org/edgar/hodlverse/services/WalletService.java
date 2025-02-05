@@ -1,5 +1,5 @@
 package org.edgar.hodlverse.services;
-/*
+
 import org.edgar.hodlverse.entities.Wallet;
 import org.edgar.hodlverse.repositories.WalletRepository;
 import org.springframework.stereotype.Service;
@@ -36,6 +36,3 @@ public class WalletService {
         walletRepository.deleteById(id);
     }
 }
-
-
- */

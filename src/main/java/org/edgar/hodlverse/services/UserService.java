@@ -1,5 +1,5 @@
 package org.edgar.hodlverse.services;
-/*
+
 import org.edgar.hodlverse.entities.User;
 import org.edgar.hodlverse.repositories.UserRepository;
 import org.springframework.stereotype.Service;
@@ -36,6 +36,3 @@ public class UserService {
         userRepository.deleteById(id);
     }
 }
-
-
- */

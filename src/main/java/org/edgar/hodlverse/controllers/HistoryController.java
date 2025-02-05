@@ -1,7 +1,6 @@
 package org.edgar.hodlverse.controllers;
 
 import org.edgar.hodlverse.entities.History;
-import org.edgar.hodlverse.repositories.HistoryRepository;
 import org.edgar.hodlverse.services.HistoryService;
 import org.edgar.hodlverse.services.NotFoundException;
 import org.springframework.web.bind.annotation.*;
@@ -14,7 +13,7 @@ public class HistoryController {
 
     private final HistoryService historyService;
 
-    public HistoryController(HistoryRepository repository, HistoryService historyService) {
+    public HistoryController(HistoryService historyService) {
         this.historyService = historyService;
     }
 
@@ -42,9 +41,20 @@ public class HistoryController {
     public History replaceHistory(@RequestBody History newHistory, @PathVariable Long id) {
         return historyService.findById(id)
                 .map(history -> {
+                    // Actualizar todos los campos
+                    history.setCurrentPrice(newHistory.getCurrentPrice());
+                    history.setMarketCap(newHistory.getMarketCap());
+                    history.setMarketCapRank(newHistory.getMarketCapRank());
+                    history.setTotalVolume(newHistory.getTotalVolume());
+                    history.setHigh24h(newHistory.getHigh24h());
+                    history.setLow24h(newHistory.getLow24h());
+                    history.setPriceChange24h(newHistory.getPriceChange24h());
+                    history.setPriceChangePercentage24h(newHistory.getPriceChangePercentage24h());
+                    history.setMarketCapChange24h(newHistory.getMarketCapChange24h());
+                    history.setMarketCapChangePercentage24h(newHistory.getMarketCapChangePercentage24h());
+                    history.setTotalSupply(newHistory.getTotalSupply());
+                    history.setLastUpdated(newHistory.getLastUpdated());
                     history.setCurrency(newHistory.getCurrency());
-                    history.setPrice(newHistory.getPrice());
-                    history.setDate(newHistory.getDate());
                     return historyService.save(history);
                 })
                 .orElseGet(() -> {
