@@ -224,3 +224,6 @@ hr{
 .modal-backdrop {
     display: none;
 }
+.container{
+    max-width: 1500px;
+}
