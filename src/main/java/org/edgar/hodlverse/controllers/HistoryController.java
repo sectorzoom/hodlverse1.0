@@ -3,6 +3,7 @@ package org.edgar.hodlverse.controllers;
 import org.edgar.hodlverse.entities.History;
 import org.edgar.hodlverse.services.HistoryService;
 import org.edgar.hodlverse.services.NotFoundException;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -71,4 +72,33 @@ public class HistoryController {
         }
         historyService.deleteById(id);
     }
+
+    // Endpoint para obtener todas las monedas ordenadas por priceChangePercentage24h descendente
+    @GetMapping("/topWinners")
+    public ResponseEntity<List<History>> getCurrenciesOrderedByPriceChangePercentage() {
+        List<History> histories = historyService.getCurrenciesOrderedByPriceChangePercentage();
+        return ResponseEntity.ok(histories);
+    }
+
+    // Endpoint para obtener todas las monedas ordenadas por priceChangePercentage24h ascendente
+    @GetMapping("/topLosers")
+    public ResponseEntity<List<History>> getCurrenciesOrderedByPriceChangePercentageAsc() {
+        List<History> histories = historyService.getCurrenciesOrderedByPriceChangePercentageAsc();
+        return ResponseEntity.ok(histories);
+    }
+
+    //Endpoint para obterner las monedas ordenadas por marketCapRank ascendente
+    @GetMapping("/trending-coins")
+    public List<History> getCoinsOrderedByMarketCapRank() {
+        return historyService.getCoinsOrderedByMarketCapRankAsc();
+    }
+
+    // Endpoint para obtener todas las monedas ordenadas por totalVolume descendente
+    @GetMapping("/highest-volume")
+    public ResponseEntity<List<History>> getCurrenciesOrderedByTotalVolumeDesc() {
+        List<History> histories = historyService.getCurrenciesOrderedByTotalVolumeDesc();
+        return ResponseEntity.ok(histories);
+    }
+
+
 }

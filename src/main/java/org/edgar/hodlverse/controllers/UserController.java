@@ -46,7 +46,6 @@ public class UserController {
                     user.setEmail(newUser.getEmail());
                     user.setPassword(newUser.getPassword());
                     user.setRegistrationDate(newUser.getRegistrationDate());
-                    user.setStatus(newUser.getStatus());
                     return userService.save(user);
                 })
                 .orElseGet(() -> {

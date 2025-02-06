@@ -29,17 +29,15 @@ public class User {
     @Column(nullable = false)
     private LocalDate registrationDate;
 
-    @Column(nullable = false)
-    private Boolean status;
-
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private Wallet wallet;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Transaction> transactions;
 
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Game game;
+    @OneToOne
+    @JoinColumn(name = "user_id", nullable = false) // Aquí se define la columna que hace el JOIN
+    private User user;
 
 
     public Long getUserId() {
@@ -82,14 +80,6 @@ public class User {
         this.registrationDate = registrationDate;
     }
 
-    public Boolean getStatus() {
-        return status;
-    }
-
-    public void setStatus(Boolean status) {
-        this.status = status;
-    }
-
     public Wallet getWallet() {
         return wallet;
     }
@@ -106,11 +96,11 @@ public class User {
         this.transactions = transactions;
     }
 
-    public Game getGame() {
-        return game;
+    public User getUser() {
+        return user;
     }
 
-    public void setGame(Game game) {
-        this.game = game;
+    public void setUser(User user) {
+        this.user = user;
     }
 }

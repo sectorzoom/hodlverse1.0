@@ -8,11 +8,10 @@ import java.util.List;
 
 @Repository
 public interface HistoryRepository extends JpaRepository<History, Long> {
-    //List<History> findByCurrencyId(Long currencyId);
+    List<History> findAllByOrderByPriceChangePercentage24hDesc(); // Ordenar por priceChangePercentage24h descendente
+    List<History> findAllByOrderByPriceChangePercentage24hAsc(); // Ordenar por priceChangePercentage24h ascendente
+    List<History> findAllByOrderByMarketCapRankAsc(); //Ordenar por marketCapRank de forma ascendente
+    List<History> findAllByOrderByTotalVolumeDesc(); // Ordenar por totalVolume descendente
 
-    //List<History> findByDate(LocalDate date);
-
-    //List<History> findByDateBefore(LocalDate date);
-    // Add custom queries here if needed
 }
 

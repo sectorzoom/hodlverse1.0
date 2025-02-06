@@ -35,4 +35,25 @@ public class HistoryService {
     public void deleteById(Long id) {
         historyRepository.deleteById(id);
     }
+
+    // Obtener todas las monedas ordenadas por priceChangePercentage24h de forma descendente
+    public List<History> getCurrenciesOrderedByPriceChangePercentage() {
+        return historyRepository.findAllByOrderByPriceChangePercentage24hDesc();
+    }
+
+    // Obtener todas las monedas ordenadas por priceChangePercentage24h de forma ascendente
+    public List<History> getCurrenciesOrderedByPriceChangePercentageAsc() {
+        return historyRepository.findAllByOrderByPriceChangePercentage24hAsc();
+    }
+
+    //Obtener todas las monedas ordenadas por marketCapRank de forma ascendente
+    public List<History> getCoinsOrderedByMarketCapRankAsc(){
+        return historyRepository.findAllByOrderByMarketCapRankAsc();
+    }
+
+    // Obtener todas las monedas ordenadas por totalVolume de forma descendente
+    public List<History> getCurrenciesOrderedByTotalVolumeDesc() {
+        return historyRepository.findAllByOrderByTotalVolumeDesc();
+    }
+
 }
