@@ -180,3 +180,18 @@
 document.getElementById("dropdownMenu").addEventListener("click", function(event) {
     window.location.href = "highlights.html";
 });
+
+document.getElementById("toggleRankingSwitch").addEventListener("click", function () {
+    const rankingSection = document.getElementById("rankingCards");
+
+    if (rankingSection.classList.contains("hidden")) {
+        rankingSection.classList.remove("hidden");
+        this.textContent = "Hide Rankings";
+    } else {
+        rankingSection.classList.add("hidden");
+        this.textContent = "Show Rankings";
+    }
+});
+
+
+

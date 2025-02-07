@@ -1,10 +1,6 @@
 .extra-small-text {
     font-size: 13px; /* O el tamaño que necesites */
 }
-.card:hover {
-    transform: scale(1.05);
-    transition: transform 0.3s;
-}
 @keyframes fadeIn {
     from {
         opacity: 0;
@@ -19,43 +15,7 @@
 .coin-item {
     animation: fadeIn 0.5s ease-out;
 }
-.card {
-    box-shadow: 0 7px 10px rgba(0, 0, 0, 0.1);
-    position: relative;
-    transition: height 0.3s ease; /* Transición para la altura */
-    z-index: 1; /* Valor por defecto para las tarjetas */
-    min-height: 100%;
-}
 
-.view-more-btn {
-    background-color: var(--azuloscuro); /* Color dorado */
-    color: white;
-    border: none;
-    padding: 10px 20px; /* Ajuste para que no ocupe todo el ancho */
-    font-weight: bold;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.3s ease, visibility 0s 0.3s;
-    width: auto; /* Solo toma el ancho del contenido */
-    margin-bottom: 10px;
-
-}
-
-.card:hover {
-    transform: scale(1.05);
-    height: calc(100% + 30px); /* Incrementa la altura de la tarjeta cuando se hace hover */
-    z-index: 2; /* Asegura que la tarjeta se muestre por encima de las demás */
-}
-.view-more-btn:hover {
-    background-color: var(--oro); /* Color dorado en hover */
-}
-
-.card:hover .view-more-btn {
-    opacity: 1;
-    visibility: visible;
-    transition: opacity 0.3s ease, visibility 0s 0s;
-    z-index: 3; /* Asegura que el botón esté encima de la tarjeta */
-}
 .border-2 {
     border-width: 1px !important; /* Reduce el grosor del borde si es muy grueso */
 }
@@ -63,9 +23,6 @@
 .py-2, .px-3 {
     padding: 0.5rem !important; /* Reduce padding en tarjetas si ocupan mucho espacio */
 }
-
-
-
 
 @media (max-width: 1199px) {
     .col-lg-4 {
@@ -82,3 +39,54 @@
 .card-item:hover{
     background-color: #e8e8e8;
 }
+
+
+.card {
+    box-shadow: 0 7px 10px rgba(0, 0, 0, 0.1);
+    position: relative;
+    transition: height 0.3s ease, box-shadow 0.3s ease;
+    z-index: 1;
+    min-height: 100%;
+}
+.card:hover {
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+    border: 1px solid var(--azuloscuro);
+    transform: scale(1.05);
+    transition: transform 0.3s;
+}
+
+/* Ocultar el botón por defecto */
+.view-more-btn {
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    background-color: transparent;
+    border: none;
+    color: var(--azuloscuro); /* Color inicial */
+    font-weight: bold;
+}
+
+/* Mostrar el botón cuando se hace hover en la tarjeta */
+.card:hover .view-more-btn {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Cambiar color al pasar el ratón sobre el botón */
+.view-more-btn:hover {
+    color: var(--oro); /* Cambia al color oro */
+}
+.form-check-input:checked {
+    background-color: #0d6efd; /* Azul de Bootstrap */
+    border-color: #0d6efd;
+}
+
+.form-check-input:focus {
+    border-color: #0d6efd;
+    box-shadow: 0 0 0 0.25rem rgba(38, 143, 255, 0.5);
+}
+
+
+
+
+

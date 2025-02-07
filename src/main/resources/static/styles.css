@@ -224,3 +224,47 @@ hr{
 .modal-backdrop {
     display: none;
 }
+.container{
+    max-width:1500px;
+}
+.card{
+    border-radius: 30px;
+}
+
+
+
+/*CSS PARA LISTA DE CRIPTOS */
+
+/* Asegurar scroll horizontal en pantallas pequeñas */
+.table-responsive {
+    overflow-x: auto;
+    white-space: nowrap;
+}
+
+/* Fijar las columnas # y Moneda para que no se muevan */
+.sticky-col {
+    position: sticky;
+    background: white; /* Mantiene el fondo visible al superponerse */
+    z-index: 3; /* Se mantiene por encima de las demás columnas */
+}
+
+/* Fijar la primera columna (#) a la izquierda */
+.sticky-col.start-0 {
+    left: 0;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); /* Sombra para diferenciarla */
+}
+
+/* Fijar la segunda columna (Moneda) */
+.sticky-col.start-50 {
+    left: 50px; /* Ajusta según el ancho de la primera columna */
+    z-index: 4; /* Asegura que se superpone correctamente */
+    border-left: 1px solid #ddd;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Mejoras en modo oscuro */
+.dark-mode .sticky-col {
+    background: #061428;
+    color: white;
+    border-color: #ddd;
+}
