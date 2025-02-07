@@ -3,8 +3,10 @@ package org.edgar.hodlverse.controllers;
 import org.edgar.hodlverse.entities.Wallet;
 import org.edgar.hodlverse.services.NotFoundException;
 import org.edgar.hodlverse.services.WalletService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @RestController
@@ -60,4 +62,11 @@ public class WalletController {
         }
         walletService.deleteById(id);
     }
+
+    @GetMapping("/totalBalance/{userId}")
+    public ResponseEntity<BigDecimal> getWalletValue(@PathVariable Long userId) {
+        BigDecimal totalValue = walletService.calculateTotalWalletValueInUSD(userId);
+        return ResponseEntity.ok(totalValue);
+    }
+
 }

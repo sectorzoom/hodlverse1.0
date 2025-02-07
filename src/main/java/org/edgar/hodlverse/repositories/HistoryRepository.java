@@ -1,4 +1,5 @@
 package org.edgar.hodlverse.repositories;
+import org.edgar.hodlverse.entities.Currency;
 import org.edgar.hodlverse.entities.History;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -22,6 +23,8 @@ public interface HistoryRepository extends JpaRepository<History, Long> {
 
     @Query("SELECT h FROM History h WHERE h.currency.currencyId = :currencyId AND h.lastUpdated < :end ORDER BY h.lastUpdated DESC")
     Optional<History> findFirstByCurrencyIdAndLastUpdatedBeforeOrderByLastUpdatedDesc(@Param("currencyId") Long currencyId, @Param("end") LocalDateTime end);
+
+    Optional<History> findTopByCurrencyOrderByLastUpdatedDesc(Currency currency);
 
 }
 

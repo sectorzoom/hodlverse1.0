@@ -35,9 +35,8 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Transaction> transactions;
 
-    @OneToOne
-    @JoinColumn(name = "user_id", nullable = false) // Aquí se define la columna que hace el JOIN
-    private User user;
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Game game;
 
 
     public Long getUserId() {
@@ -96,11 +95,11 @@ public class User {
         this.transactions = transactions;
     }
 
-    public User getUser() {
-        return user;
+    public Game getGame() {
+        return game;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setGame(Game game) {
+        this.game = game;
     }
 }
