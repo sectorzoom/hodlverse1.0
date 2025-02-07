@@ -3,10 +3,13 @@ package org.edgar.hodlverse.controllers;
 import org.edgar.hodlverse.entities.History;
 import org.edgar.hodlverse.services.HistoryService;
 import org.edgar.hodlverse.services.NotFoundException;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/history") // Ruta base para el controlador
@@ -100,5 +103,27 @@ public class HistoryController {
         return ResponseEntity.ok(histories);
     }
 
+    @GetMapping("/{currencyId}/daily-prices")
+    public ResponseEntity<Map<String, Object>> getDailyPrices(
+            @PathVariable Long currencyId,
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
+
+        if (date == null) {
+            date = LocalDate.now(); // Si no se proporciona una fecha, usar la fecha actual
+        }
+
+        HistoryService.Record record = historyService.getDailyPrices(currencyId, date);
+
+        Map<String, Object> response = Map.of(
+                "currency_id", currencyId,
+                "date", date,
+                "open_price", record.getOpenPrice(),
+                "close_price", record.getClosePrice(),
+                "high_24h", record.getHigh24h(),
+                "low_24h", record.getLow24h()
+        );
+
+        return ResponseEntity.ok(response);
+    }
 
 }
