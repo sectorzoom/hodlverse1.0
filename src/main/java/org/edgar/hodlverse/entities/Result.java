@@ -24,7 +24,7 @@ public class Result {
     @Column(nullable = false)
     private Double profit;  // Porcentaje de beneficios
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "game_id", nullable = false)
     private Game game;  // Relación con la entidad Game
 

@@ -30,6 +30,7 @@ public class Currency {
     @Column(nullable = false)
     private String image; // URL del logo de la criptomoneda
 
+    @JsonIgnore
     @OneToMany(mappedBy = "currency", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Balance> balances = new ArrayList<>();
 

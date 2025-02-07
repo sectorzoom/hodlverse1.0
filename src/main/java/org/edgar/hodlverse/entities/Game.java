@@ -1,4 +1,5 @@
 package org.edgar.hodlverse.entities;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -31,9 +32,14 @@ public class Game {
     @Column(nullable = false)
     private LocalDateTime startDate;
 
+    @JsonIgnore
     @OneToOne
     @JoinColumn(name = "user_id", nullable = false, unique = true)
     private User user;
+
+    @JsonIgnore
+    @OneToOne(mappedBy = "game", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Result result;
 
     public enum Difficulty {
         BEGINNER,
@@ -95,5 +101,13 @@ public class Game {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public Result getResult() {
+        return result;
+    }
+
+    public void setResult(Result result) {
+        this.result = result;
     }
 }
