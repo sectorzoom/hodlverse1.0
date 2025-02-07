@@ -227,3 +227,6 @@ hr{
 .container{
     max-width: 1500px;
 }
+.card{
+    border-radius: 30px;
+}
