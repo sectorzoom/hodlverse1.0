@@ -232,21 +232,23 @@
         </div>
     </nav>
 </header>
-<main class="container my-5">
+<main class="container my-3">
     <div class="p-5 bg-white rounded shadow">
         <div class="mb-4 d-flex align-items-center justify-content-between">
             <div>
-                <h1 class="h3">HIGHLIGHTS</h1>
+                <h1 class="h2">HIGHLIGHTS</h1>
+                <hr>
                 <p class="text-muted text-sm" style="font-style: italic;">
                     Track and discover the most interesting cryptocurrencies based on market activity
                 </p>
             </div>
+            <div class="form-check form-switch text-end ms-auto d-flex align-items-center gap-2">
+                <input class="form-check-input" type="checkbox" id="toggleRankingSwitch">
+                <label class="form-check-label" for="toggleRankingSwitch">Show Rankings</label>
+            </div>
         </div>
-        <div class="form-check form-switch text-end ms-auto d-flex align-items-center gap-2">
-            <input class="form-check-input" type="checkbox" id="toggleRankingSwitch">
-            <label class="form-check-label" for="toggleRankingSwitch">Show Rankings</label>
-        </div>
-        <div class="row gx-3 mb-3">
+
+        <div class="row gx-3 mb-3" id="rankingCards">
             <!-- Trending Coins -->
             <div class="col-lg-4 col-md-6 col-sm-12 border-2 border-gray-200 py-2 px-3 rounded mb-4">
                 <div class="card shadow-sm">
@@ -738,7 +740,7 @@
     </div>
 </footer>
 <script src="plantilla.js"></script>
-<script src="highlights.js"></script>
+<script src="highlights.js" defer></script>
 <script src="index.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
