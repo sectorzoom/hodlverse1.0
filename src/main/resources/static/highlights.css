@@ -77,7 +77,7 @@
     color: var(--oro); /* Cambia al color oro */
 }
 .form-check-input:checked {
-    background-color: #0d6efd; /* Azul de Bootstrap */
+    background-color: var(--azuloscuro); /* Azul de Bootstrap */
     border-color: #0d6efd;
 }
 
