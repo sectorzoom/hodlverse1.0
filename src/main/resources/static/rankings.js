@@ -45,9 +45,10 @@ rankingData.forEach(item => {
         <td class="${item.change.includes('-') ? 'text-danger' : 'text-success'}">
             ${item.change}
         </td>
-        <td><img src="${item.trend}" alt="trend" class="trend-chart"></td>
+        <td>
+            <img src="${item.trend}" alt="trend" class="trend-chart" style="width: 50px; height: 25px;">
+        </td>
     </tr>
 `;
     rankingTable.innerHTML += row;
-
 });

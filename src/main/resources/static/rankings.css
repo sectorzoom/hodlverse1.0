@@ -20,9 +20,10 @@ body {
     object-fit: cover !important;
 }
 
-
 .trend-chart {
-    width: 50px;  /* Tamaño del gráfico */
+    width: 50px;
     height: 25px;
+    object-fit: contain; /* Ajusta la imagen sin recortarla */
 }
+
 
