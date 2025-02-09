@@ -1,0 +1,28 @@
+/* Fondo general */
+body {
+    background-color: #f8f9fa;
+}
+
+/* Estilos para la tabla */
+.table {
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.table-hover tbody tr:hover {
+    background-color: rgba(0, 123, 255, 0.1);
+}
+
+.coin-logo {
+    width: 32px !important;
+    height: 32px !important;
+    border-radius: 50% !important;
+    object-fit: cover !important;
+}
+
+
+.trend-chart {
+    width: 50px;  /* Tamaño del gráfico */
+    height: 25px;
+}
+
