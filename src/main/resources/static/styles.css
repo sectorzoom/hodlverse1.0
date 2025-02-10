@@ -268,3 +268,31 @@ hr{
     color: white;
     border-color: #ddd;
 }
+
+/* Estilo general */
+.breadcrumb {
+    padding: 10px 15px;
+    border-radius: 5px;
+}
+
+/* Estilo de los enlaces */
+.breadcrumb-item a {
+    text-decoration: none;
+    color: var(--azuloscuro);
+    font-size: 15px;
+    transition: color 0.3s ease-in-out;
+}
+
+/* Efecto hover */
+.breadcrumb-item a:hover {
+    color: var(--oro);
+    text-decoration: underline;
+}
+
+/* Estilo para el último breadcrumb (activo) */
+.breadcrumb-item.active {
+    color: var(--oro);
+}
+.breadcrumb-item + .breadcrumb-item::before {
+    margin: 0 8px; /* Espaciado a ambos lados del separador */
+}
