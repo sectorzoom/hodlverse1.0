@@ -156,6 +156,7 @@ header .border-bottom{
 i{
     cursor: pointer;
     margin-right: 5px;
+    color: var(--azuloscuro);
 }
 /* Estilo para los enlaces de las listas en offcanvas */
 .offcanvas-body ul.btn-toggle-nav li a {
@@ -189,7 +190,7 @@ i{
     list-style: none; /* Sin viñetas */
 }
 hr{
-    border: 1px solid var(--azuloscuro);
+    border: 1px solid var(--azuloscuro) !important;
     margin-right: 3%;
     margin-left: 3%;
 }
@@ -223,4 +224,13 @@ hr{
 }
 .modal-backdrop {
     display: none;
+}
+.container{
+    max-width: 1500px;
+}
+.card{
+    border-radius: 30px;
+}
+.text{
+    color: var(--azuloscuro) !important;
 }

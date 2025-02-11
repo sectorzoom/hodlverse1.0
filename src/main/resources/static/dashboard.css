@@ -1,0 +1,148 @@
+#chart-container {
+    width: 100%;
+    height: 500px;
+    background: white;
+    position: relative;
+}
+
+/*CSS para el calendario*/
+.calendar-container {
+    border: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Alinear contenido a la izquierda */
+}
+
+#calendar {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr); /* 7 bolas por fila */
+    gap: 10px; /* Espaciado entre bolas */
+    justify-content: center; /* Centra el conjunto */
+}
+
+.day {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: bold;
+    color: white;
+    background-color: #061428;
+    transition: all 0.3s ease-in-out;
+}
+
+/* Días que ya pasaron */
+.past {
+    background-color: #b9b9b9;
+    color: #061428;
+}
+
+/* Días restantes (blanco con borde dorado) */
+.remaining {
+    background-color: #FFFFFF;
+    color: #061428;
+    border: 2px solid #061428;
+}
+
+/* Día actual */
+.today {
+    background-color: #061428;
+}
+
+/* Día marcado */
+.marked {
+    background-color: #C58120;
+    box-shadow: 0 0 10px rgba(197, 129, 32, 0.6);
+}
+
+/* Estilos para los días y horas más pequeños y alineados a la izquierda */
+.time-container {
+    text-align: left;
+    font-size: 14px;
+    color: #6c757d; /* Color gris de Bootstrap */
+}
+.timeline {
+    position: relative;
+    width: 100%;
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+.event {
+    position: relative;
+    background-color: #C58120;
+    padding: 10px 15px;
+    border-radius: 20px;
+    font-weight: bold;
+    cursor: grab;
+}
+.event.past {
+    background-color: #b9b9b9;
+}
+.carousel-item{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: relative;
+}
+.circle{
+    color: #061428;
+}
+/* Contenedor principal */
+.progress-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-end;
+    height: 165px;
+    position: relative;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+/* Barras de progreso */
+.progress-bar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+}
+
+/* Línea de progreso */
+.progress-line {
+    width: 6px;
+    background: #ccc;
+    transition: height 1.5s ease-in-out;
+}
+
+/* Línea activa */
+.progress-line.active {
+    background: #C58120;
+}
+
+/* Burbuja de texto */
+.progress-bubble {
+    position: relative;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #061428;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+}
+
+/* Burbuja de la partida anterior */
+.bubble-prev {
+    background: #aaa;
+}
+/* Burbuja de la partida actual */
+.bubble-current {
+    background: #C58120;
+}
