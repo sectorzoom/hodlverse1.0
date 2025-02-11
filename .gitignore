@@ -1,4 +1,7 @@
+# HELP.md (Ignorado si no es necesario)
 HELP.md
+
+# Directorios generados por Maven
 target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
@@ -31,3 +34,23 @@ build/
 
 ### VS Code ###
 .vscode/
+
+# Archivos de configuración sensibles
+application.properties
+application.yml
+application-dev.properties
+application-prod.properties
+application-test.properties
+
+# Logs y archivos temporales
+*.log
+*.tmp
+*.swp
+
+# Claves y certificados
+*.key
+*.crt
+*.pem
+
+# Otros archivos generados
+out/
