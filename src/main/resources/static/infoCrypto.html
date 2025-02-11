@@ -240,12 +240,12 @@
                     <img src="https://cryptologos.cc/logos/bitcoin-btc-logo.png" alt="Bitcoin Logo" class="me-3"
                          style="width: 50px; height: 50px;">
                     <div>
-                        <h3 class="mb-1 fw-bold text-dark">Bitcoin</h3>
+                        <h1 class="mb-1 fw-bold text-dark">Bitcoin</h1>
                         <span class="small fw-semibold text-danger" id="price-change">▼ 2.7%</span>
                     </div>
                 </div>
                 <!-- Precio -->
-                <p class="h2 fw-bold crypto-price" id="crypto-price">$668.31</p>
+                <p class="h3 fw-bold crypto-price" id="crypto-price">$668.31</p>
                 <!-- Detalles de la criptomoneda -->
                 <div class="crypto-stats p-3 mt-5 rounded bg-light">
                     <div class="d-flex justify-content-between mb-2">
@@ -282,7 +282,7 @@
                 <!-- Botones -->
                 <div class="d-flex gap-2 mt-3">
                     <button class="btn btn-danger w-50 py-2 btn-BuySell" id="buy-btn">Buy</button>
-                    <button class="btn btn-sell w-50 py-2 btn-BuySell">Sell</button>
+                    <button class="btn btn-sell w-50 py-2 btn-BuySell" id="sell-btn">Sell</button> <!-- Debe tener el ID correcto -->
                 </div>
             </div>
         </div>
@@ -414,10 +414,46 @@
     </div>
 </div>
 <!-- SELL MODAL -->
-<div class="modal-fade" id="sell-modal" tabindex="-1">
-    <div class="modal-content">
+<div class="modal fade" id="sell-modal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Complete Your Sale</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <label for="selling-amount" class="form-label">Enter amount to sell:</label>
+                <div class="input-group">
+                    <input type="number" id="selling-amount" class="form-control" placeholder="Amount" min="0.01" step="0.01">
+                    <span class="input-group-text">BTC</span>
+                </div>
+                <p class="text-muted mt-2">Your wallet balance will be updated after confirmation.</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-sell" data-bs-dismiss="modal">Cancel</button>
+                <button class="btn btn-danger" id="confirm-sell">Confirm Sale</button>
+            </div>
+        </div>
+    </div>
+</div>
 
-
+<!-- CONFIRMATION MODAL FOR SELL -->
+<div class="modal fade" id="confirm-sell-modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Confirm Sale</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <h5 class="fw-bold">Are you sure you want to proceed with the sale?</h5>
+                <span class="text-muted">Selling crypto may lead to losses due to market volatility.</span>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-sell py-2 btn-BuySell" data-bs-dismiss="modal">Cancel</button>
+                <button class="btn btn-danger py-2 btn-BuySell" id="finalize-sale">Continue</button>
+            </div>
+        </div>
     </div>
 </div>
 

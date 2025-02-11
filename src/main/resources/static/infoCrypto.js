@@ -164,17 +164,53 @@ document.getElementById('buy-btn').addEventListener('click', () => confirmModal.
 document.getElementById('confirm-buy').addEventListener('click', () => {
     confirmModal.hide();
     setTimeout(() => purchaseModal.show(), 500); // Pequeño delay para mejor transición
-});
+});function setupTransaction(buttonId, confirmId, finalizeId, amountId, action) {
+    const actionText = action === "buy" ? "Purchase" : "Sale";
+    const confirmModalEl = document.getElementById(`confirm-${action}-modal`);
+    const actionModalEl = document.getElementById(`${action}-modal`);
 
-document.getElementById('finalize-purchase').addEventListener('click', () => {
-    let amount = document.getElementById('crypto-amount').value;
-    if (amount && amount > 0) {
-        purchaseModal.hide();
-        alert(`✅ Purchase successful! You bought ${amount} BTC.`);
-    } else {
-        alert("⚠️ Please enter a valid amount.");
+    if (!confirmModalEl || !actionModalEl) {
+        console.error(`❌ Modal not found for action: ${action}`);
+        return;
     }
-});
+
+    const confirmModal = new bootstrap.Modal(confirmModalEl);
+    const actionModal = new bootstrap.Modal(actionModalEl);
+
+    const button = document.getElementById(buttonId);
+    if (!button) {
+        console.error(`❌ Button with ID "${buttonId}" not found.`);
+        return;
+    }
+
+    button.addEventListener("click", () => confirmModal.show());
+
+    document.getElementById(confirmId).addEventListener("click", () => {
+        confirmModal.hide();
+        setTimeout(() => actionModal.show(), 500);
+    });
+
+    document.getElementById(finalizeId).addEventListener("click", () => {
+        let amount = document.getElementById(amountId).value;
+        if (amount && amount > 0) {
+            actionModal.hide();
+            alert(`✅ ${actionText} successful! You ${action === "buy" ? "bought" : "sold"} ${amount} BTC.`);
+        } else {
+            alert("⚠️ Please enter a valid amount.");
+        }
+    });
+}
+
+// Configurar eventos para compra y venta
+setupTransaction("buy-btn", "confirm-buy", "finalize-purchase", "crypto-amount", "buy");
+setupTransaction("sell-btn", "confirm-sell", "finalize-sale", "selling-amount", "sell");
+console.log(document.getElementById("sell-btn")); // Verifica si el botón de venta existe
+console.log(document.getElementById("confirm-sell")); // Verifica si el botón de confirmación de venta existe
+console.log(document.getElementById("finalize-sale")); // Verifica si el botón de finalización de venta existe
+console.log(document.getElementById("sell-modal")); // Verifica si el modal de venta existe
+console.log(document.getElementById("confirm-sell-modal")); // Verifica si el modal de confirmación de venta existe
+
+
 document.getElementById("dropdownMenu").addEventListener("click", function(event) {
     window.location.href = "highlights.html";
 });
