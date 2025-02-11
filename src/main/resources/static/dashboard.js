@@ -74,21 +74,31 @@ document.addEventListener("DOMContentLoaded", function () {
 
     let option = {
         title: {
-            left: 'center',
-            text: 'Ganancias por Día ($)'
+            text: 'Balance Evolution',
+            left: 'center'
         },
         tooltip: {
             trigger: 'axis',
             formatter: function (params) {
                 let date = new Date(params[0].value[0]);
+                let day = date.getDate().toString().padStart(2, '0');
+                let month = (date.getMonth() + 1).toString().padStart(2, '0');
+                let year = date.getFullYear();
                 let value = params[0].value[1];
-                return `📅 Día ${date.getDate()} - 💰 $${value}`;
+
+                return `${day}-${month}-${year} <br/> Balance: <b>$${value}</b>`;
             }
+        },
+        grid: {
+            bottom: 95  // ⬆ Aumentamos espacio inferior para la barra de zoom
         },
         xAxis: {
             type: 'time',
-            name: 'Día',
+            name: 'Day',
             nameLocation: 'middle',
+            nameTextStyle: {
+                color: '#061428'
+            },
             nameGap: 30,
             axisLabel: {
                 formatter: function (value) {
@@ -98,7 +108,7 @@ document.addEventListener("DOMContentLoaded", function () {
         },
         yAxis: {
             type: 'value',
-            name: 'Dinero ($)',
+            name: 'Balance',
             nameLocation: 'middle',
             nameGap: 50,
             axisLabel: {
@@ -113,13 +123,11 @@ document.addEventListener("DOMContentLoaded", function () {
         ],
         series: [
             {
-                name: 'Ganancias',
                 type: 'line',
-                smooth: false,  // ❌ Evita curvas
                 symbol: 'none',
                 lineStyle: {
-                    color: '#061428', // 🔹 Color de la línea (rojo-naranja)
-                    width: 2  // 🔹 Grosor de la línea
+                    color: '#061428',
+                    width: 2
                 },
                 areaStyle: {
                     color: 'rgba(126, 172, 237, 0.3)' // 🔹 Color del fondo con transparencia
@@ -141,4 +149,96 @@ document.addEventListener("DOMContentLoaded", function () {
     } catch (error) {
         console.error("❌ Error al cargar el gráfico:", error);
     }
+});
+
+document.addEventListener("DOMContentLoaded", function() {
+    const calendarContainer = document.getElementById("calendar");
+    const daysRemainingText = document.getElementById("daysRemaining");
+    const timeRemainingText = document.getElementById("timeRemaining");
+
+    const today = new Date();
+    const currentDay = today.getDate();
+    const markedDay = 20; // Cambia este número según el día que desees marcar
+    const daysInMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0).getDate();
+
+    // Crear fecha objetivo (inicio del día marcado, es decir, a las 00:00:00)
+    const targetDate = new Date(today.getFullYear(), today.getMonth(), markedDay, 0, 0, 0);
+
+    // Calcular la diferencia en milisegundos desde este momento hasta el inicio del día marcado
+    const timeDiff = targetDate - today;
+
+    // Calcular correctamente los días, horas y minutos restantes
+    const remainingDays = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+    const remainingHours = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const remainingMinutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
+
+    // Mostrar la cuenta regresiva con los valores correctos
+    daysRemainingText.textContent = `${remainingDays} Días`;
+    timeRemainingText.textContent = `${remainingHours} horas, ${remainingMinutes} minutos`;
+
+    // Crear el calendario
+    for (let day = 1; day <= daysInMonth; day++) {
+        const dayElement = document.createElement("div");
+        dayElement.classList.add("day");
+        dayElement.textContent = day;
+
+        if (day < currentDay) {
+            dayElement.classList.add("past");
+        } else if (day === currentDay) {
+            dayElement.classList.add("today");
+        } else if (day === markedDay) {
+            dayElement.classList.add("marked");
+        } else {
+            dayElement.classList.add("remaining");
+        }
+
+        calendarContainer.appendChild(dayElement);
+    }
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+    // Datos de progreso iniciales
+    const partidas = [
+        { nombre: "2022", porcentaje: 40 }, // Partida anterior
+        { nombre: "2023", porcentaje: 75 }, // Partida actual
+    ];
+
+    // Elementos de progreso de partidas
+    const partidaAnteriorText = document.getElementById("partidaAnteriorText");
+    const partidaActualText = document.getElementById("partidaActualText");
+    const lineaAnterior = document.getElementById("past");
+    const lineaActual = document.getElementById("now");
+
+    // Elementos de la barra de progreso circular
+    const progressCircle = document.getElementById("progressCircle");
+    const progressText = document.getElementById("progressText");
+
+    // Función para actualizar las partidas (una sola vez)
+    function actualizarPartidas() {
+        if (!partidaAnteriorText || !partidaActualText || !lineaAnterior || !lineaActual) {
+            console.error("Uno o más elementos no fueron encontrados.");
+            return;
+        }
+
+        partidaAnteriorText.textContent = partidas[0].nombre;
+        partidaActualText.textContent = partidas[1].nombre;
+
+        // Ajustar la altura de las líneas según el porcentaje
+        lineaAnterior.style.height = `${partidas[0].porcentaje }px`;
+        lineaActual.style.height = `${partidas[1].porcentaje }px`;
+    }
+
+    // Función para animar la barra de progreso circular (una sola vez)
+    function animarProgresoCircular() {
+        const nuevoOffset = 314 - (partidas[1].porcentaje / 100) * 314;
+        progressCircle.style.transition = "stroke-dashoffset 1.5s ease-in-out";
+        progressCircle.style.strokeDashoffset = nuevoOffset;
+        progressText.textContent = `${partidas[1].porcentaje}%`;
+    }
+
+    // Llamar a la función una sola vez después de cargar
+    setTimeout(() => {
+        actualizarPartidas();
+        animarProgresoCircular();
+    }, 1000); // Retraso de 1 segundo para dar un efecto inicial
 });
