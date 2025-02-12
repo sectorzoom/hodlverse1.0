@@ -126,7 +126,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 type: 'line',
                 symbol: 'none',
                 lineStyle: {
-                    color: '#061428',
+                    color: '#7EACED',
                     width: 2
                 },
                 areaStyle: {
