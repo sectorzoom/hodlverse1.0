@@ -239,6 +239,13 @@ document.addEventListener("DOMContentLoaded", function () {
     setTimeout(() => {
         actualizarPartidas();
         animarProgresoCircular();
-        getUserId();
     }, 1000); // Retraso de 1 segundo para dar un efecto inicial
+
+    import { User } from 'UserJs/User.js';
+    async function fetchUserId() {
+        const userId = await User.getUserId();
+        console.log('ID del usuario:', userId);
+    }
+    fetchUserId();
+
 });
