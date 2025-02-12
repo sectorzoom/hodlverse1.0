@@ -18,7 +18,7 @@ public class TransactionController {
     }
 
     // Obtener todas las transacciones
-    @GetMapping
+    @GetMapping("/all")
     public List<Transaction> all() {
         return transactionService.findAll();
     }
@@ -65,5 +65,16 @@ public class TransactionController {
             throw new NotFoundException("Transacción con id " + id + " no encontrada.");
         }
         transactionService.deleteById(id);
+    }
+    // Obtener todas las transacciones de un usuario por su ID
+    @GetMapping("/all/{id}")
+    public List<Transaction> getTransactionsByUserId(@PathVariable Long id) {
+        List<Transaction> transactions = transactionService.findTransactionsByUserId(id);
+
+        if (transactions.isEmpty()) {
+            throw new NotFoundException("No se encontraron transacciones para el usuario con ID " + id);
+        }
+
+        return transactions;
     }
 }
