@@ -235,10 +235,10 @@ document.addEventListener("DOMContentLoaded", function () {
         progressCircle.style.strokeDashoffset = nuevoOffset;
         progressText.textContent = `${partidas[1].porcentaje}%`;
     }
-
     // Llamar a la función una sola vez después de cargar
     setTimeout(() => {
         actualizarPartidas();
         animarProgresoCircular();
+        getUserId();
     }, 1000); // Retraso de 1 segundo para dar un efecto inicial
 });
