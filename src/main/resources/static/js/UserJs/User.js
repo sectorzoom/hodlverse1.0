@@ -48,6 +48,20 @@ class User {
         });
     }
 
+    // 🔍 Obtener el id del usuario autenticado desde la API
+    static async getUserId() {
+        try {
+            const response = await $.ajax({
+                url: '/users',
+                type: 'GET'
+            });
+            return response.id; // Retorna el ID del usuario autenticado
+        } catch (error) {
+            console.error('Error al obtener el ID del usuario:', error);
+            return null; // Retorna null en caso de error
+        }
+    }
+
     // ➕ Crear un nuevo usuario en la API
     static createUser(username, email, password, registrationDate, picture, callback) {
         let newUser = { username, email, password, registrationDate, picture };
