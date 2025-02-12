@@ -161,10 +161,10 @@ document.addEventListener("DOMContentLoaded", function () {
 function registerUser(event) {
     event.preventDefault(); // Evita que se recargue la página
 
-    const email = document.getElementById("emailInput").value;
-    const password = document.getElementById("passwordInput").value;
+    const email = document.getElementById("floatingInput").value;
+    const password = document.getElementById("floatingPassword").value;
 
-    fetch('/api/auth/register', {
+    fetch('/users', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -176,7 +176,7 @@ function registerUser(event) {
                 alert("Usuario registrado con éxito!");
                 window.location.href = "/dashboard";
             } else {
-                alert("Error al registrar usuario.");
+                response.text().then(errorMessage => alert("Error: " + errorMessage));
             }
         })
         .catch(error => console.error("Error en la petición:", error));
