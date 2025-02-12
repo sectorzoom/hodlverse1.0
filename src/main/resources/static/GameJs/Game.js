@@ -11,7 +11,7 @@ class Game {
 
     // Calcular la fecha de finalización (30 días después de la fecha de inicio)
     calculateEndDate() {
-        const endDate = new Date(this.startDate);
+        let endDate = new Date(this.startDate);
         endDate.setDate(this.startDate.getDate() + 30); // Sumar 30 días
         return endDate;
     }
@@ -32,7 +32,7 @@ class Game {
 
     // Comenzar un juego
     startGame() {
-        const gameData = {
+        let gameData = {
             difficulty: this.difficulty,
             initial_credit: this.initialCredit,
             objective: this.objective,
@@ -40,22 +40,19 @@ class Game {
             start_date: this.startDate.toISOString(),
         };
 
-        // Enviar la solicitud POST para crear el juego
-        fetch('/games', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(gameData),
-        })
-            .then(response => response.json())
-            .then(data => {
+        $.ajax({
+            url: '/games',
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify(gameData),
+            success: (data) => {
                 this.gameId = data.gameId; // Guardar el ID del juego
                 console.log('Juego comenzado:', data);
-            })
-            .catch(error => {
+            },
+            error: (error) => {
                 console.error('Error al comenzar el juego:', error);
-            });
+            }
+        });
     }
 
     // Obtener el estado de un juego
@@ -65,41 +62,41 @@ class Game {
             return;
         }
 
-        fetch(`/games/${this.gameId}`)
-            .then(response => response.json())
-            .then(data => {
+        $.ajax({
+            url: `/games/${this.gameId}`,
+            type: 'GET',
+            success: (data) => {
                 console.log('Estado del juego:', data);
-            })
-            .catch(error => {
+            },
+            error: (error) => {
                 console.error('Error al obtener el estado del juego:', error);
-            });
+            }
+        });
     }
 
-    // Realizar una transacción dentro del juego (ejemplo de compra o venta de moneda)
+    // Realizar una transacción dentro del juego
     makeTransaction(transactionData) {
         if (this.gameId === null) {
             console.log('El juego no ha comenzado aún.');
             return;
         }
 
-        fetch(`/games/${this.gameId}/transactions`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(transactionData),
-        })
-            .then(response => response.json())
-            .then(data => {
+        $.ajax({
+            url: `/games/${this.gameId}/transactions`,
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify(transactionData),
+            success: (data) => {
                 console.log('Transacción realizada:', data);
-                // Actualizar el crédito del jugador o realizar otras acciones
-            })
-            .catch(error => {
+                this.updateCredit(transactionData.destinationTransactionAmount);
+            },
+            error: (error) => {
                 console.error('Error al realizar la transacción:', error);
-            });
+            }
+        });
     }
 
-    // Actualizar el crédito del jugador (en función de las transacciones)
+    // Actualizar el crédito del jugador
     updateCredit(amount) {
         this.currentCredit += amount;
         console.log('Nuevo crédito:', this.currentCredit);
@@ -115,30 +112,37 @@ class Game {
     }
 }
 
-// Ejemplo de uso:
+// Ejemplo de uso con jQuery:
 
-// Crear un nuevo juego con dificultad 'experienced' (30% de beneficio)
-const game = new Game('experienced');
+$(document).ready(function () {
+    let game = new Game('experienced');
 
-// Iniciar el juego
-game.startGame();
+    // Botón para comenzar el juego
+    $('#startGame').click(function () {
+        game.startGame();
+    });
 
-// Obtener el estado del juego
-game.getGameStatus();
+    // Botón para obtener el estado del juego
+    $('#getGameStatus').click(function () {
+        game.getGameStatus();
+    });
 
-// Realizar una transacción
-game.makeTransaction({
-    transactionType: 'buy',
-    originTransactionAmount: 5000,
-    destinationTransactionAmount: 3000,
-    originUnitPrice: 1.5,
-    destinationUnitPrice: 1.3,
-    transactionDate: new Date().toISOString(),
+    // Botón para hacer una transacción de prueba
+    $('#makeTransaction').click(function () {
+        let transactionData = {
+            transactionType: 'buy',
+            originTransactionAmount: 5000,
+            destinationTransactionAmount: 3000,
+            originUnitPrice: 1.5,
+            destinationUnitPrice: 1.3,
+            transactionDate: new Date().toISOString(),
+        };
+        game.makeTransaction(transactionData);
+    });
+
+    // Botón para verificar si se alcanzó el objetivo
+    $('#checkObjective').click(function () {
+        let isGoalReached = game.checkObjective();
+        console.log('¿Objetivo alcanzado?', isGoalReached);
+    });
 });
-
-// Actualizar el crédito después de una transacción
-game.updateCredit(10000);
-
-// Verificar si se ha alcanzado el objetivo
-const isGoalReached = game.checkObjective();
-console.log('¿Objetivo alcanzado?', isGoalReached);

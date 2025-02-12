@@ -12,4 +12,5 @@ public interface TransactionRepository extends JpaRepository<Transaction, Long> 
     List<Transaction> findByUserUserId(Long userId); // Buscar transacciones por ID de usuario
     List<Transaction> findByOriginCurrencyCurrencyId(Long currencyId); // Buscar transacciones por ID de divisa origen
     List<Transaction> findByDestinationCurrencyCurrencyId(Long currencyId); // Buscar transacciones por ID de divisa destino
+    List<Transaction> findByUser_UserId(Long userId); //Buscar transacciones por el id de usuario.
 }

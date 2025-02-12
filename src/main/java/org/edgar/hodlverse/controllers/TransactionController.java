@@ -66,4 +66,15 @@ public class TransactionController {
         }
         transactionService.deleteById(id);
     }
+    // Obtener todas las transacciones de un usuario por su ID
+    @GetMapping
+    public List<Transaction> getTransactionsByUserId(@PathVariable Long userId) {
+        List<Transaction> transactions = transactionService.findTransactionsByUserId(userId);
+
+        if (transactions.isEmpty()) {
+            throw new NotFoundException("No se encontraron transacciones para el usuario con ID " + userId);
+        }
+
+        return transactions;
+    }
 }
