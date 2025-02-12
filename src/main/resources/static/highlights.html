@@ -65,11 +65,11 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0 nav-underline">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="dashboard.html"><i
+                        <a class="nav-link" aria-current="page" href="dashboard.html"><i
                                 class="fa-solid fa-gauge-high"></i>Dashboard</a>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown" href="highlights.html" id="dropdownMenu" role="button"
+                        <a class="nav-link dropdown active" href="highlights.html" id="dropdownMenu" role="button"
                            data-bs-toggle="dropdown"
                            aria-expanded="false"><i class="fa-solid fa-chart-line"></i>Highlights</a>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenu">
@@ -265,66 +265,17 @@
                                 <span class="d-flex">Trending Coins</span>
                                 <img src="images/icons/fuego.png" height="20" class="d-flex">
                             </div>
-
                         </div>
                         <div class="row fw-bold text-muted border-bottom pb-2 extra-small-text">
                             <div class="col-6">Coin</div>
                             <div class="col-3 text-end">Price</div>
                             <div class="col-3 text-end">Gains</div>
                         </div>
-                        <ul class="list-unstyled mt-2">
-                            <li class="row py-1 mt-2 mb-2 card-item">
-                                <div class="col-6 d-flex align-items-center">
-                                    <img src="https://cryptologos.cc/logos/bitcoin-btc-logo.png" alt="Bitcoin"
-                                         height="24" class="me-3" id="tredingImage1">
-                                    <a href="infoCrypto.html" class="text-decoration-none text-dark"><p
-                                            id="trendingCoin1" class="mb-0">Bitcoin</p></a>
-                                </div>
-                                <div class="col-3 text-end">$42,300</div>
-                                <div class="col-3 text-end text-success fw-bold">+3.5%</div>
-                            </li>
-                            <li class="row py-1 mt-2 mb-2 card-item">
-                                <div class="col-6">
-                                    <img src="https://cryptologos.cc/logos/ethereum-eth-logo.png" alt="Ethereum"
-                                         height="24" class="me-2">
-                                    Ethereum
-                                </div>
-                                <div class="col-3 text-end">$2,850</div>
-                                <div class="col-3 text-end text-success fw-bold">+2.8%</div>
-                            </li>
-                            <li class="row py-1 mt-2 mb-2 card-item">
-                                <div class="col-6">
-                                    <img src="https://cryptologos.cc/logos/solana-sol-logo.png" alt="Solana"
-                                         height="24"
-                                         class="me-2">
-                                    Solana
-                                </div>
-                                <div class="col-3 text-end">$98.50</div>
-                                <div class="col-3 text-end text-danger fw-bold">-1.2%</div>
-                            </li>
-                            <!-- New Coins Added -->
-                            <li class="row py-1 mt-2 mb-2 card-item">
-                                <div class="col-6">
-                                    <img src="https://cryptologos.cc/logos/litecoin-ltc-logo.png" alt="Litecoin"
-                                         height="24" class="me-2">
-                                    Litecoin
-                                </div>
-                                <div class="col-3 text-end">$150.00</div>
-                                <div class="col-3 text-end text-success fw-bold">+4.5%</div>
-                            </li>
-                            <li class="row py-1 mt-2 mb-3 card-item">
-                                <div class="col-6">
-                                    <img src="https://cryptologos.cc/logos/polkadot-new-dot-logo.png?v=040"
-                                         alt="Polkadot" height="24" class="me-2">
-                                    Polkadot
-                                </div>
-                                <div class="col-3 text-end">$35.60</div>
-                                <div class="col-3 text-end text-success fw-bold">+2.2%</div>
-                            </li>
+                        <ul id="trending-list" class="list-unstyled mt-2">
+                            <!-- Los datos se insertarán aquí -->
                         </ul>
                         <button class="btn view-more-btn position-absolute bottom-0 start-50 translate-middle-x">
-                            View
-                            More
+                            View More
                         </button>
                     </div>
                 </div>

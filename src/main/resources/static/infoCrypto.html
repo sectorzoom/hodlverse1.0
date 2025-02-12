@@ -282,7 +282,7 @@
                 <!-- Botones -->
                 <div class="d-flex gap-2 mt-3">
                     <button class="btn btn-danger w-50 py-2 btn-BuySell" id="buy-btn">Buy</button>
-                    <button class="btn btn-sell w-50 py-2 btn-BuySell" id="sell-btn">Sell</button> <!-- Debe tener el ID correcto -->
+                    <button class="btn btn-sell w-50 py-2 btn-BuySell" id="sell-btn">Sell</button>
                 </div>
             </div>
         </div>
@@ -370,8 +370,8 @@
         </div>
     </div>
 </main>
-<!-- CONFIRMATION MODAL -->
-<div class="modal fade" id="confirm-modal">
+<!-- CONFIRMATION MODAL FOR BUY -->
+<div class="modal fade" id="confirm-buy-modal">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -383,7 +383,7 @@
                 <span class="text-muted">Investing in crypto involves risks. Make sure you understand the market.</span>
             </div>
             <div class="modal-footer">
-                <button class="btn btn-sell py-2 btn-BuySell " data-bs-dismiss="modal">Cancel</button>
+                <button class="btn btn-sell py-2 btn-BuySell" data-bs-dismiss="modal">Cancel</button>
                 <button class="btn btn-danger py-2 btn-BuySell" id="confirm-buy">Continue</button>
             </div>
         </div>
@@ -391,7 +391,7 @@
 </div>
 
 <!-- PURCHASE MODAL -->
-<div class="modal fade" id="purchase-modal" tabindex="-1">
+<div class="modal fade" id="buy-modal" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -413,7 +413,28 @@
         </div>
     </div>
 </div>
-<!-- SELL MODAL -->
+
+<!-- CONFIRMATION MODAL FOR SELL -->
+<div class="modal fade" id="confirm-sell-modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Confirm Sale</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <h5 class="fw-bold">Are you sure you want to proceed?</h5>
+                <span class="text-muted">Selling crypto involves risks. Make sure you understand the market.</span>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-sell py-2 btn-BuySell" data-bs-dismiss="modal">Cancel</button>
+                <button class="btn btn-danger py-2 btn-BuySell" id="confirm-sell">Continue</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- SELL MODAL (CORREGIDO) -->
 <div class="modal fade" id="sell-modal" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -431,27 +452,7 @@
             </div>
             <div class="modal-footer">
                 <button class="btn btn-sell" data-bs-dismiss="modal">Cancel</button>
-                <button class="btn btn-danger" id="confirm-sell">Confirm Sale</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- CONFIRMATION MODAL FOR SELL -->
-<div class="modal fade" id="confirm-sell-modal">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Confirm Sale</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-            </div>
-            <div class="modal-body">
-                <h5 class="fw-bold">Are you sure you want to proceed with the sale?</h5>
-                <span class="text-muted">Selling crypto may lead to losses due to market volatility.</span>
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-sell py-2 btn-BuySell" data-bs-dismiss="modal">Cancel</button>
-                <button class="btn btn-danger py-2 btn-BuySell" id="finalize-sale">Continue</button>
+                <button class="btn btn-danger" id="finalize-sale">Confirm Sale</button>
             </div>
         </div>
     </div>
