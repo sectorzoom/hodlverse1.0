@@ -1,10 +1,9 @@
 package org.edgar.hodlverse.entities;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -30,6 +29,9 @@ public class User {
     @Column(nullable = false)
     private LocalDate registrationDate;
 
+    @Column(length = 200)
+    private String picture;  // Nuevo campo para la URL de la imagen del perfil
+
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private Wallet wallet;
 
@@ -40,6 +42,8 @@ public class User {
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private Game game;
 
+
+    // Getters y Setters
 
     public Long getUserId() {
         return userId;
@@ -79,6 +83,14 @@ public class User {
 
     public void setRegistrationDate(LocalDate registrationDate) {
         this.registrationDate = registrationDate;
+    }
+
+    public String getPicture() {
+        return picture;
+    }
+
+    public void setPicture(String picture) {
+        this.picture = picture;
     }
 
     public Wallet getWallet() {
