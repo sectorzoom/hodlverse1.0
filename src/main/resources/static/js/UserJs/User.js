@@ -1,4 +1,4 @@
-export class User {
+class User {
     constructor(userId, username, email, password, registrationDate, picture, wallet, transactions, game) {
         this.userId = userId;
         this.username = username;
@@ -122,6 +122,7 @@ export class User {
         });
     }
 }
+window.User = User;
 
 // =============================
 // 🔥 Cargar automáticamente todos los usuarios al iniciar
