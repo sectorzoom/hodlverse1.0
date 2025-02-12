@@ -49,89 +49,196 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 });
+document.addEventListener("DOMContentLoaded", function () {
+    let chartDom = document.getElementById("chart-container");
 
-let currentPage = 1; // Página actual
+    if (!chartDom) {
+        console.error("❌ No se encontró el contenedor del gráfico.");
+        return;
+    }
 
-function getDateSevenDaysAgo() {
-    let date = new Date();
-    date.setDate(date.getDate() - 7);  // Restar 7 días
-    let day = ("0" + date.getDate()).slice(-2);
-    let month = ("0" + (date.getMonth() + 1)).slice(-2); // Los meses empiezan desde 0
-    let year = date.getFullYear();
-    return `${day}-${month}-${year}`;
-}
+    let myChart = echarts.init(chartDom);
 
-async function fetchCryptoData7Days(coin) {
-    // Obtener los datos históricos de la moneda en los últimos 7 días
-    let historicalData = await fetch(`https://api.coingecko.com/api/v3/coins/${coin.id}/history?date=${getDateSevenDaysAgo()}&localization=false&x_cg_demo_api_key=CG-5XtP4exze6boDu6Tj6Ly3bwD`);
-    let historicalPriceData = await historicalData.json();
-    return historicalPriceData;
-}
+    // 🔹 Generación de datos (100 días de ganancias aleatorias)
+    let base = new Date(2024, 0, 1).getTime();
+    let oneDay = 24 * 3600 * 1000;
+    let data = [];
 
-async function fetchCryptoData() {
+    for (let i = 0; i < 100; i++) {
+        let time = base + i * oneDay;
+        let value = Math.round(Math.random() * 200 + 50);
+        data.push([time, value]);
+    }
+
+    console.log("📊 Datos generados:", data);
+
+    let option = {
+        title: {
+            text: 'Balance Evolution',
+            left: 'center'
+        },
+        tooltip: {
+            trigger: 'axis',
+            formatter: function (params) {
+                let date = new Date(params[0].value[0]);
+                let day = date.getDate().toString().padStart(2, '0');
+                let month = (date.getMonth() + 1).toString().padStart(2, '0');
+                let year = date.getFullYear();
+                let value = params[0].value[1];
+
+                return `${day}-${month}-${year} <br/> Balance: <b>$${value}</b>`;
+            }
+        },
+        grid: {
+            bottom: 95  // ⬆ Aumentamos espacio inferior para la barra de zoom
+        },
+        xAxis: {
+            type: 'time',
+            name: 'Day',
+            nameLocation: 'middle',
+            nameTextStyle: {
+                color: '#061428'
+            },
+            nameGap: 30,
+            axisLabel: {
+                formatter: function (value) {
+                    return new Date(value).toLocaleDateString('es-ES', { day: '2-digit', month: 'short' });
+                }
+            }
+        },
+        yAxis: {
+            type: 'value',
+            name: 'Balance',
+            nameLocation: 'middle',
+            nameGap: 50,
+            axisLabel: {
+                formatter: function (value) {
+                    return '$' + value;
+                }
+            }
+        },
+        dataZoom: [
+            { type: 'inside', start: 0, end: 100 },
+            { start: 0, end: 100 }
+        ],
+        series: [
+            {
+                type: 'line',
+                symbol: 'none',
+                lineStyle: {
+                    color: '#061428',
+                    width: 2
+                },
+                areaStyle: {
+                    color: 'rgba(126, 172, 237, 0.3)' // 🔹 Color del fondo con transparencia
+                },
+                data: data
+            }
+        ],
+        toolbox: {
+            show: true,
+            feature: {
+                restore: {},
+                saveAsImage: {}
+            }
+        }
+    };
+
     try {
-        const response = await fetch(`https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=40&page=${currentPage}&x_cg_demo_api_key=CG-5XtP4exze6boDu6Tj6Ly3bwD`);
-        const data = await response.json();
+        myChart.setOption(option);
+    } catch (error) {
+        console.error("❌ Error al cargar el gráfico:", error);
+    }
+});
 
-        console.log("Datos obtenidos:", data); // Para depuración
+document.addEventListener("DOMContentLoaded", function() {
+    const calendarContainer = document.getElementById("calendar");
+    const daysRemainingText = document.getElementById("daysRemaining");
+    const timeRemainingText = document.getElementById("timeRemaining");
 
-        let tableBody = document.getElementById("cryptoTableBody");
-        tableBody.innerHTML = ""; // Limpiar la tabla antes de actualizarla
+    const today = new Date();
+    const currentDay = today.getDate();
+    const markedDay = 20; // Cambia este número según el día que desees marcar
+    const daysInMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0).getDate();
 
-        // Iterar sobre cada criptomoneda
-        for (const coin of data) {
-            // Obtener los datos históricos de la moneda (cambio en 7 días)
-            let historicalPriceData = await fetchCryptoData7Days(coin);
+    // Crear fecha objetivo (inicio del día marcado, es decir, a las 00:00:00)
+    const targetDate = new Date(today.getFullYear(), today.getMonth(), markedDay, 0, 0, 0);
 
-            // Calcular cambio en 1 hora manualmente
-            let price1hAgo = coin.current_price / (1 + coin.price_change_percentage_24h / 100);
-            let change1h = ((coin.current_price - price1hAgo) / price1hAgo) * 100;
+    // Calcular la diferencia en milisegundos desde este momento hasta el inicio del día marcado
+    const timeDiff = targetDate - today;
 
-            // Calcular cambio en 24 horas
-            let change24h = coin.price_change_percentage_24h?.toFixed(1) ?? "N/A";
-            let class1h = change1h < 0 ? 'text-danger' : 'text-success';
-            let class24h = change24h < 0 ? 'text-danger' : 'text-success';
+    // Calcular correctamente los días, horas y minutos restantes
+    const remainingDays = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+    const remainingHours = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const remainingMinutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
 
-            // Calcular cambio en 7 días (usando los datos históricos)
-            let price7dAgo = historicalPriceData.market_data?.current_price?.usd;
-            let change7d = price7dAgo ? ((coin.current_price - price7dAgo) / price7dAgo) * 100 : 0;
-            let class7d = change7d < 0 ? 'text-danger' : 'text-success';
+    // Mostrar la cuenta regresiva con los valores correctos
+    daysRemainingText.textContent = `${remainingDays} Días`;
+    timeRemainingText.textContent = `${remainingHours} horas, ${remainingMinutes} minutos`;
 
-            // Construir la fila de la tabla con los datos calculados
-            let row = `
-                <tr>
-                    <td class="text-end">${coin.market_cap_rank}</td>
-                    <td class="sticky-col start-0 text-start"><img src="${coin.image}" height="24"> ${coin.name} (${coin.symbol.toUpperCase()})</td>
-                    <td class="text-end">${coin.current_price.toLocaleString()} US$</td>
-                    <td class="${class1h}">${change1h.toFixed(1)}%</td>
-                    <td class="${class24h}">${change24h}%</td>
-                    <td class="${class7d}">${change7d.toFixed(1)}%</td>
-                    <td class="text-end">${coin.total_volume.toLocaleString()} US$</td>
-                    <td class="text-end">${coin.market_cap.toLocaleString()} US$</td>
-                </tr>
-            `;
-            tableBody.innerHTML += row;
+    // Crear el calendario
+    for (let day = 1; day <= daysInMonth; day++) {
+        const dayElement = document.createElement("div");
+        dayElement.classList.add("day");
+        dayElement.textContent = day;
+
+        if (day < currentDay) {
+            dayElement.classList.add("past");
+        } else if (day === currentDay) {
+            dayElement.classList.add("today");
+        } else if (day === markedDay) {
+            dayElement.classList.add("marked");
+        } else {
+            dayElement.classList.add("remaining");
         }
 
-        // Actualizar número de página
-        document.getElementById("currentPage").innerText = currentPage;
-
-    } catch (error) {
-        console.error("Error al obtener datos:", error);
+        calendarContainer.appendChild(dayElement);
     }
-}
+});
 
-function changePage(direction) {
-    if (direction === -1 && currentPage > 1) {
-        currentPage--; // Retroceder página
-    } else if (direction === 1) {
-        currentPage++; // Avanzar página
+document.addEventListener("DOMContentLoaded", function () {
+    // Datos de progreso iniciales
+    const partidas = [
+        { nombre: "2022", porcentaje: 40 }, // Partida anterior
+        { nombre: "2023", porcentaje: 75 }, // Partida actual
+    ];
+
+    // Elementos de progreso de partidas
+    const partidaAnteriorText = document.getElementById("partidaAnteriorText");
+    const partidaActualText = document.getElementById("partidaActualText");
+    const lineaAnterior = document.getElementById("past");
+    const lineaActual = document.getElementById("now");
+
+    // Elementos de la barra de progreso circular
+    const progressCircle = document.getElementById("progressCircle");
+    const progressText = document.getElementById("progressText");
+
+    // Función para actualizar las partidas (una sola vez)
+    function actualizarPartidas() {
+        if (!partidaAnteriorText || !partidaActualText || !lineaAnterior || !lineaActual) {
+            console.error("Uno o más elementos no fueron encontrados.");
+            return;
+        }
+
+        partidaAnteriorText.textContent = partidas[0].nombre;
+        partidaActualText.textContent = partidas[1].nombre;
+
+        // Ajustar la altura de las líneas según el porcentaje
+        lineaAnterior.style.height = `${partidas[0].porcentaje }px`;
+        lineaActual.style.height = `${partidas[1].porcentaje }px`;
     }
-    fetchCryptoData(); // Recargar datos con la nueva página
-}
 
-fetchCryptoData();
-setInterval(fetchCryptoData, 60000); // Actualiza cada 60s
-document.getElementById("dropdownMenu").addEventListener("click", function(event) {
-    window.location.href = "highlights.html";
+    // Función para animar la barra de progreso circular (una sola vez)
+    function animarProgresoCircular() {
+        const nuevoOffset = 314 - (partidas[1].porcentaje / 100) * 314;
+        progressCircle.style.transition = "stroke-dashoffset 1.5s ease-in-out";
+        progressCircle.style.strokeDashoffset = nuevoOffset;
+        progressText.textContent = `${partidas[1].porcentaje}%`;
+    }
+
+    // Llamar a la función una sola vez después de cargar
+    setTimeout(() => {
+        actualizarPartidas();
+        animarProgresoCircular();
+    }, 1000); // Retraso de 1 segundo para dar un efecto inicial
 });

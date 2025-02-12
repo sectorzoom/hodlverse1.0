@@ -296,3 +296,13 @@ hr{
 .breadcrumb-item + .breadcrumb-item::before {
     margin: 0 8px; /* Espaciado a ambos lados del separador */
 }
+
+.container{
+    max-width: 1500px;
+}
+.card{
+    border-radius: 30px;
+}
+.text{
+    color: var(--azuloscuro) !important;
+}
