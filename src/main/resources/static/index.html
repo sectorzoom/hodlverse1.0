@@ -236,7 +236,7 @@
                         </div>
 
                         <div class="modal-body p-5 pt-0">
-                            <form class="">
+                            <form id="registerForm" onsubmit="registerUser(event)">
                                 <div class="form-floating mb-3">
                                     <input type="email" class="form-control rounded-3" id="floatingInput"
                                            placeholder="name@example.com">
@@ -247,15 +247,16 @@
                                            placeholder="Password">
                                     <label for="floatingPassword">Password</label>
                                 </div>
-                                <button class="w-100 mb-2 btn btn-lg rounded-3 btn-sign" onclick="window.location.href='dashboard.html'" type="button">Sign up</button>
+                                <button class="w-100 mb-2 btn btn-lg rounded-3 btn-sign" type="submit">Sign up</button>
                                 <small class="text-body-secondary d-flex justify-content-center">By clicking Sign up,
                                     you agree to the terms of use.</small>
                                 <hr class="my-4">
                                 <h2 class="fs-5 fw-bold mb-3 d-flex justify-content-center">Or use a third-party</h2>
-                                <button class="w-100 py-2 mb-2 btn btn-outline-dark rounded-3" type="submit">
-                                    <i class="fa-brands fa-google"></i>
-                                    Sign up with Google
-                                </button>
+                                <a href="/oauth2/authorization/google">
+                                    <button class="w-100 py-2 mb-2 btn btn-outline-dark rounded-3" type="button">
+                                        <i class="fa-brands fa-google"></i> Sign up with Google
+                                    </button>
+                                </a>
                                 <button class="w-100 py-2 mb-2 btn btn-outline-dark rounded-3" type="submit">
                                     <i class="fa-brands fa-apple"></i>
                                     Sign up with Apple
@@ -294,10 +295,11 @@
                                 <button class="w-100 mb-2 btn btn-lg rounded-3 btn-sign" onclick="window.location.href='dashboard.html'" type="button">Log in</button>
                                 <hr class="my-4">
                                 <h2 class="fs-5 fw-bold mb-3 d-flex justify-content-center">Or use a third-party</h2>
-                                <button class="w-100 py-2 mb-2 btn btn-outline-dark rounded-3" type="submit">
-                                    <i class="fa-brands fa-google"></i>
-                                    Log in with Google
-                                </button>
+                                <a href="/oauth2/authorization/google">
+                                    <button class="w-100 py-2 mb-2 btn btn-outline-dark rounded-3" type="button">
+                                        <i class="fa-brands fa-google"></i> Log in with Google
+                                    </button>
+                                </a>
                                 <button class="w-100 py-2 mb-2 btn btn-outline-dark rounded-3" type="submit">
                                     <i class="fa-brands fa-apple"></i>
                                     Log in with Apple
