@@ -11,8 +11,9 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/login", "/oauth2/**", "/index.html").permitAll()
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/", "/index.html", "/css/**", "/js/**", "/images/**").permitAll() // Permitir archivos estáticos
+                        .requestMatchers("/login", "/oauth2/**").permitAll() // Permitir login y OAuth
                         .anyRequest().authenticated()
                 )
                 .oauth2Login(oauth2 -> oauth2
