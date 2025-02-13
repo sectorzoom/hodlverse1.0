@@ -261,8 +261,10 @@
                     <!-- Detalles de la criptomoneda -->
                     <div class="crypto-stats p-3 mt-5 rounded bg-light">
                         <div class="d-flex justify-content-between mb-2">
-                            <span class="fw-semibold">Market Cap:</span> <span class="text-muted">$97.5B</span>
+                        <span class="fw-semibold">Market Cap: <i class="bi bi-info-circle ms-1" data-bs-toggle="tooltip" data-bs-placement="top" title="El valor total de todas las acciones en circulación multiplicado por el precio actual."></i></span>
+                            <span class="text-muted">$97.5B</span>
                         </div>
+
                         <div class="d-flex justify-content-between mb-2">
                             <span class="fw-semibold">Fully Diluted Valuation:</span> <span
                                 class="text-muted">$2.02T</span>
@@ -399,7 +401,8 @@
     </div>
 </main>
 <!-- Confirmation Modal -->
-<div class="modal fade" id="confirmationModal" tabindex="-1" aria-labelledby="confirmationModalLabel" aria-hidden="true">
+<div class="modal fade" id="confirmationModal" tabindex="-1" aria-labelledby="confirmationModalLabel"
+     aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -429,7 +432,8 @@
                 <form id="buy-form">
                     <div class="mb-3">
                         <label for="buy-amount" class="form-label">Amount to Buy</label>
-                        <input type="number" class="form-control" id="buy-amount" min="0.01" step="0.01" placeholder="Enter amount">
+                        <input type="number" class="form-control" id="buy-amount" min="0.01" step="0.01"
+                               placeholder="Enter amount">
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Current Price per Unit (USD)</label>
@@ -461,7 +465,8 @@
                 <form id="sell-form">
                     <div class="mb-3">
                         <label for="sell-amount" class="form-label">Amount to Sell</label>
-                        <input type="number" class="form-control" id="sell-amount" min="0.01" step="0.01" placeholder="Enter amount">
+                        <input type="number" class="form-control" id="sell-amount" min="0.01" step="0.01"
+                               placeholder="Enter amount">
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Current Price per Unit (USD)</label>
@@ -480,7 +485,6 @@
         </div>
     </div>
 </div>
-
 
 
 <footer>

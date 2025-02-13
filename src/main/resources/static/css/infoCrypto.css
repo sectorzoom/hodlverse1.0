@@ -20,13 +20,6 @@
     border-radius: 10px;
 }
 
-
-/* Contenedor principal */
-.container {
-    max-width: 1200px;
-    margin: auto;
-}
-
 /* Tarjetas (secciones) */
 .shadow-lg {
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08) !important;
@@ -167,6 +160,7 @@
         margin-bottom: 20px; /* Añadido un pequeño margen entre secciones */
     }
 }
+
 /* Personalización del modal (opcional) */
 #confirm-modal .modal-content {
     border-radius: 15px;

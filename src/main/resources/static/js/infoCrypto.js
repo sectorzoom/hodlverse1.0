@@ -212,6 +212,7 @@ document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('confirm-buy').addEventListener('click', function () {
         // Aquí iría la lógica real de compra
         alert('Purchase confirmed!');
+
         buyModal.hide();
     });
 
@@ -220,4 +221,10 @@ document.addEventListener('DOMContentLoaded', function () {
         alert('Sale confirmed!');
         sellModal.hide();
     });
+});
+
+/*TOOLTIP INFO */
+let tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+let tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+    return new bootstrap.Tooltip(tooltipTriggerEl);
 });
