@@ -7,7 +7,5 @@ import java.util.List;
 
 @Repository
 public interface BalanceRepository extends JpaRepository<Balance, Long> {
-    // Métodos personalizados (si los necesitas)
-    List<Balance> findByWalletWalletId(Long walletId); // Buscar balances por ID de wallet
     List<Balance> findByCurrencyCurrencyId(Long currencyId); // Buscar balances por ID de divisa
 }

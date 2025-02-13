@@ -61,14 +61,6 @@ public class BalanceController {
         balanceService.deleteById(id);
     }
 
-    @GetMapping("/wallet/{walletId}")
-    public List<Balance> balancesByWallet(@PathVariable Long walletId) {
-        if (balanceService.findByWalletId(walletId).isEmpty()) {
-            throw new NotFoundException("Cartera con ID " + walletId + " no encontrado.");
-        }
-        return balanceService.findByWalletId(walletId);
-    }
-
     @GetMapping("/currency/{currencyId}")
     public List<Balance> balancesByCurrency(@PathVariable Long currencyId) {
         if (balanceService.findByCurrencyId(currencyId).isEmpty()) {

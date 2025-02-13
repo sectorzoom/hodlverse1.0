@@ -5,7 +5,9 @@ import org.edgar.hodlverse.services.NotFoundException;
 import org.edgar.hodlverse.services.TransactionService;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/transactions") // Ruta base para el controlador
@@ -77,4 +79,22 @@ public class TransactionController {
 
         return transactions;
     }
+
+    // Obtener las últimas 5 transacciones de un usuario por su ID
+    @GetMapping("/latest/{id}")
+    public List<Transaction> getLatestTransactionsByUserId(@PathVariable Long id) {
+        List<Transaction> transactions = transactionService.findTransactionsByUserId(id);
+
+        if (transactions.isEmpty()) {
+            throw new NotFoundException("No se encontraron transacciones para el usuario con ID " + id);
+        }
+
+        // Devolver solo las últimas 5 transacciones
+        return transactions.stream()
+                .sorted(Comparator.comparing(Transaction::getTransactionDate).reversed()) // Ordenar por fecha descendente
+                .limit(5) // Tomar las primeras 5
+                .collect(Collectors.toList());
+    }
+
+
 }

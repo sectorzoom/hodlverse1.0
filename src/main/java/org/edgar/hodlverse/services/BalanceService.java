@@ -36,10 +36,6 @@ public class BalanceService {
         balanceRepository.deleteById(id);
     }
 
-    public List<Balance> findByWalletId(Long walletId) {
-        return balanceRepository.findByWalletWalletId(walletId);
-    }
-
     public List<Balance> findByCurrencyId(Long currencyId) {
         return balanceRepository.findByCurrencyCurrencyId(currencyId);
     }
