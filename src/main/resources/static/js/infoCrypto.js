@@ -155,70 +155,69 @@ window.onload = function () {
         }
     });
 };
-
-const confirmModal = new bootstrap.Modal(document.getElementById('confirm-modal'));
-const purchaseModal = new bootstrap.Modal(document.getElementById('purchase-modal'));
-
-document.getElementById('buy-btn').addEventListener('click', () => confirmModal.show());
-
-document.getElementById('confirm-buy').addEventListener('click', () => {
-    confirmModal.hide();
-    setTimeout(() => purchaseModal.show(), 500); // Pequeño delay para mejor transición
-});
-function setupTransaction(buttonId, confirmId, finalizeId, amountId, action) {
-    const confirmModalEl = document.getElementById(`confirm-${action}-modal`);
-    const actionModalEl = document.getElementById(`${action}-modal`);
-
-    if (!confirmModalEl || !actionModalEl) {
-        console.error(`❌ Modal not found for action: ${action}`);
-        return;
-    }
-
-    const confirmModal = new bootstrap.Modal(confirmModalEl);
-    const actionModal = new bootstrap.Modal(actionModalEl);
-
-    // Botón principal (Buy o Sell)
-    const button = document.getElementById(buttonId);
-    if (!button) {
-        console.error(`❌ Button with ID "${buttonId}" not found.`);
-        return;
-    }
-
-    button.addEventListener("click", () => {
-        console.log(`🔵 ${action.toUpperCase()} button clicked`);
-        confirmModal.show();
-    });
-
-    // Botón de confirmación en el modal
-    document.getElementById(confirmId).addEventListener("click", () => {
-        console.log(`🟡 Confirm ${action} clicked`);
-        confirmModal.hide();
-
-        // Esperar a que se cierre el modal antes de abrir el otro
-        setTimeout(() => {
-            console.log(`🟢 Showing ${action}-modal`);
-            actionModal.show();
-        }, 500);
-    });
-
-    // Botón de finalizar compra/venta
-    document.getElementById(finalizeId).addEventListener("click", () => {
-        let amount = document.getElementById(amountId).value;
-        if (amount && amount > 0) {
-            console.log(`✅ ${action} successful! Amount: ${amount} BTC`);
-            actionModal.hide();
-            alert(`✅ ${action === "buy" ? "Purchase" : "Sale"} successful! You ${action}ed ${amount} BTC.`);
-        } else {
-            alert("⚠️ Please enter a valid amount.");
-        }
-    });
-}
-
-// Configurar eventos para compra y venta
-setupTransaction("buy-btn", "confirm-buy", "finalize-purchase", "crypto-amount", "buy");
-setupTransaction("sell-btn", "confirm-sell", "finalize-sale", "selling-amount", "sell");
-
-
 document.getElementById("dropdownMenu").addEventListener("click", function(event) {
     window.location.href = "highlights.html";
+});
+
+/*  BUY/SELL CRYPTO EVENT */
+document.addEventListener('DOMContentLoaded', function () {
+    // Assume currentPrice is fetched or extracted from the main crypto info (e.g., "$668.31")
+    let currentPrice = 668.31;
+
+    // Update the current price in both modals
+    document.getElementById('currentPriceBuy').innerText = currentPrice.toFixed(2);
+    document.getElementById('currentPriceSell').innerText = currentPrice.toFixed(2);
+
+    let actionType = '';
+    const confirmationModal = new bootstrap.Modal(document.getElementById('confirmationModal'));
+    const buyModal = new bootstrap.Modal(document.getElementById('buyModal'));
+    const sellModal = new bootstrap.Modal(document.getElementById('sellModal'));
+
+    document.getElementById('buy-btn').addEventListener('click', function () {
+        actionType = 'buy';
+        confirmationModal.show();
+    });
+
+    document.getElementById('sell-btn').addEventListener('click', function () {
+        actionType = 'sell';
+        confirmationModal.show();
+    });
+
+    document.getElementById('confirm-action').addEventListener('click', function () {
+        confirmationModal.hide();
+        setTimeout(() => {
+            if (actionType === 'buy') {
+                buyModal.show();
+            } else if (actionType === 'sell') {
+                sellModal.show();
+            }
+        }, 300);
+    });
+
+    // Function to update the estimated total based on the input amount and current price
+    function updateTotal(inputId, outputId) {
+        const amount = parseFloat(document.getElementById(inputId).value) || 0;
+        const total = amount * currentPrice;
+        document.getElementById(outputId).innerText = `$${total.toFixed(2)}`;
+    }
+
+    document.getElementById('buy-amount').addEventListener('input', function () {
+        updateTotal('buy-amount', 'buy-total-price');
+    });
+
+    document.getElementById('sell-amount').addEventListener('input', function () {
+        updateTotal('sell-amount', 'sell-total-price');
+    });
+
+    document.getElementById('confirm-buy').addEventListener('click', function () {
+        // Aquí iría la lógica real de compra
+        alert('Purchase confirmed!');
+        buyModal.hide();
+    });
+
+    document.getElementById('confirm-sell').addEventListener('click', function () {
+        // Aquí iría la lógica real de venta
+        alert('Sale confirmed!');
+        sellModal.hide();
+    });
 });
