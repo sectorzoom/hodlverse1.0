@@ -24,12 +24,6 @@ public class UserController {
         this.userService = userService;
     }
 
-    // Obtener todos los usuarios
-//    @GetMapping
-//    public List<User> all() {
-//        return userService.findAll();
-//    }
-
     // Crear un nuevo usuario
     @PostMapping
     public User newUser(@RequestBody User newUser) {
@@ -38,11 +32,19 @@ public class UserController {
 
     @GetMapping
     public Map<String, Object> getUserInfo(@AuthenticationPrincipal OAuth2User principal) {
+        if (principal == null) {
+            throw new RuntimeException("Usuario no autenticado");
+        }
+
+        // Guarda el usuario autenticado vía OAuth2 en la base de datos
+        User user = userService.saveOAuth2User(principal);
+
+        // Devuelve la información del usuario
         return Map.of(
-                "id", principal.getAttribute("sub"),
-                "name", principal.getAttribute("name"),
-                "email", principal.getAttribute("email"),
-                "picture", principal.getAttribute("picture")
+                "id", user.getUserId(),
+                "name", user.getUsername(),
+                "email", user.getEmail(),
+                "picture", user.getPicture()
         );
     }
 
@@ -79,5 +81,8 @@ public class UserController {
         }
         userService.deleteById(id);
     }
-
+    @GetMapping("/all")
+    public List<User> all() {
+        return userService.findAll();
+    }
 }

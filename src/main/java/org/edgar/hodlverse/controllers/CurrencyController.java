@@ -69,21 +69,4 @@ public class CurrencyController {
         currencyService.deleteById(id);
         return ResponseEntity.noContent().build();
     }
-
-    /*@GetMapping
-    public List<Map<String, Object>> all() {
-        return currencyService.findAll().stream()
-                .map(currency -> {
-                    Map<String, Object> map = new HashMap<>();
-                    map.put("currencyId", currency.getCurrencyId());
-                    map.put("ticker", currency.getTicker());
-                    map.put("name", currency.getName());
-                    map.put("image", currency.getImage());
-                    return map;
-                })
-                .collect(Collectors.toList());
-    }*/
-
-
-
 }

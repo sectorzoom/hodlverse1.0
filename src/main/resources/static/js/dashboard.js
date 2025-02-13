@@ -235,10 +235,49 @@ document.addEventListener("DOMContentLoaded", function () {
         progressCircle.style.strokeDashoffset = nuevoOffset;
         progressText.textContent = `${partidas[1].porcentaje}%`;
     }
-
     // Llamar a la función una sola vez después de cargar
     setTimeout(() => {
         actualizarPartidas();
         animarProgresoCircular();
     }, 1000); // Retraso de 1 segundo para dar un efecto inicial
+
+    async function fetchTransactionsById() {
+        try {
+            const userId = await User.getUserId(); // Obtener ID del usuario
+            console.log('✅ ID del usuario:', userId);
+
+            const transactions = await Transaction.getTransactionsByUserId(userId); // Obtener transacciones
+            console.log('✅ Transacciones del usuario:', transactions);
+
+            // Llenar la tabla con las transacciones
+            populateTransactionTable(transactions);
+
+        } catch (error) {
+            console.error('❌ Error en fetchTransactionsById:', error);
+        }
+    }
+    fetchTransactionsById();
+
+    function populateTransactionTable(transactions) {
+        const tableBody = document.getElementById("transactionTableBody");
+        tableBody.innerHTML = ""; // Limpiar la tabla antes de agregar datos
+
+        transactions.forEach(transaction => {
+            const row = document.createElement("tr");
+
+            row.innerHTML = `
+            <td class="col-4"><img src="${transaction.destinationCurrency.image}" alt="Logo de ${transaction.destinationCurrency.name}" height="24">${transaction.destinationCurrency.name}</td>
+            <td class="col-2 text-center">${transaction.transactionType}</td>
+            <td class="col-3 text-end">${transaction.originUnitPrice.toFixed(2)} USD</td>
+            <td class="col-2 text-end ${transaction.destinationUnitPrice >= transaction.originUnitPrice ? 'text-success' : 'text-danger'}">
+                ${((transaction.destinationUnitPrice - transaction.originUnitPrice) / transaction.originUnitPrice * 100).toFixed(2)}%
+            </td>
+        `;
+
+            tableBody.appendChild(row);
+        });
+
+        console.log("✅ Tabla actualizada con transacciones.");
+    }
+
 });
