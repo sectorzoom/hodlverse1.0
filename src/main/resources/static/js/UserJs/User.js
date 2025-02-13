@@ -17,7 +17,7 @@ class User {
     // 🔄 Cargar todos los usuarios desde la API (limpia la lista antes)
     static loadUsers(callback) {
         $.ajax({
-            url: '/users',
+            url: '/users/all',
             type: 'GET',
             success: (data) => {
                 User.users = []; // Vacía la lista antes de llenarla
@@ -33,19 +33,17 @@ class User {
     }
 
     // 🔍 Obtener un usuario por su ID desde la API
-    static getUserById(userId, callback) {
-        $.ajax({
-            url: `/users/${userId}`,
-            type: 'GET',
-            success: (data) => {
-                let user = new User(data.userId, data.username, data.email, data.password, data.registrationDate, data.picture, data.wallet, data.transactions, data.game);
-                console.log(`Usuario obtenido de la API:`, user);
-                if (callback) callback(user);
-            },
-            error: (error) => {
-                console.error(`Error al obtener el usuario con ID ${userId}:`, error);
-            }
-        });
+    static async getUserById(userId) {
+        try {
+            const response = await $.ajax({
+                url: `/users/${userId}`,
+                type: 'GET'
+            });
+            return response; // Retorna el ID del usuario autenticado
+        } catch (error) {
+            console.error('Error al obtener el usuario:', error);
+            return null; // Retorna null en caso de error
+        }
     }
 
     // 🔍 Obtener el id del usuario autenticado desde la API

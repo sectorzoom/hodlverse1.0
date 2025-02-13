@@ -49,7 +49,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 });
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", async function () {
     let chartDom = document.getElementById("chart-container");
 
     if (!chartDom) {
@@ -59,15 +59,27 @@ document.addEventListener("DOMContentLoaded", function () {
 
     let myChart = echarts.init(chartDom);
 
-    // 🔹 Generación de datos (100 días de ganancias aleatorias)
-    let base = new Date(2024, 0, 1).getTime();
-    let oneDay = 24 * 3600 * 1000;
-    let data = [];
+    async function fetchUser() {
+        try {
+            const userId = await User.getUserId(); // Obtener ID del usuario
+            const user = await User.getUserById(userId); // Obtener el usuario por su ID
+            return new Date(user.game.startDate); // Convertir a objeto Date
+        } catch (error) {
+            console.error('❌ Error al obtener el usuario:', error);
+            return null;
+        }
+    }
+    const startDate = await fetchUser();
+    const endDate = new Date();
 
-    for (let i = 0; i < 100; i++) {
-        let time = base + i * oneDay;
+    let data = [];
+    let current = new Date(startDate.getTime());
+
+    while (current <= endDate) {
+        let time = current.getTime();
         let value = Math.round(Math.random() * 200 + 50);
         data.push([time, value]);
+        current.setDate(current.getDate() + 1);
     }
 
     console.log("📊 Datos generados:", data);
@@ -151,10 +163,24 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 });
 
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", async function() {
     const calendarContainer = document.getElementById("calendar");
     const daysRemainingText = document.getElementById("daysRemaining");
     const timeRemainingText = document.getElementById("timeRemaining");
+
+    async function fetchEndDate() {
+        try {
+            const userId = await User.getUserId(); // Obtener ID del usuario
+            const user = await User.getUserById(userId); // Obtener el usuario por su ID
+            console.log(user);
+            return date = user.game.endDate;
+        } catch (error) {
+            console.error('❌ Error al obtener el usuario:', error);
+            return null;
+        }
+    }
+    const endDate = await fetchEndDate();
+    console.log("📈 Fecha objetivo:", endDate);
 
     const today = new Date();
     const currentDay = today.getDate();
@@ -268,10 +294,8 @@ document.addEventListener("DOMContentLoaded", function () {
             row.innerHTML = `
             <td class="col-4"><img src="${transaction.destinationCurrency.image}" alt="Logo de ${transaction.destinationCurrency.name}" height="24">${transaction.destinationCurrency.name}</td>
             <td class="col-2 text-center">${transaction.transactionType}</td>
-            <td class="col-3 text-end">${transaction.originUnitPrice.toFixed(2)} USD</td>
-            <td class="col-2 text-end ${transaction.destinationUnitPrice >= transaction.originUnitPrice ? 'text-success' : 'text-danger'}">
-                ${((transaction.destinationUnitPrice - transaction.originUnitPrice) / transaction.originUnitPrice * 100).toFixed(2)}%
-            </td>
+            <td class="col-3 text-end">${transaction.destinationUnitPrice.toFixed(2)}</td>
+            <td class="col-3 text-end">$${transaction.destinationTransactionAmount.toFixed(2)}</td>
         `;
 
             tableBody.appendChild(row);

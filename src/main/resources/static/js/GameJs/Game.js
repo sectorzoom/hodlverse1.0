@@ -2,18 +2,11 @@ class Game {
     constructor(difficulty, startDate = new Date()) {
         this.difficulty = difficulty;
         this.startDate = startDate;
-        this.endDate = this.calculateEndDate(); // Duración de 30 días
+        this.endDate = startDate + 30;
         this.initialCredit = 100000; // Crédito inicial 100.000€
         this.currentCredit = this.initialCredit;
         this.objective = this.calculateObjective(); // Objetivo dependiendo de la dificultad
         this.gameId = null; // ID del juego que se generará al crear el juego
-    }
-
-    // Calcular la fecha de finalización (30 días después de la fecha de inicio)
-    calculateEndDate() {
-        let endDate = new Date(this.startDate);
-        endDate.setDate(this.startDate.getDate() + 30); // Sumar 30 días
-        return endDate;
     }
 
     // Calcular el objetivo según la dificultad
@@ -38,6 +31,7 @@ class Game {
             objective: this.objective,
             duration: 30, // La duración siempre será 30 días
             start_date: this.startDate.toISOString(),
+            end_date: this.endDate.toISOString()
         };
 
         $.ajax({
@@ -146,3 +140,4 @@ $(document).ready(function () {
         console.log('¿Objetivo alcanzado?', isGoalReached);
     });
 });
+window.Game = Game;
