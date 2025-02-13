@@ -281,3 +281,30 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 });
+
+/* CAROUSEL YOUR CRYPTO */
+let swiper = new Swiper(".mySwiper", {
+    slidesPerView: 3,
+    spaceBetween: 10,
+    grabCursor: true,
+    scrollbar: {
+        el: ".swiper-scrollbar",
+        hide: false,
+    },
+});
+
+window.onload = function () {
+    const colorThief = new ColorThief();
+    document.querySelectorAll('.crypto-logo').forEach(img => {
+        if (img.complete) {
+            setBgColor(img);
+        } else {
+            img.addEventListener('load', () => setBgColor(img));
+        }
+    });
+
+    function setBgColor(img) {
+        const color = colorThief.getColor(img);
+        img.parentElement.style.backgroundColor = `rgb(${color[0]}, ${color[1]}, ${color[2]})`;
+    }
+};
