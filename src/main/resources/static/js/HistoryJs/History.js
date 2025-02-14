@@ -41,35 +41,35 @@ class History {
     }
 
     // 📊 Obtener la suma total del Market Cap de todas las monedas
-    static getTotalMarketCap(callback) {
-        $.ajax({
-            url: '/history/total-market-cap',
-            type: 'GET',
-            success: (data) => {
-                console.log('Total Market Cap:', data);
-                if (callback) callback(data);
-            },
-            error: (error) => {
-                console.error('Error al obtener el Total Market Cap:', error);
-            }
-        });
+    static async getTotalMarketCap() {
+        try {
+            const response = await $.ajax({
+                url: '/history/total-market-cap',
+                type: 'GET'
+            });
+            return response;
+        } catch (error) {
+            console.error('Error al obtener el usuario:', error);
+            return null;
+        }
     }
 
     // 🔊 Obtener la suma total del volumen de todas las monedas
-    static getTotalVolume(callback) {
-        $.ajax({
-            url: '/history/total-volume',
-            type: 'GET',
-            success: (data) => {
-                console.log('Total Volume:', data);
-                if (callback) callback(data);
-            },
-            error: (error) => {
-                console.error('Error al obtener el Total Volume:', error);
-            }
-        });
+    static async getTotalVolume() {
+        try {
+            const response = await $.ajax({
+                url: '/history/total-volume',
+                type: 'GET'
+            });
+            return response;
+        } catch (error) {
+            console.error('Error al obtener el usuario:', error);
+            return null;
+        }
     }
 }
+
+window.History = History;
 
 // =============================
 // 🔥 Cargar automáticamente el historial al iniciar

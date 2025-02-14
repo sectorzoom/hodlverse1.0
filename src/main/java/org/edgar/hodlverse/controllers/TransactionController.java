@@ -92,7 +92,7 @@ public class TransactionController {
         // Devolver solo las últimas 5 transacciones
         return transactions.stream()
                 .sorted(Comparator.comparing(Transaction::getTransactionDate).reversed()) // Ordenar por fecha descendente
-                .limit(5) // Tomar las primeras 5
+                .limit(3) // Tomar las primeras 5
                 .collect(Collectors.toList());
     }
 

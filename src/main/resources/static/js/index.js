@@ -156,6 +156,24 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         }, 200);
     });
+
+    async function fetchInfo() {
+        try {
+            const totalMarket = await History.getTotalMarketCap();
+            console.log('✅ ID del usuario:', totalMarket);
+
+            const totalVolume = await History.getTotalVolume();
+            console.log('✅ Transacciones del usuario:', totalVolume);
+
+            document.getElementById("marketCapValue").textContent = totalMarket;
+            document.getElementById("trendingCoinsValue").textContent = totalVolume;
+
+        } catch (error) {
+            console.error('❌ Error en fetchTransactionsById:', error);
+        }
+    }
+    fetchInfo();
+
 });
 
 function registerUser(event) {

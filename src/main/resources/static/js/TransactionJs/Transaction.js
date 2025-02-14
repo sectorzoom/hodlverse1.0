@@ -129,24 +129,18 @@ class Transaction {
         });
     }
 
-    // Obtener las últimas 5 transacciones de un usuario por su ID
-    static getLatestTransactionsByUserId(userId, callback) {
-        $.ajax({
-            url: `/transactions/latest/${userId}`,
-            type: 'GET',
-            success: (data) => {
-                const latestTransactions = data.map(t => new Transaction(
-                    t.id, t.transactionType, t.originTransactionAmount, t.destinationTransactionAmount,
-                    t.originUnitPrice, t.destinationUnitPrice, t.transactionDate,
-                    t.user, t.originCurrency, t.destinationCurrency
-                ));
-                console.log(`Últimas 5 transacciones para el usuario ${userId}:`, latestTransactions);
-                if (callback) callback(latestTransactions);
-            },
-            error: (error) => {
-                console.error(`Error al obtener las últimas transacciones para el usuario ${userId}:`, error);
-            }
-        });
+    // Obtener las últimas 3 transacciones de un usuario por su ID
+    static async getLatestTransactionsByUserId(userId) {
+        try {
+            const response = await $.ajax({
+                url: `/transactions/latest/${userId}`,
+                type: 'GET'
+            });
+            return response;
+        } catch (error) {
+            console.error('Error al obtener el ID del usuario:', error);
+            return null;
+        }
     }
 }
 window.Transaction = Transaction;

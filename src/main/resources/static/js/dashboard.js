@@ -1,3 +1,7 @@
+document.getElementById("dropdownMenu").addEventListener("click", function(event) {
+    window.location.href = "highlights.html";
+});
+
 document.addEventListener("DOMContentLoaded", () => {
     const carousel = document.querySelector(".awards-carousel");
     const itemsWrapper = document.querySelector(".awards-items-wrapper");
@@ -63,6 +67,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         try {
             const userId = await User.getUserId(); // Obtener ID del usuario
             const user = await User.getUserById(userId); // Obtener el usuario por su ID
+            console.log(user.game.startDate);
             return new Date(user.game.startDate); // Convertir a objeto Date
         } catch (error) {
             console.error('❌ Error al obtener el usuario:', error);
@@ -272,7 +277,7 @@ document.addEventListener("DOMContentLoaded", function () {
             const userId = await User.getUserId(); // Obtener ID del usuario
             console.log('✅ ID del usuario:', userId);
 
-            const transactions = await Transaction.getTransactionsByUserId(userId); // Obtener transacciones
+            const transactions = await Transaction.getLatestTransactionsByUserId(userId); // Obtener transacciones
             console.log('✅ Transacciones del usuario:', transactions);
 
             // Llenar la tabla con las transacciones
@@ -304,4 +309,50 @@ document.addEventListener("DOMContentLoaded", function () {
         console.log("✅ Tabla actualizada con transacciones.");
     }
 
+});
+document.addEventListener("DOMContentLoaded", () => {
+    // Ejemplo de datos de criptomonedas
+    const cryptos = [
+        {
+            name: "BITCOIN",
+            symbol: "BTC",
+            value: "$96,216.84",
+            amount: "1.5",
+            logo: "https://cryptologos.cc/logos/bitcoin-btc-logo.png"
+        },
+        {
+            name: "ETHEREUM",
+            symbol: "ETH",
+            value: "$3,000.00",
+            amount: "10",
+            logo: "https://cryptologos.cc/logos/ethereum-eth-logo.png"
+        }
+        // Puedes agregar más criptos
+    ];
+
+    const container = document.getElementById("cryptosContainer");
+
+    // Genera y añade una card para cada crypto
+    cryptos.forEach(crypto => {
+        const card = document.createElement("div");
+        card.classList.add("card", "crypto", "shadow-sm", "mb-2");
+        card.innerHTML = `
+      <div class="card-body d-flex align-items-center justify-content-between">
+        <div>
+          <div class="mb-2">
+            <h5 class="text">${crypto.name}</h5>
+            <h5 class="text">${crypto.value}</h5>
+            <div class="d-flex align-items-center gap-2">
+              <h6 class="text-muted">${crypto.symbol}</h6>
+              <h6 class="text-muted">${crypto.amount}</h6>
+            </div>
+          </div>
+        </div>
+        <div class="img-container">
+          <img src="${crypto.logo}" alt="${crypto.name}" height="55">
+        </div>
+      </div>
+    `;
+        container.appendChild(card);
+    });
 });
