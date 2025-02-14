@@ -292,7 +292,7 @@ document.addEventListener("DOMContentLoaded", function () {
             const row = document.createElement("tr");
 
             row.innerHTML = `
-            <td class="col-4"><img src="${transaction.destinationCurrency.image}" alt="Logo de ${transaction.destinationCurrency.name}" height="24">${transaction.destinationCurrency.name}</td>
+            <td class="col-4"><img src="${transaction.destinationCurrency.image}" alt="Logo de ${transaction.destinationCurrency.name}" height="24"> ${transaction.destinationCurrency.name}</td>
             <td class="col-2 text-center">${transaction.transactionType}</td>
             <td class="col-3 text-end">${transaction.destinationUnitPrice.toFixed(2)}</td>
             <td class="col-3 text-end">$${transaction.destinationTransactionAmount.toFixed(2)}</td>
