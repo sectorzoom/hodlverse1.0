@@ -175,6 +175,44 @@ class Game {
         console.log('¿Objetivo alcanzado?', hasReachedGoal);
         return hasReachedGoal;
     }
+
+    // Obtener el juego activo de un usuario por su ID
+    static getActiveGameByUserId(userId, callback) {
+        if (typeof userId !== 'number' || isNaN(userId)) {
+            console.error('El ID del usuario debe ser un número válido.');
+            return;
+        }
+        $.ajax({
+            url: `/games/active/${userId}`,
+            type: 'GET',
+            success: (data) => {
+                console.log('Juego activo obtenido:', data);
+                if (callback) callback(new Game(data.difficulty, data.duration, new Date(data.start_date)));
+            },
+            error: (jqXHR) => {
+                console.error('Error al obtener el juego activo:', jqXHR.responseText);
+            }
+        });
+    }
+
+    // Obtener el último juego terminado de un usuario por su ID
+    static getLastFinishedGameByUserId(userId, callback) {
+        if (typeof userId !== 'number' || isNaN(userId)) {
+            console.error('El ID del usuario debe ser un número válido.');
+            return;
+        }
+        $.ajax({
+            url: `/games/last-finished/${userId}`,
+            type: 'GET',
+            success: (data) => {
+                console.log('Último juego terminado obtenido:', data);
+                if (callback) callback(new Game(data.difficulty, data.duration, new Date(data.start_date)));
+            },
+            error: (jqXHR) => {
+                console.error('Error al obtener el último juego terminado:', jqXHR.responseText);
+            }
+        });
+    }
 }
 
 // *** Implementación en la página web ***
