@@ -35,6 +35,7 @@ public class TransactionService {
     public void deleteById(Long id) {
         transactionRepository.deleteById(id);
     }
+
     // Método para obtener las transacciones por userId
     public List<Transaction> findTransactionsByUserId(Long userId) {
         return transactionRepository.findByUser_UserId(userId);

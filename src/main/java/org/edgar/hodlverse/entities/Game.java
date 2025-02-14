@@ -1,16 +1,16 @@
 package org.edgar.hodlverse.entities;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
-
+import lombok.Setter;
 import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-@Entity
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
+@Entity
 public class Game {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,12 +32,13 @@ public class Game {
     @Column(nullable = false)
     private LocalDateTime startDate;
 
-    @JsonIgnore
-    @OneToOne
-    @JoinColumn(name = "user_id", nullable = false, unique = true)
+    @Column(nullable = false)
+    private LocalDateTime endDate; // Nuevo atributo endDate
+
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    @JsonIgnore
     @OneToOne(mappedBy = "game", cascade = CascadeType.ALL, orphanRemoval = true)
     private Result result;
 
@@ -46,6 +47,19 @@ public class Game {
         EXPERIENCED,
         PERSONALIZED
     }
+
+    // Constructor con lógica para calcular endDate
+    public Game(Difficulty difficulty, BigDecimal initialCredit, BigDecimal objective, int duration, LocalDateTime startDate, User user) {
+        this.difficulty = difficulty;
+        this.initialCredit = initialCredit;
+        this.objective = objective;
+        this.duration = duration;
+        this.startDate = startDate;
+        this.endDate = startDate.plusDays(30); // Calcula endDate sumando 30 días a startDate
+        this.user = user;
+    }
+
+    // Getters and Setters
 
     public Long getId() {
         return id;
@@ -93,6 +107,11 @@ public class Game {
 
     public void setStartDate(LocalDateTime startDate) {
         this.startDate = startDate;
+        this.endDate = startDate.plusDays(30); // Asegura que endDate se actualice si startDate cambia
+    }
+
+    public LocalDateTime getEndDate() {
+        return endDate;
     }
 
     public User getUser() {

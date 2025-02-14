@@ -39,8 +39,9 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Transaction> transactions;
 
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Game game;
+    @JsonIgnore
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Game> games;
 
 
     // Getters y Setters
@@ -109,11 +110,11 @@ public class User {
         this.transactions = transactions;
     }
 
-    public Game getGame() {
-        return game;
+    public List<Game> getGames() {
+        return games;
     }
 
-    public void setGame(Game game) {
-        this.game = game;
+    public void setGames(List<Game> games) {
+        this.games = games;
     }
 }
