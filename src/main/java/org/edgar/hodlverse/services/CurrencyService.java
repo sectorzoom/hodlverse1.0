@@ -33,7 +33,12 @@ public class CurrencyService {
 
     @Scheduled(fixedRate = 300000) // Ejecuta cada 5 min
     public void fetchAndSaveCryptoData() {
-        String[] cryptos = {"bitcoin", "ethereum"}; // Lista de criptomonedas a monitorear
+        String[] cryptos = {"bitcoin", "ethereum", "tether", "ripple", "binancecoin",
+                "solana", "dogecoin", "cardano", "tron", "shiba-inu",
+                "stellar", "polkadot", "pepe", "monero", "algorand",
+                "render-token", "jupiter", "filecoin", "celestia", "optimism",
+                "raydium", "bonk", "nexo", "gala", "floki",
+                "tezos", "iota", "maker", "flow", "kaia"}; // Lista de criptomonedas a monitorear
 
         for (String cryptoId : cryptos) {
             CryptoData cryptoData = getCryptoData(cryptoId);

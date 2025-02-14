@@ -39,25 +39,35 @@ public class HistoryService {
         historyRepository.deleteById(id);
     }
 
-    // Obtener todas las monedas ordenadas por priceChangePercentage24h de forma descendente
     public List<History> getCurrenciesOrderedByPriceChangePercentage() {
-        return historyRepository.findAllByOrderByPriceChangePercentage24hDesc();
+        return historyRepository.findLatestHistoriesOrderByPriceChangePercentageDesc();
     }
 
-    // Obtener todas las monedas ordenadas por priceChangePercentage24h de forma ascendente
     public List<History> getCurrenciesOrderedByPriceChangePercentageAsc() {
-        return historyRepository.findAllByOrderByPriceChangePercentage24hAsc();
+        return historyRepository.findLatestHistoriesOrderByPriceChangePercentageAsc();
     }
 
-    //Obtener todas las monedas ordenadas por marketCapRank de forma ascendente
-    public List<History> getCoinsOrderedByMarketCapRankAsc(){
-        return historyRepository.findAllByOrderByMarketCapRankAsc();
+    public List<History> getCoinsOrderedByMarketCapRankAsc() {
+        return historyRepository.findLatestHistoriesOrderByMarketCapRankAsc();
     }
 
-    // Obtener todas las monedas ordenadas por totalVolume de forma descendente
     public List<History> getCurrenciesOrderedByTotalVolumeDesc() {
-        return historyRepository.findAllByOrderByTotalVolumeDesc();
+        return historyRepository.findLatestHistoriesOrderByTotalVolumeDesc();
     }
+
+    public BigDecimal getTotalMarketCap() {
+        return historyRepository.findLatestHistories().stream()
+                .map(History::getMarketCap)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+    }
+
+    public BigDecimal getTotalVolume() {
+        return historyRepository.findLatestHistories().stream()
+                .map(History::getTotalVolume)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+    }
+
+
 
 
     public Record getDailyPrices(Long currencyId, LocalDate date) {
