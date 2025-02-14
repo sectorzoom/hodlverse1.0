@@ -46,6 +46,10 @@ public interface HistoryRepository extends JpaRepository<History, Long> {
             "SELECT MAX(h2.historyId) FROM History h2 GROUP BY h2.currency.currencyId )")
     List<History> findLatestHistories();
 
+    // Obtener el historial más reciente de una divisa antes o en la fecha especificada
+    @Query("SELECT h FROM History h WHERE h.currency = :currency AND h.lastUpdated <= :date ORDER BY h.lastUpdated DESC")
+    Optional<History> findLatestHistoryByCurrencyBeforeDate(
+            org.edgar.hodlverse.entities.Currency currency, LocalDate date);
 
 }
 

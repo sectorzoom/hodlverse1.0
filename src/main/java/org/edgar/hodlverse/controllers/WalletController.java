@@ -1,5 +1,6 @@
 package org.edgar.hodlverse.controllers;
 
+import org.edgar.hodlverse.entities.Currency;
 import org.edgar.hodlverse.entities.Wallet;
 import org.edgar.hodlverse.services.NotFoundException;
 import org.edgar.hodlverse.services.WalletService;
@@ -7,6 +8,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 import java.util.List;
 
 @RestController
@@ -67,6 +71,40 @@ public class WalletController {
     public ResponseEntity<BigDecimal> getWalletValue(@PathVariable Long userId) {
         BigDecimal totalValue = walletService.calculateTotalWalletValueInUSD(userId);
         return ResponseEntity.ok(totalValue);
+    }
+
+    @GetMapping("/{userId}/currencies")
+    public List<Currency> getCurrenciesByUserId(@PathVariable Long userId) {
+        return walletService.getCurrenciesByUserId(userId);
+    }
+
+    @GetMapping("/totalBalance/{userId}/on/{date}")
+    public ResponseEntity<BigDecimal> getUserBalanceOnDate(
+            @PathVariable Long userId,
+            @PathVariable String date) {
+
+        try {
+            // Parsear la fecha desde la URL
+            LocalDateTime targetDate = LocalDateTime.parse(date);
+
+            // Calcular el balance total del usuario en la fecha especificada
+            BigDecimal totalBalance = walletService.calculateUserBalanceOnDate(userId, LocalDate.from(targetDate));
+
+            if (totalBalance.compareTo(BigDecimal.ZERO) == 0) {
+                // Si el balance es 0, lanzar una excepción o devolver un mensaje informativo
+                throw new NotFoundException("No se encontraron datos para el usuario con ID " + userId + " en la fecha " + date);
+            }
+
+            // Devolver el balance total como respuesta
+            return ResponseEntity.ok(totalBalance);
+
+        } catch (DateTimeParseException e) {
+            // Manejar errores de formato de fecha
+            return ResponseEntity.badRequest().body(BigDecimal.ZERO); // O puedes personalizar el mensaje de error
+        } catch (NotFoundException e) {
+            // Manejar casos donde no se encuentren datos
+            return ResponseEntity.status(404).body(BigDecimal.ZERO); // O puedes personalizar el mensaje de error
+        }
     }
 
 }
