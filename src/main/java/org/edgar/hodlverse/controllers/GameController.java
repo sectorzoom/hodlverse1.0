@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/games") // Ruta base para el controlador
@@ -61,5 +62,29 @@ public class GameController {
         }
         gameService.deleteById(id);
         return ResponseEntity.noContent().build();
+    }
+
+    // Endpoint para obtener el juego activo de un usuario por su ID
+    @GetMapping("/active/{userId}")
+    public ResponseEntity<Game> getActiveGameByUserId(@PathVariable Long userId) {
+        Optional<Game> activeGame = gameService.getActiveGameByUserId(userId);
+
+        if (activeGame.isEmpty()) {
+            throw new NotFoundException("No hay ningún juego activo para el usuario con ID " + userId + ".");
+        }
+
+        return ResponseEntity.ok(activeGame.get());
+    }
+
+    // Endpoint para obtener el último juego terminado de un usuario por su ID
+    @GetMapping("/last-finished/{userId}")
+    public ResponseEntity<Game> getLastFinishedGameByUserId(@PathVariable Long userId) {
+        Optional<Game> lastFinishedGame = gameService.getLastFinishedGameByUserId(userId);
+
+        if (lastFinishedGame.isEmpty()) {
+            throw new NotFoundException("No se encontró ningún juego terminado para el usuario con ID " + userId + ".");
+        }
+
+        return ResponseEntity.ok(lastFinishedGame.get());
     }
 }

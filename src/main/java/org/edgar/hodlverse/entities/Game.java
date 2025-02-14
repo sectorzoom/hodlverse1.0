@@ -9,9 +9,10 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @AllArgsConstructor
-@NoArgsConstructor
 @Entity
 public class Game {
+    public Game() {}
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -33,7 +34,7 @@ public class Game {
     private LocalDateTime startDate;
 
     @Column(nullable = false)
-    private LocalDateTime endDate; // Nuevo atributo endDate
+    private LocalDateTime endDate; // Calculado automáticamente
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
@@ -48,18 +49,18 @@ public class Game {
         PERSONALIZED
     }
 
-    // Constructor con lógica para calcular endDate
+    // Constructor con lógica corregida para calcular endDate correctamente
     public Game(Difficulty difficulty, BigDecimal initialCredit, BigDecimal objective, int duration, LocalDateTime startDate, User user) {
         this.difficulty = difficulty;
         this.initialCredit = initialCredit;
         this.objective = objective;
         this.duration = duration;
         this.startDate = startDate;
-        this.endDate = startDate.plusDays(30); // Calcula endDate sumando 30 días a startDate
+        this.endDate = startDate.plusDays(duration); // Ahora usa duration correctamente
         this.user = user;
     }
 
-    // Getters and Setters
+    // Getters y Setters
 
     public Long getId() {
         return id;
@@ -99,6 +100,9 @@ public class Game {
 
     public void setDuration(int duration) {
         this.duration = duration;
+        if (this.startDate != null) {
+            this.endDate = this.startDate.plusDays(duration); // Asegura que endDate se actualice si cambia duration
+        }
     }
 
     public LocalDateTime getStartDate() {
@@ -107,7 +111,9 @@ public class Game {
 
     public void setStartDate(LocalDateTime startDate) {
         this.startDate = startDate;
-        this.endDate = startDate.plusDays(30); // Asegura que endDate se actualice si startDate cambia
+        if (this.duration > 0) {
+            this.endDate = startDate.plusDays(duration); // Asegura que endDate se actualice si cambia startDate
+        }
     }
 
     public LocalDateTime getEndDate() {
