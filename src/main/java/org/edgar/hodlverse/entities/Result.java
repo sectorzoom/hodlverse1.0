@@ -1,5 +1,6 @@
 package org.edgar.hodlverse.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -26,6 +27,7 @@ public class Result {
 
     @OneToOne
     @JoinColumn(name = "game_id", nullable = false)
+    @JsonIgnore
     private Game game;  // Relación con la entidad Game
 
     @Column(nullable = false)
