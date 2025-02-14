@@ -1,6 +1,6 @@
 <!-- CSS MAIN PROFILE-->
     /* Contenedor General */
-#section-1, #section-2 {
+#section-1 {
     background-color: var(--azulclaro);
     border-radius: 8px;
     min-height: 400px; /* Asegura que las secciones tengan un tamaño mínimo uniforme */
@@ -22,7 +22,7 @@ h1 span {
 }
 
 /* Secciones Internas */
-#section-1, #section-2-info, #section-2-plans, #chart-section {
+#section-1, #section-2-plans, #chart-section {
     background-color: white;
     border-radius: 8px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);

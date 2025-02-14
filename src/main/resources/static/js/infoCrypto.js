@@ -1,3 +1,4 @@
+/* GRAFICO (OLD) */
 window.onload = function () {
     // ================================
     // GRÁFICO DE EVOLUCIÓN DE PRECIOS
@@ -224,7 +225,57 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 /*TOOLTIP INFO */
+// Inicializar tooltips
 let tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
 let tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
     return new bootstrap.Tooltip(tooltipTriggerEl);
 });
+
+/*API CRYPTO NEWS */
+
+// API Key (reemplázala por tu propia API Key)
+const apiKey = '44cd7ee1187b63f43af779ff2c6718a5';
+
+// Función para obtener y mostrar las noticias
+function loadCryptoNews() {
+    fetch(`https://cryptonews-api.com/api/v1/category?section=general&items=5&token=${apiKey}`)
+        .then(response => response.json())
+        .then(data => {
+            const newsContainer = document.getElementById('carousel-news-container');
+            const articles = data.data;
+
+            // Limpiar el contenedor antes de agregar nuevos elementos
+            newsContainer.innerHTML = '';
+
+            // Iterar sobre las noticias para crear los elementos del carousel
+            articles.forEach((news, index) => {
+                // Crear un item del carousel
+                const newsItem = document.createElement('div');
+                newsItem.classList.add('carousel-item');
+
+                // Asegurarse de que el primer item sea activo
+                if (index === 0) {
+                    newsItem.classList.add('active');
+                }
+
+                // Crear el contenido para cada noticia
+                newsItem.innerHTML = `
+          <div class="d-block w-100" style="height: 300px; background-color: #f8f9fa;">
+            <img src="${news.image}" class="d-block w-100" alt="${news.title}" style="object-fit: cover; height: 100%;">
+            <div class="carousel-caption d-none d-md-block">
+              <h5><a href="${news.url}" target="_blank">${news.title}</a></h5>
+              <p>${news.description}</p>
+            </div>
+          </div>
+        `;
+
+                // Agregar el item al carousel
+                newsContainer.appendChild(newsItem);
+            });
+        })
+        .catch(error => console.error('Error fetching the news:', error));
+}
+
+// Llamar a la función para cargar las noticias
+loadCryptoNews();
+
