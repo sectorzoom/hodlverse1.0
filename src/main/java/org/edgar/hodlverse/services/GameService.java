@@ -35,4 +35,14 @@ public class GameService {
     public void deleteById(Long id) {
         gameRepository.deleteById(id);
     }
+
+    // Obtener el juego activo de un usuario por su ID
+    public Optional<Game> getActiveGameByUserId(Long userId) {
+        return gameRepository.findActiveGameByUserId(userId);
+    }
+
+    // Obtener el último juego terminado de un usuario por su ID
+    public Optional<Game> getLastFinishedGameByUserId(Long userId) {
+        return gameRepository.findLastFinishedGameByUserId(userId);
+    }
 }

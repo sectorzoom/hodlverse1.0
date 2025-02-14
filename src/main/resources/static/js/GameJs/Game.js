@@ -1,37 +1,71 @@
 class Game {
-    constructor(difficulty, startDate = new Date()) {
+    constructor(difficulty, duration = 30, startDate = new Date()) {
+        // Validar difficulty
+        this.validateDifficulty(difficulty);
+
+        // Validar duration
+        if (typeof duration !== 'number' || duration <= 0) {
+            throw new Error('La duración debe ser un número positivo.');
+        }
+
+        // Validar startDate
+        if (!(startDate instanceof Date)) {
+            throw new Error('La fecha de inicio debe ser una instancia de Date.');
+        }
+
         this.difficulty = difficulty;
+        this.duration = duration;
         this.startDate = startDate;
-        this.endDate = startDate + 30;
-        this.initialCredit = 100000; // Crédito inicial 100.000€
+        this.endDate = this.calculateEndDate();
+        this.initialCredit = 100000;
         this.currentCredit = this.initialCredit;
-        this.objective = this.calculateObjective(); // Objetivo dependiendo de la dificultad
-        this.gameId = null; // ID del juego que se generará al crear el juego
+        this.objective = this.calculateObjective();
+        this.gameId = null;
     }
 
-    // Calcular el objetivo según la dificultad
-    calculateObjective() {
-        switch (this.difficulty) {
-            case 'beginner':
-                return this.initialCredit * 0.1; // 10% de beneficio
-            case 'experienced':
-                return this.initialCredit * 0.3; // 30% de beneficio
-            case 'personalized':
-                return 0; // Puede ser un valor personalizado
-            default:
-                throw new Error('Dificultad no válida');
+    // Validar difficulty
+    validateDifficulty(difficulty) {
+        const validDifficulties = ['beginner', 'experienced', 'personalized'];
+        if (!validDifficulties.includes(difficulty)) {
+            throw new Error('Dificultad no válida. Las opciones válidas son: beginner, experienced, personalized.');
         }
     }
 
-    // Comenzar un juego
+    // Calcular la fecha de finalización basado en la duración
+    calculateEndDate() {
+        let endDate = new Date(this.startDate);
+        endDate.setDate(this.startDate.getDate() + this.duration);
+        return endDate;
+    }
+
+    // Calcular el objetivo basado en la dificultad
+    calculateObjective() {
+        const objectiveMultipliers = {
+            beginner: 0.1,
+            experienced: 0.3,
+            personalized: 0 // Permitirá valores personalizados después
+        };
+
+        if (!(this.difficulty in objectiveMultipliers)) {
+            throw new Error('Dificultad no válida');
+        }
+
+        return this.initialCredit * objectiveMultipliers[this.difficulty];
+    }
+
+    // Comenzar un juego enviando datos al backend
     startGame() {
+        if (this.gameId) {
+            console.warn('El juego ya ha comenzado.');
+            return;
+        }
+
         let gameData = {
             difficulty: this.difficulty,
             initial_credit: this.initialCredit,
             objective: this.objective,
-            duration: 30, // La duración siempre será 30 días
+            duration: this.duration,
             start_date: this.startDate.toISOString(),
-            end_date: this.endDate.toISOString()
         };
 
         $.ajax({
@@ -40,18 +74,18 @@ class Game {
             contentType: 'application/json',
             data: JSON.stringify(gameData),
             success: (data) => {
-                this.gameId = data.gameId; // Guardar el ID del juego
+                this.gameId = data.gameId;
                 console.log('Juego comenzado:', data);
             },
-            error: (error) => {
-                console.error('Error al comenzar el juego:', error);
+            error: (jqXHR) => {
+                console.error('Error al comenzar el juego:', jqXHR.responseText);
             }
         });
     }
 
-    // Obtener el estado de un juego
+    // Obtener el estado del juego desde el backend
     getGameStatus() {
-        if (this.gameId === null) {
+        if (!this.gameId) {
             console.log('El juego no ha comenzado aún.');
             return;
         }
@@ -62,18 +96,21 @@ class Game {
             success: (data) => {
                 console.log('Estado del juego:', data);
             },
-            error: (error) => {
-                console.error('Error al obtener el estado del juego:', error);
+            error: (jqXHR) => {
+                console.error('Error al obtener el estado del juego:', jqXHR.responseText);
             }
         });
     }
 
     // Realizar una transacción dentro del juego
     makeTransaction(transactionData) {
-        if (this.gameId === null) {
+        if (!this.gameId) {
             console.log('El juego no ha comenzado aún.');
             return;
         }
+
+        // Validar transactionData
+        this.validateTransactionData(transactionData);
 
         $.ajax({
             url: `/games/${this.gameId}/transactions`,
@@ -84,60 +121,123 @@ class Game {
                 console.log('Transacción realizada:', data);
                 this.updateCredit(transactionData.destinationTransactionAmount);
             },
-            error: (error) => {
-                console.error('Error al realizar la transacción:', error);
+            error: (jqXHR) => {
+                console.error('Error al realizar la transacción:', jqXHR.responseText);
             }
         });
     }
 
+    // Validar los datos de la transacción
+    validateTransactionData(transactionData) {
+        if (typeof transactionData.transactionType !== 'string' || !['buy', 'sell', 'exchange'].includes(transactionData.transactionType)) {
+            throw new Error('Tipo de transacción no válido. Debe ser "buy", "sell" o "exchange".');
+        }
+
+        if (typeof transactionData.originTransactionAmount !== 'number' || isNaN(transactionData.originTransactionAmount) || transactionData.originTransactionAmount < 0) {
+            throw new Error('El monto de origen debe ser un número positivo.');
+        }
+
+        if (typeof transactionData.destinationTransactionAmount !== 'number' || isNaN(transactionData.destinationTransactionAmount) || transactionData.destinationTransactionAmount < 0) {
+            throw new Error('El monto de destino debe ser un número positivo.');
+        }
+
+        if (typeof transactionData.originUnitPrice !== 'number' || isNaN(transactionData.originUnitPrice) || transactionData.originUnitPrice <= 0) {
+            throw new Error('El precio unitario de origen debe ser un número positivo.');
+        }
+
+        if (typeof transactionData.destinationUnitPrice !== 'number' || isNaN(transactionData.destinationUnitPrice) || transactionData.destinationUnitPrice <= 0) {
+            throw new Error('El precio unitario de destino debe ser un número positivo.');
+        }
+
+        if (!(transactionData.transactionDate instanceof Date)) {
+            throw new Error('La fecha de la transacción debe ser una instancia de Date.');
+        }
+    }
+
     // Actualizar el crédito del jugador
     updateCredit(amount) {
+        if (typeof amount !== 'number' || isNaN(amount)) {
+            throw new Error('El monto a actualizar debe ser un número válido.');
+        }
+
         this.currentCredit += amount;
         console.log('Nuevo crédito:', this.currentCredit);
     }
 
-    // Verificar si el jugador ha alcanzado el objetivo
+    // Verificar si el objetivo ha sido alcanzado
     checkObjective() {
-        if (this.currentCredit >= this.initialCredit + this.objective) {
-            console.log('¡Felicidades! Has alcanzado el objetivo.');
-            return true;
+        if (this.currentCredit < 0) {
+            console.log('Crédito insuficiente para continuar.');
+            return false;
         }
-        return false;
+
+        const hasReachedGoal = this.currentCredit >= this.initialCredit + this.objective;
+        console.log('¿Objetivo alcanzado?', hasReachedGoal);
+        return hasReachedGoal;
+    }
+
+    // Obtener el juego activo de un usuario por su ID
+    static async getActiveGameByUserId(userId) {
+        if (typeof userId !== 'number' || isNaN(userId)) {
+            console.error('El ID del usuario debe ser un número válido.');
+            return;
+        }
+        try {
+            const response = await $.ajax({
+                url: `/games/active/${userId}`,
+                type: 'GET'
+            });
+            return response;
+        } catch (error) {
+            console.error('Error al obtener el ID del usuario:', error);
+            return null;
+        }
+    }
+
+    // Obtener el último juego terminado de un usuario por su ID
+    static async getLastFinishedGameByUserId(userId) {
+        if (typeof userId !== 'number' || isNaN(userId)) {
+            console.error('El ID del usuario debe ser un número válido.');
+            return;
+        }
+        try {
+            const response = await $.ajax({
+                url: `/games/last-finished/${userId}`,
+                type: 'GET'
+            });
+            return response;
+        } catch (error) {
+            console.error('Error al obtener el ID del usuario:', error);
+            return null;
+        }
     }
 }
 
-// Ejemplo de uso con jQuery:
-
+// *** Implementación en la página web ***
 $(document).ready(function () {
-    let game = new Game('experienced');
+    const game = new Game('experienced');
 
-    // Botón para comenzar el juego
-    $('#startGame').click(function () {
-        game.startGame();
+    $('#startGame').click(() => game.startGame());
+
+    $('#getGameStatus').click(() => game.getGameStatus());
+
+    $('#makeTransaction').click(() => {
+        try {
+            const transactionData = {
+                transactionType: 'buy',
+                originTransactionAmount: 5000,
+                destinationTransactionAmount: 3000,
+                originUnitPrice: 1.5,
+                destinationUnitPrice: 1.3,
+                transactionDate: new Date().toISOString(),
+            };
+
+            game.makeTransaction(transactionData);
+        } catch (error) {
+            console.error('Error al crear la transacción:', error.message);
+        }
     });
 
-    // Botón para obtener el estado del juego
-    $('#getGameStatus').click(function () {
-        game.getGameStatus();
-    });
-
-    // Botón para hacer una transacción de prueba
-    $('#makeTransaction').click(function () {
-        let transactionData = {
-            transactionType: 'buy',
-            originTransactionAmount: 5000,
-            destinationTransactionAmount: 3000,
-            originUnitPrice: 1.5,
-            destinationUnitPrice: 1.3,
-            transactionDate: new Date().toISOString(),
-        };
-        game.makeTransaction(transactionData);
-    });
-
-    // Botón para verificar si se alcanzó el objetivo
-    $('#checkObjective').click(function () {
-        let isGoalReached = game.checkObjective();
-        console.log('¿Objetivo alcanzado?', isGoalReached);
-    });
+    $('#checkObjective').click(() => game.checkObjective());
 });
 window.Game = Game;

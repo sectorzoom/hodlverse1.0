@@ -63,18 +63,18 @@ document.addEventListener("DOMContentLoaded", async function () {
 
     let myChart = echarts.init(chartDom);
 
-    async function fetchUser() {
+    async function fetchStartDate() {
         try {
             const userId = await User.getUserId(); // Obtener ID del usuario
-            const user = await User.getUserById(userId); // Obtener el usuario por su ID
-            console.log(user.game.startDate);
-            return new Date(user.game.startDate); // Convertir a objeto Date
+            const game = await Game.getActiveGameByUserId(userId);
+            return new Date(game.startDate);
         } catch (error) {
             console.error('❌ Error al obtener el usuario:', error);
             return null;
         }
     }
-    const startDate = await fetchUser();
+
+    const startDate = await fetchStartDate();
     const endDate = new Date();
 
     let data = [];
@@ -176,9 +176,8 @@ document.addEventListener("DOMContentLoaded", async function() {
     async function fetchEndDate() {
         try {
             const userId = await User.getUserId(); // Obtener ID del usuario
-            const user = await User.getUserById(userId); // Obtener el usuario por su ID
-            console.log(user);
-            return date = user.game.endDate;
+            const game = await Game.getLastFinishedGameByUserId(userId); // Obtener el usuario por su ID
+            return date = game.endDate;
         } catch (error) {
             console.error('❌ Error al obtener el usuario:', error);
             return null;
@@ -189,7 +188,7 @@ document.addEventListener("DOMContentLoaded", async function() {
 
     const today = new Date();
     const currentDay = today.getDate();
-    const markedDay = 20; // Cambia este número según el día que desees marcar
+    const markedDay = endDate; // Cambia este número según el día que desees marcar
     const daysInMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0).getDate();
 
     // Crear fecha objetivo (inicio del día marcado, es decir, a las 00:00:00)
