@@ -34,11 +34,11 @@
                         </div>
                         <div class="awards-item text-center gap-1">
                             <span class="fw-bold d-block">Market Cap: </span>
-                            <p>$3.743</p><span class="percentage"><i class="fa-solid fa-caret-down"></i> 1.2%</span>
+                            <p class="marketCapValue"></p><span class="percentage"><i class="fa-solid fa-caret-down"></i> 1.2%</span>
                         </div>
                         <div class="awards-item text-center gap-1">
                             <span class="fw-bold d-block">24h Vol: </span>
-                            <p>$90.712</p>
+                            <p class="trendingCoinsValue"></p>
                         </div>
                         <div class="awards-item text-center gap-1">
                             <span class="fw-bold d-block">Dominance: </span>
@@ -126,19 +126,17 @@
                             </button>
                         </li>
                         <li class="mb-1 ms-3">
-                            <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed"
-                                    data-bs-toggle="collapse" data-bs-target="#dashboard-collapse"
-                                    aria-expanded="false">
+                            <!-- Botón que activa el dropdown -->
+                            <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0"
+                                    id="dropdownButton" onclick="window.location.href='highlights.html'">
                                 <i class="fa-solid fa-chart-line"></i> Highlights
                             </button>
+                            <!-- Menú desplegable -->
                             <div class="collapse" id="dashboard-collapse">
                                 <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                                    <li><a href="#"><i class="fa-solid fa-fire"></i> Trending Coins</a>
-                                    </li>
-                                    <li><a href="#"><i class="fa-solid fa-arrow-up"></i> Top Gainers</a>
-                                    </li>
-                                    <li><a href="#"><i class="fa-solid fa-arrow-down"></i> Top Losers</a>
-                                    </li>
+                                    <li><a href="#"><i class="fa-solid fa-fire"></i> Trending Coins</a></li>
+                                    <li><a href="#"><i class="fa-solid fa-arrow-up"></i> Top Gainers</a></li>
+                                    <li><a href="#"><i class="fa-solid fa-arrow-down"></i> Top Losers</a></li>
                                     <li><a href="#"><i class="fa-solid fa-star"></i> New Coins</a></li>
                                 </ul>
                             </div>
@@ -316,7 +314,7 @@
                 </div>
             </div>
         </div>
-        <div class="row gx-4 mb-5">
+        <div class="row gx-4 mb-3">
             <div class="col-lg-6 col-12 border-2 border-gray-200 rounded cryptos">
                 <div class="card shadow-sm">
                     <div class="card-body">
@@ -405,6 +403,8 @@
 <script src="/js/UserJs/User.js"></script>
 <script src="/js/TransactionJs/Transaction.js"></script>
 <script src="/js/GameJs/Game.js"></script>
+<script src="/js/HistoryJs/History.js"></script>
+<script src="/js/javaScript.js"></script>
 <script src="/js/dashboard.js"></script>
 </body>
 </html>

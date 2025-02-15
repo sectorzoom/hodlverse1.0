@@ -1,58 +1,3 @@
-document.getElementById("dropdownMenu").addEventListener("click", function(event) {
-    window.location.href = "highlights.html";
-});
-
-document.addEventListener("DOMContentLoaded", () => {
-    const carousel = document.querySelector(".awards-carousel");
-    const itemsWrapper = document.querySelector(".awards-items-wrapper");
-    const items = Array.from(document.querySelectorAll(".awards-item"));
-
-    // Función para duplicar elementos y garantizar desplazamiento continuo
-    function duplicateItems() {
-        const carouselWidth = carousel.offsetWidth;
-
-        while (itemsWrapper.scrollWidth < carouselWidth * 10) {
-            items.forEach(item => {
-                const clone = item.cloneNode(true);
-                itemsWrapper.appendChild(clone);
-            });
-        }
-    }
-
-    // Llama a la función para garantizar suficientes elementos
-    duplicateItems();
-
-    let scrollSpeed = 1; // Ajusta la velocidad de desplazamiento
-
-    function scrollCarousel() {
-        carousel.scrollLeft += scrollSpeed;
-
-        // Si el primer conjunto de elementos sale completamente de la vista, se reposiciona
-        if (carousel.scrollLeft >= itemsWrapper.scrollWidth / 2) {
-            carousel.scrollLeft -= itemsWrapper.scrollWidth / 2;
-        }
-    }
-
-    // Inicia el desplazamiento continuo
-    setInterval(scrollCarousel, 80);
-});
-
-document.addEventListener("DOMContentLoaded", () => {
-    const offcanvas = document.querySelector("#offcanvasRight");
-
-    // Escuchar el evento `show.bs.collapse` para detectar cuándo se abre un dropdown
-    offcanvas.addEventListener("show.bs.collapse", (event) => {
-        // Seleccionar todas las secciones colapsables dentro del offcanvas
-        const dropdowns = offcanvas.querySelectorAll(".collapse");
-
-        // Cerrar todas las secciones excepto la que se está abriendo
-        dropdowns.forEach((dropdown) => {
-            if (dropdown !== event.target) {
-                bootstrap.Collapse.getOrCreateInstance(dropdown).hide();
-            }
-        });
-    });
-});
 document.addEventListener("DOMContentLoaded", async function () {
     let chartDom = document.getElementById("chart-container");
 
@@ -119,7 +64,7 @@ document.addEventListener("DOMContentLoaded", async function () {
             nameGap: 30,
             axisLabel: {
                 formatter: function (value) {
-                    return new Date(value).toLocaleDateString('es-ES', { day: '2-digit', month: 'short' });
+                    return new Date(value).toLocaleDateString('es-ES', {day: '2-digit', month: 'short'});
                 }
             }
         },
@@ -135,8 +80,8 @@ document.addEventListener("DOMContentLoaded", async function () {
             }
         },
         dataZoom: [
-            { type: 'inside', start: 0, end: 100 },
-            { start: 0, end: 100 }
+            {type: 'inside', start: 0, end: 100},
+            {start: 0, end: 100}
         ],
         series: [
             {
@@ -168,7 +113,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     }
 });
 
-document.addEventListener("DOMContentLoaded", async function() {
+document.addEventListener("DOMContentLoaded", async function () {
     const calendarContainer = document.getElementById("calendar");
     const daysRemainingText = document.getElementById("daysRemaining");
     const timeRemainingText = document.getElementById("timeRemaining");
@@ -183,6 +128,7 @@ document.addEventListener("DOMContentLoaded", async function() {
             return null;
         }
     }
+
     const endDate = await fetchEndDate();
     console.log("📈 Fecha objetivo:", endDate);
 
@@ -229,8 +175,8 @@ document.addEventListener("DOMContentLoaded", async function() {
 document.addEventListener("DOMContentLoaded", function () {
     // Datos de progreso iniciales
     const partidas = [
-        { nombre: "2022", porcentaje: 40 }, // Partida anterior
-        { nombre: "2023", porcentaje: 75 }, // Partida actual
+        {nombre: "2022", porcentaje: 40}, // Partida anterior
+        {nombre: "2023", porcentaje: 75}, // Partida actual
     ];
 
     // Elementos de progreso de partidas
@@ -254,8 +200,8 @@ document.addEventListener("DOMContentLoaded", function () {
         partidaActualText.textContent = partidas[1].nombre;
 
         // Ajustar la altura de las líneas según el porcentaje
-        lineaAnterior.style.height = `${partidas[0].porcentaje }px`;
-        lineaActual.style.height = `${partidas[1].porcentaje }px`;
+        lineaAnterior.style.height = `${partidas[0].porcentaje}px`;
+        lineaActual.style.height = `${partidas[1].porcentaje}px`;
     }
 
     // Función para animar la barra de progreso circular (una sola vez)
@@ -265,6 +211,7 @@ document.addEventListener("DOMContentLoaded", function () {
         progressCircle.style.strokeDashoffset = nuevoOffset;
         progressText.textContent = `${partidas[1].porcentaje}%`;
     }
+
     // Llamar a la función una sola vez después de cargar
     setTimeout(() => {
         actualizarPartidas();
@@ -286,6 +233,7 @@ document.addEventListener("DOMContentLoaded", function () {
             console.error('❌ Error en fetchTransactionsById:', error);
         }
     }
+
     fetchTransactionsById();
 
     function populateTransactionTable(transactions) {

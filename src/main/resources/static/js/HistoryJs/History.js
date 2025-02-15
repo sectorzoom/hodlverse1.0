@@ -336,22 +336,3 @@ class History {
 }
 
 window.History = History;
-
-// =============================
-// 🔥 Cargar automáticamente el historial al iniciar
-// =============================
-$(document).ready(function () {
-    History.loadHistories((histories) => {
-        console.log('Historial cargado en la aplicación:', histories);
-    });
-
-    // Obtener Market Cap total
-    History.getTotalMarketCap((totalMarketCap) => {
-        console.log('Market Cap Total al inicio:', totalMarketCap);
-    });
-
-    // Obtener Total Volume
-    History.getTotalVolume((totalVolume) => {
-        console.log('Total Volume al inicio:', totalVolume);
-    });
-});

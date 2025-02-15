@@ -168,11 +168,4 @@ class Currency {
     }
 }
 
-// =============================
-// 🔥 Cargar automáticamente todas las monedas al iniciar
-// =============================
-$(document).ready(function () {
-    Currency.loadCurrencies((currencies) => {
-        console.log('Monedas cargadas en la aplicación:', currencies);
-    });
-});
+window.Currency = Currency;

@@ -9,6 +9,7 @@
     <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet"/>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/myProfile.css">
 </head>
@@ -30,11 +31,11 @@
                         </div>
                         <div class="awards-item text-center gap-1">
                             <span class="fw-bold d-block">Market Cap: </span>
-                            <p>$3.743</p><span class="percentage"><i class="fa-solid fa-caret-down"></i> 1.2%</span>
+                            <p class="marketCapValue"></p><span class="percentage"><i class="fa-solid fa-caret-down"></i> 1.2%</span>
                         </div>
                         <div class="awards-item text-center gap-1">
                             <span class="fw-bold d-block">24h Vol: </span>
-                            <p>$90.712</p>
+                            <p class="trendingCoinsValue"></p>
                         </div>
                         <div class="awards-item text-center gap-1">
                             <span class="fw-bold d-block">Dominance: </span>
@@ -121,19 +122,17 @@
                             </button>
                         </li>
                         <li class="mb-1 ms-3">
-                            <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed"
-                                    data-bs-toggle="collapse" data-bs-target="#dashboard-collapse"
-                                    aria-expanded="false">
+                            <!-- Botón que activa el dropdown -->
+                            <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0"
+                                    id="dropdownButton" onclick="window.location.href='highlights.html'">
                                 <i class="fa-solid fa-chart-line"></i> Highlights
                             </button>
+                            <!-- Menú desplegable -->
                             <div class="collapse" id="dashboard-collapse">
                                 <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                                    <li><a href="#"><i class="fa-solid fa-fire"></i> Trending Coins</a>
-                                    </li>
-                                    <li><a href="#"><i class="fa-solid fa-arrow-up"></i> Top Gainers</a>
-                                    </li>
-                                    <li><a href="#"><i class="fa-solid fa-arrow-down"></i> Top Losers</a>
-                                    </li>
+                                    <li><a href="#"><i class="fa-solid fa-fire"></i> Trending Coins</a></li>
+                                    <li><a href="#"><i class="fa-solid fa-arrow-up"></i> Top Gainers</a></li>
+                                    <li><a href="#"><i class="fa-solid fa-arrow-down"></i> Top Losers</a></li>
                                     <li><a href="#"><i class="fa-solid fa-star"></i> New Coins</a></li>
                                 </ul>
                             </div>
@@ -436,7 +435,8 @@
     </div>
 </footer>
 <script src="js/plantilla.js"></script>
+<script src="/js/HistoryJs/History.js"></script>
+<script src="/js/javaScript.js"></script>
 <script src="js/myProfile.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

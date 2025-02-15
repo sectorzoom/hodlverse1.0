@@ -1,4 +1,3 @@
-
 (function() {
     let width, height, largeHeader, canvas, ctx, points, target, animateHeader = true;
 
@@ -176,6 +175,3 @@
     }
 
 })();
-document.getElementById("dropdownMenu").addEventListener("click", function(event) {
-    window.location.href = "highlights.html";
-});
