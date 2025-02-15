@@ -10,17 +10,14 @@ function animateBalance() {
         if (balance < totalBalance) {
             balance += step;
             totalBalanceElement.textContent = `$${balance.toFixed(2)}`;
-            // Actualizar la barra de progreso
-            const progress = (balance / totalBalance) * 100;
-            progressBar.style.width = `${progress}%`;
         } else {
             clearInterval(interval);
         }
-    }, 30); // Tiempo de intervalo
+    }, 20); // Tiempo de intervalo
 }
 
 // Iniciar animación después de un pequeño retraso
-setTimeout(animateBalance, 500);
+setTimeout(animateBalance);
 
 document.addEventListener("DOMContentLoaded", function () {
     const ctx = document.getElementById("balanceChart").getContext("2d");
