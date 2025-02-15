@@ -134,7 +134,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
     const today = new Date();
     const currentDay = today.getDate();
-    const markedDay = 25; // Cambia este número según el día que desees marcar
+    const markedDay = 28; // Cambia este número según el día que desees marcar
     const daysInMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0).getDate();
 
     // Crear fecha objetivo (inicio del día marcado, es decir, a las 00:00:00)

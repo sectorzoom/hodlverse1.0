@@ -333,6 +333,48 @@ class History {
             return null;
         }
     }
+
+    // 📊 Obtener las mejores monedas (ordenadas por priceChangePercentage24h descendente)
+    static async getTopWinners() {
+        try {
+            const response = await $.ajax({
+                url: '/history/topWinners',
+                type: 'GET'
+            });
+            return response;
+        } catch (error) {
+            console.error('Error al obtener el usuario:', error);
+            return null; // Retorna null en caso de error
+        }
+    }
+
+    // 🔻 Obtener las peores monedas (ordenadas por priceChangePercentage24h ascendente)
+    static async getTopLosers() {
+        try {
+            const response = await $.ajax({
+                url: '/history/topLosers',
+                type: 'GET'
+            });
+            return response;
+        } catch (error) {
+            console.error('Error al obtener el usuario:', error);
+            return null; // Retorna null en caso de error
+        }
+    }
+
+    // 🔥 Obtener monedas tendencia (ordenadas por marketCapRank ascendente)
+    static async getTrendingCoins() {
+        try {
+            const response = await $.ajax({
+                url: '/history/trending-coins',
+                type: 'GET'
+            });
+            return response;
+        } catch (error) {
+            console.error('Error al obtener el usuario:', error);
+            return null; // Retorna null en caso de error
+        }
+    }
 }
 
 window.History = History;

@@ -68,5 +68,4 @@ public class BalanceController {
         }
         return balanceService.findByCurrencyId(currencyId);
     }
-
 }
