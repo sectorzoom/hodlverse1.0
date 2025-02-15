@@ -156,7 +156,7 @@ window.onload = function () {
         }
     });
 };
-document.getElementById("dropdownMenu").addEventListener("click", function(event) {
+document.getElementById("dropdownMenu").addEventListener("click", function (event) {
     window.location.href = "highlights.html";
 });
 
@@ -231,51 +231,61 @@ let tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
     return new bootstrap.Tooltip(tooltipTriggerEl);
 });
 
-/*API CRYPTO NEWS */
+/* API CAROUSEL NEWS */
 
-// API Key (reemplázala por tu propia API Key)
-const apiKey = '44cd7ee1187b63f43af779ff2c6718a5';
+async function loadCryptoNews() {
+    try {
+        // Realizamos la solicitud a la API de CryptoPanic con el token de autenticación
+        const response = await fetch("https://cryptopanic.com/api/v1/posts/?auth_token=a4c7721b1d6af749de0f98cd0412b15e62d326a3", {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        });
 
-// Función para obtener y mostrar las noticias
-function loadCryptoNews() {
-    fetch(`https://cryptonews-api.com/api/v1/category?section=general&items=5&token=${apiKey}`)
-        .then(response => response.json())
-        .then(data => {
-            const newsContainer = document.getElementById('carousel-news-container');
-            const articles = data.data;
+        // Esperamos la respuesta en formato JSON
+        const data = await response.json();
 
-            // Limpiar el contenedor antes de agregar nuevos elementos
-            newsContainer.innerHTML = '';
-
-            // Iterar sobre las noticias para crear los elementos del carousel
-            articles.forEach((news, index) => {
-                // Crear un item del carousel
-                const newsItem = document.createElement('div');
-                newsItem.classList.add('carousel-item');
-
-                // Asegurarse de que el primer item sea activo
-                if (index === 0) {
-                    newsItem.classList.add('active');
-                }
-
-                // Crear el contenido para cada noticia
-                newsItem.innerHTML = `
-          <div class="d-block w-100" style="height: 300px; background-color: #f8f9fa;">
-            <img src="${news.image}" class="d-block w-100" alt="${news.title}" style="object-fit: cover; height: 100%;">
-            <div class="carousel-caption d-none d-md-block">
-              <h5><a href="${news.url}" target="_blank">${news.title}</a></h5>
-              <p>${news.description}</p>
-            </div>
-          </div>
-        `;
-
-                // Agregar el item al carousel
-                newsContainer.appendChild(newsItem);
-            });
-        })
-        .catch(error => console.error('Error fetching the news:', error));
+        // Verificamos si la respuesta tiene los resultados
+        if (data.results) {
+            // Llamamos a la función para mostrar las noticias en el carrusel
+            displayNewsCarousel(data.results);
+        } else {
+            console.log("No news available.");
+        }
+    } catch (error) {
+        console.error("Error fetching news:", error);
+    }
 }
 
-// Llamar a la función para cargar las noticias
-loadCryptoNews();
+function displayNewsCarousel(news) {
+    // Seleccionamos el contenedor del carrusel
+    const carouselInner = document.querySelector("#cryptoNewsCarousel .carousel-inner");
 
+    // Limpiamos cualquier contenido anterior en el carrusel
+    carouselInner.innerHTML = "";
+
+    // Iteramos sobre las noticias y añadimos los elementos al carrusel
+    news.slice(0, 5).forEach((article, index) => {
+        // Establecemos el primer artículo como activo
+        const isActive = index === 0 ? "active" : "";
+
+        // Construimos el HTML para cada artículo
+        const newsItem = `
+            <div class="carousel-item ${isActive}">
+                <img src="${article.thumbnail || 'placeholder.jpg'}" class="d-block w-100" alt="${article.title}">
+                <div class="carousel-caption d-none d-md-block">
+                    <h5>${article.title}</h5>
+                    <p>${article.text || "No description available."}</p>
+                    <a href="${article.url}" class="btn btn-primary" target="_blank">Read More</a>
+                </div>
+            </div>
+        `;
+
+        // Añadimos el artículo al carrusel
+        carouselInner.innerHTML += newsItem;
+    });
+}
+
+// Llamamos a la función loadCryptoNews cuando el contenido de la página se haya cargado completamente
+document.addEventListener("DOMContentLoaded", loadCryptoNews);

@@ -232,79 +232,141 @@
 <main class="container my-4">
     <!-- Contenedor General -->
     <div id="main-sections" class="p-4 bg-white rounded shadow">
-        <!-- Sección 1: Greeting y Gráfico -->
-        <div class="row d-flex align-items-stretch">
-            <!-- Greeting -->
-            <div class="col-lg-6 h-100 ">
-                <section class="p-4 h-100">
-                    <h1 class="mb-4">Welcome, <span class="text-oro">John Doe</span></h1>
-                    <p class="text-muted mb-5">Here is a quick overview of your account and activity. Check your balance, subscriptions, and more!</p>
+        <main class="container my-4">
+            <!-- Mensaje de bienvenida -->
+            <div class="mb-4">
+                <h1 class="mb-4">Welcome, <span class="text-oro">John Doe</span></h1>
+                <p class="text-muted">Here is a quick overview of your account and activity. Check your balance, subscriptions, and more!</p>
+            </div>
 
-                    <!-- Sección: Total Dinero-->
-                    <div class="card shadow-sm border-0 h-100">
-                        <div class="card-body d-flex justify-content-between align-items-center">
-                            <h4 class="text-uppercase text-muted mb-0">Total Balance</h4>
-                            <p class="fs-1 text-dark fw-bold mb-0" id="total-balance">$0</p>
-                        </div>
-                        <div class="card-body mb-3">
-                            <div class="progress w-100">
-                                <div class="progress-bar bg-oro" role="progressbar" id="progress-bar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+            <!-- Row 1: Sección 1 (User Info) a la izquierda y Sección 2 (Total Balance) a la derecha -->
+            <div class="row">
+                <!-- Sección 1: User Information -->
+                <div class="col-md-6 mb-4">
+                    <section id="user-info" class="p-4">
+                        <div class="card-profile">
+                            <div class="card-body">
+                                <!-- Username -->
+                                <div class="d-flex align-items-center justify-content-between border-bottom py-3">
+                                    <div class="d-flex align-items-center">
+                                        <i class="fs-4 fa-solid fa-circle-user me-3"></i>
+                                        <div>
+                                            <p class="mb-0 fw-bold">Username:</p>
+                                            <p class="text-muted small mb-0">John Doe</p>
+                                        </div>
+                                    </div>
+                                    <button class="btn btn-sm btn-azuloscuro text-light" data-bs-toggle="modal" data-bs-target="#editDisplayNameModal">Edit</button>
+                                </div>
+
+                                <!-- Email -->
+                                <div class="d-flex align-items-center justify-content-between border-bottom py-3">
+                                    <div class="d-flex align-items-center">
+                                        <i class="fs-4 fa-solid fa-envelope me-3"></i>
+                                        <div>
+                                            <p class="mb-0 fw-bold">Email:</p>
+                                            <p class="text-muted small mb-0">johndoe@example.com</p>
+                                        </div>
+                                    </div>
+                                    <button class="btn btn-sm btn-azuloscuro text-light" data-bs-toggle="modal" data-bs-target="#editEmailModal">Edit</button>
+                                </div>
+
+                                <!-- Password -->
+                                <div class="d-flex align-items-center justify-content-between py-3">
+                                    <div class="d-flex align-items-center">
+                                        <i class="fs-4 fa-solid fa-lock me-3"></i>
+                                        <div>
+                                            <p class="mb-0 fw-bold">Password:</p>
+                                            <p class="text-muted small mb-0">••••••••</p>
+                                        </div>
+                                    </div>
+                                    <button class="btn btn-sm btn-azuloscuro text-light" data-bs-toggle="modal" data-bs-target="#editPasswordModal">Edit</button>
+                                </div>
                             </div>
+                        </div>
+                    </section>
+                </div>
+
+                <!-- Sección 2: Total Balance -->
+                <div class="col-md-6 mb-4">
+                    <section id="total-balance-section" class="p-4">
+                        <div class="card shadow-sm border-0">
+                            <div class="card-body text-center">
+                                <!-- Título -->
+                                <h4 class="text-uppercase text-muted mb-0">Total Balance</h4>
+                                <!-- Balance con número animado y estilo atractivo -->
+                                <p class="fs-1 text-dark fw-bold mb-0" id="total-balance" style="font-family: 'Roboto', sans-serif;">$0</p>
+
+                                <!-- Icono y tooltip -->
+                                <span data-bs-toggle="tooltip" data-bs-placement="top" title="Total balance available in your account.">
+                    <i class="fas fa-info-circle text-muted"></i>
+                </span>
+                            </div>
+                            <!-- Fondo con gradiente atractivo -->
+                            <div class="card-footer bg-gradient p-2">
+                                <div class="progress rounded-0" style="height: 8px;">
+                                    <div class="progress-bar bg-warning" id="balance-progress" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+
+            <!-- Row 2: Sección 3 (Tokens) a la izquierda y Sección 4 (Tips & Advice) a la derecha -->
+            <div class="row">
+                <!-- Sección 3: Tokens -->
+                <div class="col-md-6 mb-4">
+                    <section id="tokens-section" class="p-4">
+                        <h2 class="text-center mb-3">Tokens</h2>
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="text-uppercase text-muted mb-0">Tokens Remaining</h4>
+                                <p class="fs-1 text-dark fw-bold mb-0" id="remaining-tokens">100</p>
+                                <div class="text-muted mb-3">You have 100 tokens available.</div>
+                                <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#buyTokensModal">Buy More Tokens</button>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+
+                <!-- Sección 4: Tips & Advice -->
+                <div class="col-md-6 mb-4">
+                    <section id="tips-section" class="p-4">
+                        <h2 class="text-center mb-3">Tips & Advice</h2>
+                        <div class="card">
+                            <div class="card-body">
+                                <ul class="list-unstyled">
+                                    <li><strong>Tip 1:</strong> Always do your own research before investing.</li>
+                                    <li><strong>Tip 2:</strong> Diversify your portfolio to minimize risk.</li>
+                                    <li><strong>Tip 3:</strong> Stay updated with market news and trends.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+
+            <!-- Modal para Comprar Tokens -->
+            <div class="modal fade" id="buyTokensModal" tabindex="-1" aria-labelledby="buyTokensModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="buyTokensModalLabel">Buy More Tokens</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <label for="tokenAmount" class="form-label">Enter amount to buy:</label>
+                            <input type="number" class="form-control" id="tokenAmount" placeholder="e.g. 50">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                            <button type="button" class="btn btn-primary" id="buyTokensBtn">Confirm Purchase</button>
                         </div>
                     </div>
-                </section>
+                </div>
             </div>
-            <div class="col-lg-6 h-100 mt-3 mb-4">
-                <section id="section-2-info border-0" class="p-4 h-100">
-                    <h2 class="text-center mb-3">User Information</h2>
-                    <div class="card h-100">
-                        <div class="card-body">
-                            <!-- Username -->
-                            <div class="d-flex align-items-center justify-content-between border-bottom py-3">
-                                <div class="d-flex align-items-center">
-                                    <i class="fs-4 fa-solid fa-circle-user me-3"></i>
-                                    <div>
-                                        <p class="mb-0 fw-bold">Username: </p>
-                                        <p class="text-muted small mb-0">John Doe</p>
-                                    </div>
-                                </div>
-                                <button class="btn btn-sm btn-azuloscuro text-light" data-bs-toggle="modal" data-bs-target="#editDisplayNameModal">Edit</button>
-                            </div>
+        </main>
 
-                            <!-- Email -->
-                            <div class="d-flex align-items-center justify-content-between border-bottom py-3">
-                                <div class="d-flex align-items-center">
-                                    <i class="fs-4 fa-solid fa-envelope me-3"></i>
-                                    <div>
-                                        <p class="mb-0 fw-bold">Email: </p>
-                                        <p class="text-muted small mb-0">johndoe@example.com</p>
-                                    </div>
-                                </div>
-                                <button class="btn btn-sm btn-azuloscuro text-light" data-bs-toggle="modal" data-bs-target="#editEmailModal">Edit</button>
-                            </div>
-
-                            <!-- Password -->
-                            <div class="d-flex align-items-center justify-content-between py-3">
-                                <div class="d-flex align-items-center">
-                                    <i class="fs-4 fa-solid fa-lock me-3"></i>
-                                    <div>
-                                        <p class="mb-0 fw-bold">Password</p>
-                                        <p class="text-muted small mb-0">••••••••</p>
-                                    </div>
-                                </div>
-                                <button class="btn btn-sm btn-azuloscuro text-light" data-bs-toggle="modal" data-bs-target="#editPasswordModal">Edit</button>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-            </div>
-        </div>
-
-        <hr>
-        <!-- BUY TOKENS SECTION -->
-        <div class="row mt-4">
-
-        </div>
     </div>
 </main>
 

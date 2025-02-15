@@ -1,24 +1,7 @@
-<!-- CSS MAIN PROFILE-->
-    /* Contenedor General */
-#section-1 {
-    background-color: var(--azulclaro);
-    border-radius: 8px;
-    min-height: 400px; /* Asegura que las secciones tengan un tamaño mínimo uniforme */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-}
 
 /* Títulos */
 h1 span {
     color: var(--oro);
-}
-
-/* Contenedor General */
-#main-sections {
-    max-width: 1200px;
-    margin: 0 auto; /* Centra todo el contenedor */
-    background-color: var(--azulclaro);
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 /* Secciones Internas */
@@ -65,3 +48,32 @@ h1 span {
     transform: scale(1.1);
 }
 
+/* Fondo del card con gradiente */
+#total-balance-section .card-body {
+    background: linear-gradient(135deg, #6a8dff, #4b74d4);
+    border-radius: 10px;
+    color: white;
+    padding: 2rem;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilo destacado para el balance */
+#total-balance {
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
+    transition: all 0.3s ease-in-out;
+}
+
+#total-balance:hover {
+    color: #f1c40f; /* Cambia a un color dorado cuando se pasa el ratón */
+    text-shadow: 0 0 15px rgba(255, 223, 0, 0.8);
+}
+
+/* Estilo de barra de progreso */
+.progress {
+    border-radius: 0.5rem;
+    background-color: #f1f1f1;
+}
+
+.progress-bar {
+    transition: width 0.6s ease-in-out;
+}

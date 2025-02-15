@@ -1,37 +1,26 @@
-document.addEventListener("DOMContentLoaded", function () {
-    // Animar el Total Balance
-    const totalBalanceElement = document.getElementById("total-balance");
-    const finalBalance = 2350; // Valor final
-    const duration = 2000; // Duración de la animación (en ms)
-    const frameRate = 60; // Frames por segundo
-    const increment = finalBalance / (duration / (2500 / frameRate));
-    let currentBalance = 0;
+let balance = 0;
+let totalBalance = 1200; // Valor del balance
+const totalBalanceElement = document.getElementById('total-balance');
+const progressBar = document.getElementById('balance-progress');
 
-    const updateBalance = setInterval(() => {
-        currentBalance += increment;
-        if (currentBalance >= finalBalance) {
-            currentBalance = finalBalance;
-            clearInterval(updateBalance);
+// Función para animar el número
+function animateBalance() {
+    let step = totalBalance / 100;
+    let interval = setInterval(function () {
+        if (balance < totalBalance) {
+            balance += step;
+            totalBalanceElement.textContent = `$${balance.toFixed(2)}`;
+            // Actualizar la barra de progreso
+            const progress = (balance / totalBalance) * 100;
+            progressBar.style.width = `${progress}%`;
+        } else {
+            clearInterval(interval);
         }
-        totalBalanceElement.textContent = `$${Math.floor(currentBalance).toLocaleString()}`;
-    }, 2500 / frameRate);
+    }, 30); // Tiempo de intervalo
+}
 
-    // Animar la Barra de Progreso
-    const progressBar = document.getElementById("progress-bar");
-    const finalProgress = 75; // Porcentaje final
-    let currentProgress = 0;
-    const progressIncrement = finalProgress / (duration / (2500 / frameRate));
-
-    const updateProgressBar = setInterval(() => {
-        currentProgress += progressIncrement;
-        if (currentProgress >= finalProgress) {
-            currentProgress = finalProgress;
-            clearInterval(updateProgressBar);
-        }
-        progressBar.style.width = `${currentProgress}%`;
-        progressBar.setAttribute("aria-valuenow", Math.floor(currentProgress));
-    }, 2500 / frameRate);
-});
+// Iniciar animación después de un pequeño retraso
+setTimeout(animateBalance, 500);
 
 document.addEventListener("DOMContentLoaded", function () {
     const ctx = document.getElementById("balanceChart").getContext("2d");
