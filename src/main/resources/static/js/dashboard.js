@@ -134,7 +134,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
     const today = new Date();
     const currentDay = today.getDate();
-    const markedDay = endDate; // Cambia este número según el día que desees marcar
+    const markedDay = 25; // Cambia este número según el día que desees marcar
     const daysInMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0).getDate();
 
     // Crear fecha objetivo (inicio del día marcado, es decir, a las 00:00:00)
@@ -257,25 +257,27 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 });
-document.addEventListener("DOMContentLoaded", () => {
-    // Ejemplo de datos de criptomonedas
-    const cryptos = [
-        {
-            name: "BITCOIN",
-            symbol: "BTC",
-            value: "$96,216.84",
-            amount: "1.5",
-            logo: "https://cryptologos.cc/logos/bitcoin-btc-logo.png"
-        },
-        {
-            name: "ETHEREUM",
-            symbol: "ETH",
-            value: "$3,000.00",
-            amount: "10",
-            logo: "https://cryptologos.cc/logos/ethereum-eth-logo.png"
+document.addEventListener("DOMContentLoaded", async () => {
+
+    async function getCryptos(){
+        try{
+            const userId = await User.getUserId(); // Obtener ID del usuario
+            const currencies = await Wallet.getWalletsCurrenciesById(userId);
+            console.log(currencies);
+            return currencies || []; // Retorna un array vacío si es null/undefined
+
+        } catch (error) {
+            console.error('❌ Error al obtener el usuario:', error);
+            return []; // Devuelve un array vacío en caso de error
         }
-        // Puedes agregar más criptos
-    ];
+    }
+    const cryptos = await getCryptos();
+
+    // Verifica que cryptos sea un array antes de iterar
+    if (!Array.isArray(cryptos)) {
+        console.error("❌ Error: cryptos no es un array", cryptos);
+        return;
+    }
 
     const container = document.getElementById("cryptosContainer");
 
@@ -290,13 +292,13 @@ document.addEventListener("DOMContentLoaded", () => {
             <h5 class="text">${crypto.name}</h5>
             <h5 class="text">${crypto.value}</h5>
             <div class="d-flex align-items-center gap-2">
-              <h6 class="text-muted">${crypto.symbol}</h6>
+              <h6 class="text-muted">${crypto.ticker}</h6>
               <h6 class="text-muted">${crypto.amount}</h6>
             </div>
           </div>
         </div>
         <div class="img-container">
-          <img src="${crypto.logo}" alt="${crypto.name}" height="55">
+          <img src="${crypto.image}" alt="${crypto.name}" height="55">
         </div>
       </div>
     `;

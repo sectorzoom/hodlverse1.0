@@ -48,6 +48,19 @@ class Wallet {
         });
     }
 
+    static async getWalletsCurrenciesById(id) {
+        try {
+            const response = await $.ajax({
+                url: `/wallets/${id}/currencies`,
+                type: 'GET'
+            });
+            return response;
+        } catch (error) {
+            console.error('Error al obtener el usuario:', error);
+            return null;
+        }
+    }
+
     // Crear una nueva billetera
     static createWallet(walletData, callback) {
         $.ajax({
@@ -115,3 +128,4 @@ class Wallet {
         });
     }
 }
+ window.Wallet = Wallet;
