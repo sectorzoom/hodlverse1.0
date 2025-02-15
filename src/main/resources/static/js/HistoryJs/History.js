@@ -306,52 +306,96 @@ class History {
         });
     }
 
-    // 📊 Obtener la suma total del Market Cap de todas las monedas
-    static getTotalMarketCap(callback) {
+    // 📊 Obtener las mejores monedas (ordenadas por priceChangePercentage24h descendente)
+    static getTopWinners(callback) {
         $.ajax({
-            url: '/history/total-market-cap',
+            url: '/history/topWinners',
             type: 'GET',
             success: (data) => {
-                console.log('Total Market Cap:', data);
-                if (callback) callback(data);
+                const topWinners = data.map(h => new History(
+                    h.historyId,
+                    h.currentPrice,
+                    h.marketCap,
+                    h.marketCapRank,
+                    h.totalVolume,
+                    h.high24h,
+                    h.low24h,
+                    h.priceChange24h,
+                    h.priceChangePercentage24h,
+                    h.marketCapChange24h,
+                    h.marketCapChangePercentage24h,
+                    h.totalSupply,
+                    new Date(h.lastUpdated),
+                    new Currency(h.currency)
+                ));
+                console.log('Mejores monedas obtenidas:', topWinners);
+                if (callback) callback(topWinners);
             },
             error: (error) => {
-                console.error('Error al obtener el Total Market Cap:', error);
+                console.error('Error al obtener las mejores monedas:', error);
             }
         });
     }
 
-    // 🔊 Obtener la suma total del volumen de todas las monedas
-    static getTotalVolume(callback) {
+    // 🔻 Obtener las peores monedas (ordenadas por priceChangePercentage24h ascendente)
+    static getTopLosers(callback) {
         $.ajax({
-            url: '/history/total-volume',
+            url: '/history/topLosers',
             type: 'GET',
             success: (data) => {
-                console.log('Total Volume:', data);
-                if (callback) callback(data);
+                const topLosers = data.map(h => new History(
+                    h.historyId,
+                    h.currentPrice,
+                    h.marketCap,
+                    h.marketCapRank,
+                    h.totalVolume,
+                    h.high24h,
+                    h.low24h,
+                    h.priceChange24h,
+                    h.priceChangePercentage24h,
+                    h.marketCapChange24h,
+                    h.marketCapChangePercentage24h,
+                    h.totalSupply,
+                    new Date(h.lastUpdated),
+                    new Currency(h.currency)
+                ));
+                console.log('Peores monedas obtenidas:', topLosers);
+                if (callback) callback(topLosers);
             },
             error: (error) => {
-                console.error('Error al obtener el Total Volume:', error);
+                console.error('Error al obtener las peores monedas:', error);
+            }
+        });
+    }
+
+    // 🔥 Obtener monedas tendencia (ordenadas por marketCapRank ascendente)
+    static getTrendingCoins(callback) {
+        $.ajax({
+            url: '/history/trending-coins',
+            type: 'GET',
+            success: (data) => {
+                const trendingCoins = data.map(h => new History(
+                    h.historyId,
+                    h.currentPrice,
+                    h.marketCap,
+                    h.marketCapRank,
+                    h.totalVolume,
+                    h.high24h,
+                    h.low24h,
+                    h.priceChange24h,
+                    h.priceChangePercentage24h,
+                    h.marketCapChange24h,
+                    h.marketCapChangePercentage24h,
+                    h.totalSupply,
+                    new Date(h.lastUpdated),
+                    new Currency(h.currency)
+                ));
+                console.log('Monedas tendencia obtenidas:', trendingCoins);
+                if (callback) callback(trendingCoins);
+            },
+            error: (error) => {
+                console.error('Error al obtener las monedas tendencia:', error);
             }
         });
     }
 }
-
-// =============================
-// 🔥 Cargar automáticamente el historial al iniciar
-// =============================
-$(document).ready(function () {
-    History.loadHistories((histories) => {
-        console.log('Historial cargado en la aplicación:', histories);
-    });
-
-    // Obtener Market Cap total
-    History.getTotalMarketCap((totalMarketCap) => {
-        console.log('Market Cap Total al inicio:', totalMarketCap);
-    });
-
-    // Obtener Total Volume
-    History.getTotalVolume((totalVolume) => {
-        console.log('Total Volume al inicio:', totalVolume);
-    });
-});
