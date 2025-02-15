@@ -5,6 +5,7 @@ import org.edgar.hodlverse.services.BalanceService;
 import org.edgar.hodlverse.services.NotFoundException;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @RestController
@@ -68,5 +69,15 @@ public class BalanceController {
         }
         return balanceService.findByCurrencyId(currencyId);
     }
+
+    // Endpoint para obtener la suma de walletAmount
+    @GetMapping("/total/{walletId}/{currencyId}")
+    public BigDecimal getTotalWalletAmount(
+            @PathVariable Long walletId,
+            @PathVariable Long currencyId
+    ) {
+        return balanceService.getTotalWalletAmount(walletId, currencyId);
+    }
+
 
 }

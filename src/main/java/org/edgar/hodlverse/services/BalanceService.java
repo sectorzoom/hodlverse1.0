@@ -4,6 +4,7 @@ import org.edgar.hodlverse.entities.Balance;
 import org.edgar.hodlverse.repositories.BalanceRepository;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
@@ -38,6 +39,11 @@ public class BalanceService {
 
     public List<Balance> findByCurrencyId(Long currencyId) {
         return balanceRepository.findByCurrencyCurrencyId(currencyId);
+    }
+
+    // Método para obtener la suma de walletAmount
+    public BigDecimal getTotalWalletAmount(Long walletId, Long currencyId) {
+        return balanceRepository.getTotalWalletAmount(walletId, currencyId);
     }
 
 }
