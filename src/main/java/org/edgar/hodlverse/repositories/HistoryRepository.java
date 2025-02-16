@@ -51,8 +51,8 @@ public interface HistoryRepository extends JpaRepository<History, Long> {
     Optional<History> findLatestHistoryByCurrencyBeforeDate(
             org.edgar.hodlverse.entities.Currency currency, LocalDate date);
 
-    // Consulta personalizada para encontrar la última entrada de History
-    @Query("SELECT h FROM History h ORDER BY h.lastUpdated DESC")
-    Optional<History> findLatestHistory();
+    // Consulta personalizada para encontrar la última entrada de History para una moneda
+    @Query("SELECT h FROM History h WHERE h.currency.currencyId = :currencyId ORDER BY h.lastUpdated DESC LIMIT 1")
+    Optional<History> findLatestHistoryByCurrencyId(@Param("currencyId") Long currencyId);
 }
 

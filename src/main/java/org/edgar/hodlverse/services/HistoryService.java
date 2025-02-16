@@ -85,9 +85,9 @@ public class HistoryService {
         return new Record(openPrice, closePrice, high24h, low24h);
     }
 
-    // Obtener la última entrada de History
-    public Optional<History> getLatestHistory() {
-        return historyRepository.findLatestHistory();
+    // Obtener la última entrada de History para una moneda por su ID
+    public Optional<History> getLatestHistoryByCurrencyId(Long currencyId) {
+        return historyRepository.findLatestHistoryByCurrencyId(currencyId);
     }
 
     public static class Record {

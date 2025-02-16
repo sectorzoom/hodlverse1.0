@@ -138,13 +138,13 @@ public class HistoryController {
         return historyService.getTotalVolume();
     }
 
-    // Endpoint para obtener la última entrada de History
-    @GetMapping("/latest")
-    public ResponseEntity<History> getLatestHistory() {
-        Optional<History> latestHistory = historyService.getLatestHistory();
+    // Endpoint para obtener la última entrada de History para una moneda por su ID
+    @GetMapping("/latest/{currencyId}")
+    public ResponseEntity<History> getLatestHistoryByCurrencyId(@PathVariable Long currencyId) {
+        Optional<History> latestHistory = historyService.getLatestHistoryByCurrencyId(currencyId);
 
         if (latestHistory.isEmpty()) {
-            throw new NotFoundException("No se encontró ninguna entrada de History.");
+            throw new NotFoundException("No se encontró ninguna entrada de History para la moneda con ID " + currencyId + ".");
         }
 
         return ResponseEntity.ok(latestHistory.get());
