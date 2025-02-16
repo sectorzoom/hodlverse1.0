@@ -308,3 +308,53 @@
         margin-top: 80px !important; /* Fijar espacio para que no suba */
     }
 }
+
+/* Solo aplica el blur al contenido detrás del modal */
+body.modal-open main {
+    filter: blur(5px);
+    pointer-events: none; /* Evita clics en el fondo */
+}
+
+/* -------------------- TRANSACTIONS SECTION -------------------- */
+
+.extra-small-text {
+    font-size: 0.85rem;
+}
+
+.highlightsMenu {
+    background-color: #fff;
+}
+.btn-link{
+    color: var(--azuloscuro);
+    text-decoration: none;
+}
+.btn-link:hover{
+    color: var(--oro);
+}
+
+.btn-transaction-modal{
+    background-color: var(--azuloscuro);
+    color: white;
+}
+.btn-transaction-modal:hover{
+    background-color: var(--oro);
+    color: white;
+}
+
+
+/* -------------------- BADGES -------------------- */
+
+.badge-buy {
+    background-color: #28a745; /* Verde */
+    color: white;
+}
+
+.badge-sell {
+    background-color: #dc3545; /* Rojo */
+    color: white;
+}
+
+.badge-exchange {
+    background-color: var(--oro); /* Naranja */
+    color: white;
+}

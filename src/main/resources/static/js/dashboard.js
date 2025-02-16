@@ -270,9 +270,29 @@ document.addEventListener("DOMContentLoaded", function () {
         transactions.forEach(transaction => {
             const row = document.createElement("tr");
 
+            let badgeClass = "";
+            switch (transaction.transactionType.toLowerCase()) {
+                case "buy":
+                    badgeClass = "badge-buy";
+                    break;
+                case "sell":
+                    badgeClass = "badge-sell";
+                    break;
+                case "exchange":
+                    badgeClass = "badge-exchange";
+                    break;
+                default:
+                    badgeClass = "badge-secondary";
+            }
+
             row.innerHTML = `
-            <td class="col-4"><img src="${transaction.destinationCurrency.image}" alt="Logo de ${transaction.destinationCurrency.name}" height="24"> ${transaction.destinationCurrency.name}</td>
-            <td class="col-2 text-center">${transaction.transactionType}</td>
+            <td class="col-4">
+                <img src="${transaction.destinationCurrency.image}" alt="Logo de ${transaction.destinationCurrency.name}" height="24">
+                ${transaction.destinationCurrency.name}
+            </td>
+            <td class="col-2 text-center">
+                <span class="badge ${badgeClass}">${transaction.transactionType}</span>
+            </td>
             <td class="col-3 text-end">${transaction.destinationUnitPrice.toFixed(2)}</td>
             <td class="col-3 text-end">$${transaction.destinationTransactionAmount.toFixed(2)}</td>
         `;
@@ -282,6 +302,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
         console.log("✅ Tabla actualizada con transacciones.");
     }
+
+
 
 });
 document.addEventListener("DOMContentLoaded", async () => {
