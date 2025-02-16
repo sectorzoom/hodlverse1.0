@@ -51,6 +51,10 @@ h1 span {
 #total-balance-section .card:hover {
     transform: scale(1.02);
 }
+.small-token-card{
+    border: solid 1px var(--azuloscuro);
+
+}
 
 /* Para reducir el espacio entre las secciones dentro de la tarjeta */
 .small-token-card .card-body {
@@ -62,6 +66,8 @@ h1 span {
 /* Reduce el espacio entre la barra vertical y el contenido de la derecha */
 .small-token-card .vr {
     margin:  1.5rem; /* Ajusta el espacio de la barra vertical */
+    border: solid 1px var(--azuloscuro);
+
 }
 .token-icon img{
     width: 60px;
