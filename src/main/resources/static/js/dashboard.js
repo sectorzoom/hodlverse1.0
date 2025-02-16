@@ -258,10 +258,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
 });
 document.addEventListener("DOMContentLoaded", async () => {
+    let user;
 
     async function getCryptos(){
         try{
             const userId = await User.getUserId(); // Obtener ID del usuario
+            user = await User.getUserById(userId);
             const currencies = await Wallet.getWalletsCurrenciesById(userId);
             console.log(currencies);
             return currencies || []; // Retorna un array vacío si es null/undefined
@@ -273,6 +275,44 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
     const cryptos = await getCryptos();
 
+    let currencies = await getCurrencies();
+
+    async function getCurrencies(){
+        try{
+            const response = await $.ajax({
+                url: `/wallets/${user.wallet.walletId}/currencies`,
+                type: 'GET'
+            });
+            return response;
+        } catch (error) {
+            console.error('❌ Error al obtener el usuario:', error);
+            return [];
+        }
+    }
+
+    async function getTotalValue() {
+        try {
+            let promises = currencies.map(async (currency) => {
+                const response = await $.ajax({
+                    url: `/balances/total/${user.wallet.walletId}/${currency.currencyId}`,
+                    type: 'GET'
+                });
+                return response; // Retorna el valor de la solicitud
+            });
+
+            let totalsValue = await Promise.all(promises); // Espera a que todas las promesas se resuelvan
+            console.log("📊 totalValue cargado:", totalsValue);
+            return totalsValue;
+        } catch (error) {
+            console.error('❌ Error al obtener los valores totales:', error);
+            return [];
+        }
+    }
+
+
+    let totalValue = await getTotalValue();
+    console.log(totalValue);
+
     // Verifica que cryptos sea un array antes de iterar
     if (!Array.isArray(cryptos)) {
         console.error("❌ Error: cryptos no es un array", cryptos);
@@ -281,10 +321,13 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     const container = document.getElementById("cryptosContainer");
 
+    let contador = 0;
     // Genera y añade una card para cada crypto
     cryptos.forEach(crypto => {
         const card = document.createElement("div");
         card.classList.add("card", "crypto", "shadow-sm", "mb-2");
+        let amount = totalValue[contador];
+        console.log(amount);
         card.innerHTML = `
       <div class="card-body d-flex align-items-center justify-content-between">
         <div>
@@ -293,7 +336,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             <h5 class="text">${crypto.value}</h5>
             <div class="d-flex align-items-center gap-2">
               <h6 class="text-muted">${crypto.ticker}</h6>
-              <h6 class="text-muted">${crypto.amount}</h6>
+              <h6 class="text-muted">${amount}</h6>
             </div>
           </div>
         </div>
@@ -303,5 +346,6 @@ document.addEventListener("DOMContentLoaded", async () => {
       </div>
     `;
         container.appendChild(card);
+        contador++;
     });
 });
