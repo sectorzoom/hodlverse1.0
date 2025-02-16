@@ -232,163 +232,179 @@
         </div>
     </nav>
 </header>
-<main class="container my-4">
+<main class="container my-5">
     <!-- Contenedor General -->
     <div id="main-sections" class="p-4 bg-white rounded shadow">
-        <main class="container my-4">
-            <!-- Mensaje de bienvenida -->
-            <div class="mb-4">
-                <h1>Welcome, <span class="text-oro">John Doe</span></h1>
-                <p class="text-secondary" style="font-style: italic">Here is a quick overview of your account and
-                    activity. Check your balance, subscriptions, and more!</p>
-            </div>
+        <!-- Mensaje de bienvenida -->
+        <div class="mb-4">
+            <h1>Welcome, <span class="text-oro">HodlStakers</span></h1>
+            <p class="text-secondary" style="font-style: italic">Here is a quick overview of your account and
+                activity. Check your balance, subscriptions, and more!</p>
+        </div>
+        <hr>
 
-            <!-- Row 1: Sección 1 (User Info) + Sección 4 (Tips & Advice) a la izquierda, Sección 2 (Total Balance) a la derecha -->
-            <div class="row align-items-center">
-                <!-- Columna izquierda: User Info + Tips & Advice -->
-                <div class="col-md-6 mb-4">
-                    <!-- Sección 1: User Information -->
-                    <section id="user-info" class="p-4">
-                        <div class="card-profile">
-                            <div class="card-body">
-                                <!-- Username -->
-                                <div class="d-flex align-items-center justify-content-between border-bottom py-3">
-                                    <div class="d-flex align-items-center">
-                                        <i class="fs-4 fa-solid fa-circle-user me-3"></i>
-                                        <div>
-                                            <p class="mb-0 fw-bold">Username:</p>
-                                            <p class="text-muted small mb-0">John Doe</p>
-                                        </div>
-                                    </div>
-                                    <button class="btn btn-sm btn-azuloscuro text-light" data-bs-toggle="modal"
-                                            data-bs-target="#editDisplayNameModal">Edit
-                                    </button>
-                                </div>
-
-                                <!-- Email -->
-                                <div class="d-flex align-items-center justify-content-between border-bottom py-3">
-                                    <div class="d-flex align-items-center">
-                                        <i class="fs-4 fa-solid fa-envelope me-3"></i>
-                                        <div>
-                                            <p class="mb-0 fw-bold">Email:</p>
-                                            <p class="text-muted small mb-0">johndoe@example.com</p>
-                                        </div>
-                                    </div>
-                                    <button class="btn btn-sm btn-azuloscuro text-light" data-bs-toggle="modal"
-                                            data-bs-target="#editEmailModal">Edit
-                                    </button>
-                                </div>
-
-                                <!-- Password -->
-                                <div class="d-flex align-items-center justify-content-between py-3">
-                                    <div class="d-flex align-items-center">
-                                        <i class="fs-4 fa-solid fa-lock me-3"></i>
-                                        <div>
-                                            <p class="mb-0 fw-bold">Password:</p>
-                                            <p class="text-muted small mb-0">••••••••</p>
-                                        </div>
-                                    </div>
-                                    <button class="btn btn-sm btn-azuloscuro text-light" data-bs-toggle="modal"
-                                            data-bs-target="#editPasswordModal">Edit
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
-
-                    <!-- Sección 4: Tips & Advice -->
-                    <h2 class="text-center mb-3">Tips & Advice</h2>
-                    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-                        <div class="col">
-                            <div class="card shadow-sm border-0 rounded-3">
-                                <div class="card-body d-flex align-items-start">
-                                    <i class="fas fa-search-dollar fa-2x me-3 text-primary"></i>
-                                    <div>
-                                        <h5 class="card-title">Do Your Own Research</h5>
-                                        <p class="card-text">Always do your own research before investing. Knowledge is key to making smart decisions.</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="card shadow-sm border-0 rounded-3">
-                                <div class="card-body d-flex align-items-start">
-                                    <i class="fas fa-project-diagram fa-2x me-3 text-primary"></i>
-                                    <div>
-                                        <h5 class="card-title">Diversify Your Portfolio</h5>
-                                        <p class="card-text">Diversify your portfolio to minimize risk. Don't put all your eggs in one basket!</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="card shadow-sm border-0 rounded-3">
-                                <div class="card-body d-flex align-items-start">
-                                    <i class="fas fa-rss fa-2x me-3 text-primary"></i>
-                                    <div>
-                                        <h5 class="card-title">Stay Updated</h5>
-                                        <p class="card-text">Stay updated with market news and trends. The market changes fast, so it's essential to stay informed.</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Columna derecha: Balance + HodlCoins -->
-                <div class="col-md-6 mb-4 d-flex justify-content-center">
-                    <div class="card p-3 w-85 small-token-card">
-                        <div class="card-body d-flex align-items-center gap-4">
-                            <!-- Sección izquierda: Icono billetera + Balance -->
+        <!-- Fila principal con dos columnas -->
+        <div class="row row-cols-1 row-cols-md-2 gx-5 gy-3">
+            <!-- Columna izquierda: User Info + Balance -->
+            <div class="col-md-6 mb-4">
+                <!-- Sección 1: User Information -->
+                <div class="card-profile p-4">
+                    <div class="card-body">
+                        <!-- Username -->
+                        <div class="d-flex align-items-center justify-content-between border-bottom py-3">
                             <div class="d-flex align-items-center">
-                                <div class="wallet-icon me-3">
-                                    <i class="fas fa-wallet fa-3x"></i>
-                                </div>
-                                <div class="text-start">
-                                    <h5 class="text-uppercase text-muted mb-1">Your Balance</h5>
-                                    <p class="fs-2 text-dark fw-bold mb-0" id="total-balance">$0</p>
+                                <i class="fs-4 fa-solid fa-circle-user me-3"></i>
+                                <div>
+                                    <p class="mb-0 fw-bold">Username:</p>
+                                    <p class="text-muted small mb-0">HodlStakers</p>
                                 </div>
                             </div>
+                            <button class="btn btn-sm btn-azuloscuro text-light" data-bs-toggle="modal"
+                                    data-bs-target="#editDisplayNameModal">Edit
+                            </button>
+                        </div>
 
-                            <!-- Barra vertical separadora -->
-                            <div class="vr mx-3"></div>
+                        <!-- Email -->
+                        <div class="d-flex align-items-center justify-content-between border-bottom py-3">
+                            <div class="d-flex align-items-center">
+                                <i class="fs-4 fa-solid fa-envelope me-3"></i>
+                                <div>
+                                    <p class="mb-0 fw-bold">Email:</p>
+                                    <p class="text-muted small mb-0">hodlstakers@example.com</p>
+                                </div>
+                            </div>
+                            <button class="btn btn-sm btn-azuloscuro text-light" data-bs-toggle="modal"
+                                    data-bs-target="#editEmailModal">Edit
+                            </button>
+                        </div>
 
-                            <!-- Sección derecha: HodlCoins -->
-                            <div class="d-flex align-items-center ms-auto">
-                                <div class="text-end me-4">
-                                    <h5 class="text-uppercase text-muted mb-1">HodlCoins</h5>
-                                    <p class="fs-2 text-dark fw-bold mb-0" id="remaining-tokens">10</p>
+                        <!-- Password -->
+                        <div class="d-flex align-items-center justify-content-between py-3">
+                            <div class="d-flex align-items-center">
+                                <i class="fs-4 fa-solid fa-lock me-3"></i>
+                                <div>
+                                    <p class="mb-0 fw-bold">Password:</p>
+                                    <p class="text-muted small mb-0">••••••••</p>
                                 </div>
-                                <div class="token-icon me-3">
-                                    <img src="images/favicon.png" alt="Hodlverse logo">
-                                </div>
+                            </div>
+                            <button class="btn btn-sm btn-azuloscuro text-light" data-bs-toggle="modal"
+                                    data-bs-target="#editPasswordModal">Edit
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sección 2: Balance + HodlCoins -->
+                <div class="card p-3 small-token-card mt-3 mx-auto" style="width: 90%;">
+                    <div class="card-body d-flex align-items-center gap-4">
+                        <!-- Sección izquierda: Icono billetera + Balance -->
+                        <div class="d-flex align-items-center">
+                            <div class="wallet-icon me-3">
+                                <i class="fas fa-wallet fa-3x"></i>
+                            </div>
+                            <div class="text-start">
+                                <h5 class="text-uppercase text-muted mb-1">Your Balance</h5>
+                                <p class="fs-2 text-dark fw-bold mb-0" id="total-balance">$0</p>
+                            </div>
+                        </div>
+
+                        <!-- Barra vertical separadora -->
+                        <div class="vr mx-3"></div>
+
+                        <!-- Sección derecha: HodlCoins -->
+                        <div class="d-flex align-items-center ms-auto">
+                            <div class="text-end me-4">
+                                <h5 class="text-uppercase text-muted mb-1">HodlCoins</h5>
+                                <p class="fs-2 text-dark fw-bold mb-0" id="remaining-tokens">10</p>
+                            </div>
+                            <div class="token-icon me-3">
+                                <img src="images/favicon.png" alt="Hodlverse logo">
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Modal para Comprar Tokens -->
-            <div class="modal fade" id="buyTokensModal" tabindex="-1" aria-labelledby="buyTokensModalLabel"
-                 aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="buyTokensModalLabel">Buy More Tokens</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <!-- Columna derecha: Tips & Advice -->
+            <div class="col-md-6 mb-4 d-flex align-items-center">
+                <div class="row row-cols-1 row-cols-md-2 g-4">
+                    <!-- Tip 1 -->
+                    <div class="col">
+                        <div class="card tip-card shadow-sm border-0 rounded-3 p-3">
+                            <div class="card-body d-flex align-items-start">
+                                <i class="fas fa-search-dollar fa-2x me-3 text-primary"></i>
+                                <div>
+                                    <h5 class="card-title">Do Your Own Research</h5>
+                                    <p class="card-text">Always research before investing. Knowledge is key to making
+                                        smart decisions.</p>
+                                </div>
+                            </div>
                         </div>
-                        <div class="modal-body">
-                            <label for="tokenAmount" class="form-label">Enter amount to buy:</label>
-                            <input type="number" class="form-control" id="tokenAmount" placeholder="e.g. 50">
+                    </div>
+                    <!-- Tip 2 -->
+                    <div class="col">
+                        <div class="card tip-card shadow-sm border-0 rounded-3 p-3">
+                            <div class="card-body d-flex align-items-start">
+                                <i class="fas fa-project-diagram fa-2x me-3 text-success"></i>
+                                <div>
+                                    <h5 class="card-title">Diversify Your Portfolio</h5>
+                                    <p class="card-text">Diversify to minimize risk. Don't put all your eggs in one
+                                        basket!</p>
+                                </div>
+                            </div>
                         </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                            <button type="button" class="btn btn-primary" id="buyTokensBtn">Confirm Purchase</button>
+                    </div>
+                    <!-- Tip 3 -->
+                    <div class="col">
+                        <div class="card tip-card shadow-sm border-0 rounded-3 p-3">
+                            <div class="card-body d-flex align-items-start">
+                                <i class="fas fa-rss fa-2x me-3 text-warning"></i>
+                                <div>
+                                    <h5 class="card-title">Stay Updated</h5>
+                                    <p class="card-text">Follow market trends and news. The market changes fast!</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Tip 4 (Nuevo) -->
+                    <div class="col">
+                        <div class="card tip-card shadow-sm border-0 rounded-3 p-3">
+                            <div class="card-body d-flex align-items-start">
+                                <i class="fas fa-user-shield fa-2x me-3 text-danger"></i>
+                                <div>
+                                    <h5 class="card-title">Use Secure Platforms</h5>
+                                    <p class="card-text">Only trade on trusted exchanges and enable security features
+                                        like 2FA.</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </main>
+        </div>
+
+        <!-- Modal para Comprar Tokens -->
+        <div class="modal fade" id="buyTokensModal" tabindex="-1" aria-labelledby="buyTokensModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="buyTokensModalLabel">Buy More Tokens</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <label for="tokenAmount" class="form-label">Enter amount to buy:</label>
+                        <input type="number" class="form-control" id="tokenAmount" placeholder="e.g. 50">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-primary" id="buyTokensBtn">Confirm Purchase
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </main>
 
