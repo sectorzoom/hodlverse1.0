@@ -403,6 +403,47 @@ class History {
             return null; // Retorna null en caso de error
         }
     }
+    // 🔄 Obtener la última entrada de historial por currencyId
+    static getLatestHistoryByCurrencyId(currencyId, callback) {
+        if (typeof currencyId !== 'number' || isNaN(currencyId)) {
+            console.error('El ID de la moneda debe ser un número válido.');
+            return;
+        }
+
+        $.ajax({
+            url: `/history/latest/${currencyId}`, // Endpoint para obtener la última entrada de History por currencyId
+            type: 'GET',
+            success: (data) => {
+                try {
+                    History.validateHistoryData(data);
+                    let latestHistory = new History(
+                        data.historyId,
+                        data.currentPrice,
+                        data.marketCap,
+                        data.marketCapRank,
+                        data.totalVolume,
+                        data.high24h,
+                        data.low24h,
+                        data.priceChange24h,
+                        data.priceChangePercentage24h,
+                        data.marketCapChange24h,
+                        data.marketCapChangePercentage24h,
+                        data.totalSupply,
+                        new Date(data.lastUpdated),
+                        new Currency(data.currency)
+                    );
+                    console.log(`Última entrada de historial obtenida para currencyId ${currencyId}:`, latestHistory);
+                    if (callback) callback(latestHistory);
+                } catch (error) {
+                    console.error(`Error al validar la última entrada de historial para currencyId ${currencyId}:`, error.message);
+                }
+            },
+            error: (error) => {
+                console.error(`Error al obtener la última entrada de historial para currencyId ${currencyId}:`, error);
+            }
+        });
+    }
+
 }
 
 window.History = History;
