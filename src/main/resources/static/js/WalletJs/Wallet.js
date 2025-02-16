@@ -8,7 +8,6 @@ class Wallet {
             user,
             balances
         });
-
         this.walletId = walletId;
         this.walletName = walletName;
         this.creationDate = creationDate;
@@ -79,7 +78,6 @@ class Wallet {
             console.error('El ID de la billetera debe ser un número válido.');
             return;
         }
-
         $.ajax({
             url: `/wallets/${id}`,
             type: 'GET',
@@ -123,7 +121,6 @@ class Wallet {
                 user: walletData.user,
                 balances: []
             });
-
             $.ajax({
                 url: '/wallets',
                 type: 'POST',
@@ -153,7 +150,6 @@ class Wallet {
             console.error('El ID de la billetera debe ser un número válido.');
             return;
         }
-
         try {
             this.validateData({
                 walletId: id,
@@ -162,7 +158,6 @@ class Wallet {
                 user: updatedData.user,
                 balances: updatedData.balances || []
             });
-
             $.ajax({
                 url: `/wallets/${id}`,
                 type: 'PUT',
@@ -188,7 +183,6 @@ class Wallet {
             console.error('El ID de la billetera debe ser un número válido.');
             return;
         }
-
         $.ajax({
             url: `/wallets/${id}`,
             type: 'DELETE',
@@ -209,7 +203,6 @@ class Wallet {
             console.error('El ID del usuario debe ser un número válido.');
             return;
         }
-
         $.ajax({
             url: `/wallets/totalBalance/${userId}`,
             type: 'GET',
@@ -219,6 +212,31 @@ class Wallet {
             },
             error: (error) => {
                 console.error('Error al obtener el saldo total:', error);
+            }
+        });
+    }
+
+    // *** NUEVA FUNCIÓN PARA OBTENER EL BALANCE HISTÓRICO DE UN USUARIO EN UN DÍA ESPECÍFICO ***
+    static getUserBalanceOnSpecificDate(userId, date, callback) {
+        if (typeof userId !== 'number' || isNaN(userId)) {
+            console.error('El ID del usuario debe ser un número válido.');
+            return;
+        }
+
+        if (!(date instanceof Date)) {
+            console.error('La fecha debe ser una instancia de Date.');
+            return;
+        }
+
+        $.ajax({
+            url: `/wallets/user/${userId}/balance/on/${date.toISOString().split('T')[0]}`, // Formatear la fecha como YYYY-MM-DD
+            type: 'GET',
+            success: (data) => {
+                console.log(`Balance histórico para el usuario con ID ${userId} en la fecha ${date.toISOString().split('T')[0]}:`, data);
+                if (callback) callback(data);
+            },
+            error: (error) => {
+                console.error('Error al obtener el balance histórico:', error);
             }
         });
     }

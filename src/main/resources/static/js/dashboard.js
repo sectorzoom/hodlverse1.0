@@ -20,7 +20,34 @@ document.addEventListener("DOMContentLoaded", async function () {
     }
 
     const startDate = await fetchStartDate();
+    const formattedStartDate = new Date("2025-02-25"); // Formato YYYY-MM-DD
+    const isoDate = formattedStartDate.toISOString().split("T")[0];
+    console.log(isoDate);
     const endDate = new Date();
+
+    function generateDateArray(isoDate) {
+        const endDate = new Date(); // Fecha actual
+
+        // Si la fecha de inicio está en el futuro, devolvemos un array vacío
+        if (isoDate > endDate) {
+            console.warn("⚠️ Advertencia: startDate está en el futuro. No hay fechas disponibles.");
+            return [];
+        }
+
+        let dates = [];
+        let current = new Date(isoDate); // Clonamos la fecha inicial
+
+        while (current <= endDate) {
+            dates.push(new Date(current)); // Guardamos la fecha
+            current.setDate(current.getDate() + 1); // Avanzamos un día
+        }
+
+        return dates;
+    }
+
+    const dateArray = generateDateArray(isoDate);
+    console.log(dateArray); // Debería imprimir un array vacío con advertencia
+
 
     let data = [];
     let current = new Date(startDate.getTime());

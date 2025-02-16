@@ -21,11 +21,13 @@ public class WalletService {
     private final WalletRepository walletRepository;
     private final HistoryRepository historyRepository;
     private final TransactionRepository transactionRepository;
+    private final TransactionService transactionService;
 
-    public WalletService(WalletRepository walletRepository, HistoryRepository historyRepository, TransactionRepository transactionRepository) {
+    public WalletService(WalletRepository walletRepository, HistoryRepository historyRepository, TransactionRepository transactionRepository, TransactionService transactionService) {
         this.walletRepository = walletRepository;
         this.historyRepository = historyRepository;
         this.transactionRepository = transactionRepository;
+        this.transactionService = transactionService;
     }
 
     // Obtener todas las billeteras
@@ -89,7 +91,7 @@ public class WalletService {
 
     public BigDecimal calculateUserBalanceOnDate(Long userId, LocalDate targetDate) {
         // Obtener todas las transacciones del usuario hasta la fecha objetivo
-        List<Transaction> transactions = transactionRepository.findTransactionsByUser_UserIdAndTransactionDateLessThanOrEqual(userId, targetDate);
+        List<Transaction> transactions = transactionService.findTransactionsByUserIdAndTransactionDateGreaterThanEqual(userId, targetDate);
 
         if (transactions.isEmpty()) {
             // Si no hay transacciones, el balance es 0
