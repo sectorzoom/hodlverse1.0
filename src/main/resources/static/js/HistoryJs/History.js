@@ -150,6 +150,10 @@ class History {
 
     // 🔍 Obtener una entrada de historial por su ID desde la API
     static getHistoryById(historyId, callback) {
+        if (typeof historyId !== 'number' || isNaN(historyId)) {
+            console.error('El ID de la entrada de historial debe ser un número válido.');
+            return;
+        }
         $.ajax({
             url: `/history/${historyId}`,
             type: 'GET',
@@ -246,6 +250,11 @@ class History {
 
     // 🔄 Actualizar una entrada de historial en la API
     static updateHistory(historyId, updatedData, callback) {
+        if (typeof historyId !== 'number' || isNaN(historyId)) {
+            console.error('El ID de la entrada de historial debe ser un número válido.');
+            return;
+        }
+
         try {
             History.validateHistoryData({ ...updatedData, historyId });
             $.ajax({
@@ -292,6 +301,11 @@ class History {
 
     // ❌ Eliminar una entrada de historial de la API
     static deleteHistory(historyId, callback) {
+        if (typeof historyId !== 'number' || isNaN(historyId)) {
+            console.error('El ID de la entrada de historial debe ser un número válido.');
+            return;
+        }
+
         $.ajax({
             url: `/history/${historyId}`,
             type: 'DELETE',
@@ -325,6 +339,20 @@ class History {
         try {
             const response = await $.ajax({
                 url: '/history/total-volume',
+                type: 'GET'
+            });
+            return response;
+        } catch (error) {
+            console.error('Error al obtener el usuario:', error);
+            return null;
+        }
+    }
+
+    // *** NUEVA FUNCIÓN PARA OBTENER LA ÚLTIMA ENTRADA DE HISTORY ***
+    static async getLatestHistory() {
+        try {
+            const response = await $.ajax({
+                url: '/history/latest', // Endpoint para obtener la última entrada de History
                 type: 'GET'
             });
             return response;
