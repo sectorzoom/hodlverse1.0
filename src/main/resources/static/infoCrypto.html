@@ -3,16 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HodlVerse</title>
+    <title>Info Crypto - HodlVerse</title>
     <link rel="shortcut icon" href="images/favicon.png" type="image/x-icon">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
     <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet"/>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chartjs-chart-financial"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/infoCrypto.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
@@ -36,11 +36,11 @@
                         </div>
                         <div class="awards-item text-center gap-1">
                             <span class="fw-bold d-block">Market Cap: </span>
-                            <p class="marketCapValue"></p><span class="percentage"><i class="fa-solid fa-caret-down"></i> 1.2%</span>
+                            <p>$3.743</p><span class="percentage"><i class="fa-solid fa-caret-down"></i> 1.2%</span>
                         </div>
                         <div class="awards-item text-center gap-1">
                             <span class="fw-bold d-block">24h Vol: </span>
-                            <p class="trendingCoinsValue"></p>
+                            <p>$90.712</p>
                         </div>
                         <div class="awards-item text-center gap-1">
                             <span class="fw-bold d-block">Dominance: </span>
@@ -82,15 +82,15 @@
                             <li><a class="dropdown-item" href="#">New Coins</a></li>
                         </ul>
                     </li>
-<!--                    <li class="nav-item dropdown">-->
-<!--                        <a class="nav-link dropdown" href="#" id="dropdownMenu2" role="button" data-bs-toggle="dropdown"-->
-<!--                           aria-expanded="false"><i class="fa-solid fa-graduation-cap"></i>Learn</a>-->
-<!--                        <ul class="dropdown-menu" aria-labelledby="dropdownMenu">-->
-<!--                            <li><a class="dropdown-item" href="learnCrypto.html">Learn Crypto</a></li>-->
-<!--                            <li><a class="dropdown-item" href="news.html">News</a></li>-->
-<!--                            <li><a class="dropdown-item" href="researchInsights.html">Research Insights</a></li>-->
-<!--                        </ul>-->
-<!--                    </li>-->
+                    <!--                    <li class="nav-item dropdown">-->
+                    <!--                        <a class="nav-link dropdown" href="#" id="dropdownMenu2" role="button" data-bs-toggle="dropdown"-->
+                    <!--                           aria-expanded="false"><i class="fa-solid fa-graduation-cap"></i>Learn</a>-->
+                    <!--                        <ul class="dropdown-menu" aria-labelledby="dropdownMenu">-->
+                    <!--                            <li><a class="dropdown-item" href="learnCrypto.html">Learn Crypto</a></li>-->
+                    <!--                            <li><a class="dropdown-item" href="news.html">News</a></li>-->
+                    <!--                            <li><a class="dropdown-item" href="researchInsights.html">Research Insights</a></li>-->
+                    <!--                        </ul>-->
+                    <!--                    </li>-->
                 </ul>
                 <div class="d-flex align-items-center mb-lg-0 wallet">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -127,36 +127,38 @@
                             </button>
                         </li>
                         <li class="mb-1 ms-3">
-                            <!-- Botón que activa el dropdown -->
-                            <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0"
-                                    id="dropdownButton" onclick="window.location.href='highlights.html'">
+                            <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed"
+                                    data-bs-toggle="collapse" data-bs-target="#dashboard-collapse"
+                                    aria-expanded="false">
                                 <i class="fa-solid fa-chart-line"></i> Highlights
                             </button>
-                            <!-- Menú desplegable -->
                             <div class="collapse" id="dashboard-collapse">
                                 <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                                    <li><a href="#"><i class="fa-solid fa-fire"></i> Trending Coins</a></li>
-                                    <li><a href="#"><i class="fa-solid fa-arrow-up"></i> Top Gainers</a></li>
-                                    <li><a href="#"><i class="fa-solid fa-arrow-down"></i> Top Losers</a></li>
+                                    <li><a href="#"><i class="fa-solid fa-fire"></i> Trending Coins</a>
+                                    </li>
+                                    <li><a href="#"><i class="fa-solid fa-arrow-up"></i> Top Gainers</a>
+                                    </li>
+                                    <li><a href="#"><i class="fa-solid fa-arrow-down"></i> Top Losers</a>
+                                    </li>
                                     <li><a href="#"><i class="fa-solid fa-star"></i> New Coins</a></li>
                                 </ul>
                             </div>
                         </li>
-<!--                        <li class="mb-1 ms-3">-->
-<!--                            <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed"-->
-<!--                                    data-bs-toggle="collapse" data-bs-target="#orders-collapse" aria-expanded="false">-->
-<!--                                <i class="fa-solid fa-graduation-cap"></i> Learn-->
-<!--                            </button>-->
-<!--                            <div class="collapse" id="orders-collapse">-->
-<!--                                <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">-->
-<!--                                    <li><a href="learnCrypto.html"><i class="fa-solid fa-book"></i> Learn Crypto</a>-->
-<!--                                    </li>-->
-<!--                                    <li><a href="news.html"><i class="fa-solid fa-newspaper"></i> News</a></li>-->
-<!--                                    <li><a href="researchInsights.html"><i class="fa-solid fa-lightbulb"></i> Research-->
-<!--                                        Insights</a></li>-->
-<!--                                </ul>-->
-<!--                            </div>-->
-<!--                        </li>-->
+                        <!--                        <li class="mb-1 ms-3">-->
+                        <!--                            <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed"-->
+                        <!--                                    data-bs-toggle="collapse" data-bs-target="#orders-collapse" aria-expanded="false">-->
+                        <!--                                <i class="fa-solid fa-graduation-cap"></i> Learn-->
+                        <!--                            </button>-->
+                        <!--                            <div class="collapse" id="orders-collapse">-->
+                        <!--                                <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">-->
+                        <!--                                    <li><a href="learnCrypto.html"><i class="fa-solid fa-book"></i> Learn Crypto</a>-->
+                        <!--                                    </li>-->
+                        <!--                                    <li><a href="news.html"><i class="fa-solid fa-newspaper"></i> News</a></li>-->
+                        <!--                                    <li><a href="researchInsights.html"><i class="fa-solid fa-lightbulb"></i> Research-->
+                        <!--                                        Insights</a></li>-->
+                        <!--                                </ul>-->
+                        <!--                            </div>-->
+                        <!--                        </li>-->
                         <hr>
                         <li class="mb-1 ms-3">
                             <button type="button" onclick="window.location.href='myProfile.html'"
@@ -170,7 +172,8 @@
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                      class="bi bi-currency-bitcoin" viewBox="0 0 16 16">
                                     <path d="M5.5 13v1.25c0 .138.112.25.25.25h1a.25.25 0 0 0 .25-.25V13h.5v1.25c0 .138.112.25.25.25h1a.25.25 0 0 0 .25-.25V13h.084c1.992 0 3.416-1.033 3.416-2.82 0-1.502-1.007-2.323-2.186-2.44v-.088c.97-.242 1.683-.974 1.683-2.19C11.997 3.93 10.847 3 9.092 3H9V1.75a.25.25 0 0 0-.25-.25h-1a.25.25 0 0 0-.25.25V3h-.573V1.75a.25.25 0 0 0-.25-.25H5.75a.25.25 0 0 0-.25.25V3l-1.998.011a.25.25 0 0 0-.25.25v.989c0 .137.11.25.248.25l.755-.005a.75.75 0 0 1 .745.75v5.505a.75.75 0 0 1-.75.75l-.748.011a.25.25 0 0 0-.25.25v1c0 .138.112.25.25.25zm1.427-8.513h1.719c.906 0 1.438.498 1.438 1.312 0 .871-.575 1.362-1.877 1.362h-1.28zm0 4.051h1.84c1.137 0 1.756.58 1.756 1.524 0 .953-.626 1.45-2.158 1.45H6.927z"/>
-                                </svg> My Cryptos
+                                </svg>
+                                My Cryptos
                             </button>
                         </li>
                         <hr>
@@ -232,222 +235,361 @@
         </div>
     </nav>
 </header>
-<main>
-    <div class="container my-5 row align-items-stretch" style="min-height: 600px;">
-        <!-- Información de la criptomoneda -->
-        <div class="col-lg-4 col-md-6 col-sm-12 mb-4 h-100">
-            <div class="crypto-info p-4 rounded-3 shadow-lg bg-white">
-                <!-- Header con logo y cambio de precio -->
-                <div class="d-flex align-items-center mb-3">
-                    <img src="https://cryptologos.cc/logos/bitcoin-btc-logo.png" alt="Bitcoin Logo" class="me-3"
-                         style="width: 50px; height: 50px;">
-                    <div>
-                        <h3 class="mb-1 fw-bold text-dark">Bitcoin</h3>
-                        <span class="small fw-semibold text-danger" id="price-change">▼ 2.7%</span>
+<main class="container my-4">
+    <div class="p-5 bg-white rounded shadow">
+        <!-- Breadcrumbs -->
+        <nav class="mb-5" style="--bs-breadcrumb-divider: '>';">
+            <ol class="breadcrumb  align-items-center">
+                <li class="breadcrumb-item"><a href="dashboard.html">Dashboard</a></li>
+                <li class="breadcrumb-item"><a href="highlights.html">Highlights</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Info Crypto</li>
+            </ol>
+            <hr>
+        </nav>
+        <!-- Sección Principal: Dos columnas -->
+        <div class="row align-items-start mb-3">
+            <!-- Información de la criptomoneda -->
+            <div class="col-lg-4 col-md-12 col-sm-12 mb-4 h-100">
+                <div class="crypto-info p-4 rounded-3 shadow-lg bg-white">
+                    <!-- Header con logo y cambio de precio -->
+                    <div class="d-flex align-items-center mb-3">
+                        <img src="https://cryptologos.cc/logos/bitcoin-btc-logo.png" alt="Bitcoin Logo" class="me-3"
+                             style="width: 50px; height: 50px;">
+                        <div>
+                            <h1 class="mb-1 fw-bold text-dark">Bitcoin</h1>
+                            <span class="small fw-semibold text-danger" id="price-change">▼ 2.7%</span>
+                        </div>
                     </div>
-                </div>
-                <!-- Precio -->
-                <p class="h2 fw-bold crypto-price" id="crypto-price">$668.31</p>
-                <!-- Detalles de la criptomoneda -->
-                <div class="crypto-stats p-3 mt-5 rounded bg-light">
-                    <div class="d-flex justify-content-between mb-2">
-                        <span class="fw-semibold">Market Cap:</span> <span class="text-muted">$97.5B</span>
+                    <!-- Precio -->
+                    <p class="h3 crypto-price" id="crypto-price">$668.31</p>
+                    <!-- Detalles de la criptomoneda -->
+                    <div class="crypto-stats p-3 mt-5 rounded bg-light">
+
+                        <div class="d-flex justify-content-between mb-2">
+                            <span > Market Cap
+                                <i class="bi bi-info-circle ms-1 small-info-icon" data-bs-toggle="tooltip" data-bs-placement="top"
+                                   title="The total value of all circulating shares multiplied by the current price."></i>:
+                            </span>
+                            <span class="text-muted">$97.5B</span>
+                        </div>
+                        <div class="d-flex justify-content-between mb-2">
+                            <span >Fully Diluted Valuation:
+                                <i class="bi bi-info-circle ms-1 small-info-icon" data-bs-toggle="tooltip" data-bs-placement="top"
+                                   title="The total value if all tokens were in circulation, considering the max supply."></i>:
+                            </span>
+                            <span class="text-muted">$2.02T</span>
+                        </div>
+                        <div class="d-flex justify-content-between mb-2">
+                            <span>24h Volume:
+                                <i class="bi bi-info-circle ms-1 small-info-icon" data-bs-toggle="tooltip" data-bs-placement="top"
+                                   title="The total trading volume in the last 24 hours."></i>:
+                            </span>
+                            <span class="text-muted">$145.8M</span>
+                        </div>
+                        <div class="d-flex justify-content-between mb-2">
+                            <span>Circulating Supply:
+                                <i class="bi bi-info-circle ms-1 small-info-icon" data-bs-toggle="tooltip" data-bs-placement="top"
+                                   title="The number of coins currently in circulation."></i>:
+                            </span>
+                            <span class="text-muted">19.8M</span>
+                        </div>
+                        <div class="d-flex justify-content-between mb-2">
+                            <span >Max Supply:
+                                <i class="bi bi-info-circle ms-1 small-info-icon" data-bs-toggle="tooltip" data-bs-placement="top"
+                                   title="The maximum number of coins or tokens that can ever exist for a cryptocurrency, as defined by its protocol."></i>:
+                            </span>
+                            <span class="text-muted">21M</span>
+                        </div>
+                        <div class="d-flex justify-content-between mb-2">
+                            <span>Total Supply:
+                                <i class="bi bi-info-circle ms-1 small-info-icon" data-bs-toggle="tooltip" data-bs-placement="top"
+                                   title="The total number of coins currently available, including those not yet in circulation."></i>:
+                            </span>
+                            <span class="text-muted">19.8M</span>
+                        </div>
+                        <div class="d-flex justify-content-between mb-2">
+                            <span>Change (24h):
+                                <i class="bi bi-info-circle ms-1 small-info-icon" data-bs-toggle="tooltip" data-bs-placement="top"
+                                   title="The percentage change in the price of the cryptocurrency over the past 24 hours."></i>:
+                            </span>
+                            <span class="text-muted">-1.2%</span>
+                        </div>
+                        <div class="d-flex justify-content-between mb-2">
+                            <span>All Time High:
+                                <i class="bi bi-info-circle ms-1 small-info-icon" data-bs-toggle="tooltip" data-bs-placement="top"
+                                   title="The highest price ever reached by the cryptocurrency since its creation."></i>:
+                            </span>
+                            <span class="text-muted">$68,000</span>
+                        </div>
+                        <div class="d-flex justify-content-between mb-2">
+                            <span>All Time Low:
+                                <i class="bi bi-info-circle ms-1 small-info-icon" data-bs-toggle="tooltip" data-bs-placement="top"
+                                   title="The lowest price ever recorded for the cryptocurrency since its inception."></i>:
+                            </span>
+                            <span class="text-muted">$60</span>
+                        </div>
+                        <div class="d-flex justify-content-between mb-2">
+                            <span>Volatility (24h):
+                                <i class="bi bi-info-circle ms-1 small-info-icon" data-bs-toggle="tooltip" data-bs-placement="top"
+                                   title="The percentage fluctuation of price in the last 24 hours."></i>:
+                            </span>
+                            <span class="text-muted">3.4%</span>
+                        </div>
                     </div>
-                    <div class="d-flex justify-content-between mb-2">
-                        <span class="fw-semibold">Fully Diluted Valuation:</span> <span class="text-muted">$2.02T</span>
+                    <!-- Botones -->
+                    <div class="d-flex gap-2 mt-3">
+                        <button class="btn btn-danger w-50 py-2 btn-BuySell" id="buy-btn">Buy</button>
+                        <button class="btn btn-sell w-50 py-2 btn-BuySell" id="sell-btn">Sell</button>
                     </div>
-                    <div class="d-flex justify-content-between mb-2">
-                        <span class="fw-semibold">24h Volume:</span> <span class="text-muted">$145.8M</span>
-                    </div>
-                    <div class="d-flex justify-content-between mb-2">
-                        <span class="fw-semibold">Circulating Supply:</span> <span class="text-muted">19.8M</span>
-                    </div>
-                    <div class="d-flex justify-content-between mb-2">
-                        <span class="fw-semibold">Max Supply:</span> <span class="text-muted">21M</span>
-                    </div>
-                    <div class="d-flex justify-content-between mb-2">
-                        <span class="fw-semibold">Total Supply:</span> <span class="text-muted">19.8M</span>
-                    </div>
-                    <div class="d-flex justify-content-between mb-2">
-                        <span class="fw-semibold">Change (24h):</span> <span class="text-muted">-1.2%</span>
-                    </div>
-                    <div class="d-flex justify-content-between mb-2">
-                        <span class="fw-semibold">All Time High:</span> <span class="text-muted">$68,000</span>
-                    </div>
-                    <div class="d-flex justify-content-between mb-2">
-                        <span class="fw-semibold">All Time Low:</span> <span class="text-muted">$60</span>
-                    </div>
-                    <div class="d-flex justify-content-between mb-2">
-                        <span class="fw-semibold">Volatility (24h):</span> <span class="text-muted">3.4%</span>
-                    </div>
-                </div>
-                <!-- Botones -->
-                <div class="d-flex gap-2 mt-3">
-                    <button class="btn btn-danger w-50 py-2 btn-BuySell" id="buy-btn">Buy</button>
-                    <button class="btn btn-sell w-50 py-2 btn-BuySell">Sell</button>
                 </div>
             </div>
-
-            <!-- Sección de información adicional (Fundadores y datos interesantes) -->
-            <div class="col-12 mb-3 mt-3">
-                <div class="additional-info rounded-3 shadow-sm">
-                    <h4 class="fw-bold mb-3 text-center">About Bitcoin</h4>
-                    <p class="text-muted">
-                        Bitcoin was created in 2009 by an unknown person or group of people using the pseudonym <strong>Satoshi Nakamoto</strong>.
-                        It was the first decentralized digital currency, marking the beginning of a new era in finance.
-                    </p>
-
-                    <div class="history-list">
-                        <div class="d-flex justify-content-between mb-2">
-                            <span class="fw-semibold text-dark">Whitepaper:</span>
-                            <span class="text-muted">"Bitcoin: A Peer-to-Peer Electronic Cash System" (2008)</span>
+            <!-- Columna Derecha: Gráfico Unificado con Tabs -->
+            <div class="col-lg-8 col-md-12 ">
+                <div class="graph-section p-4 rounded-3 shadow-lg bg-white">
+                    <h4 class="text-center mb-3">Market Trends</h4>
+                    <!-- Tabs para cambiar entre gráficos -->
+                    <ul class="nav nav-tabs mb-3" id="chartTab" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active" id="price-tab" data-bs-toggle="tab"
+                                    data-bs-target="#price-chart" type="button" role="tab" aria-controls="price-chart"
+                                    aria-selected="true">Price Evolution
+                            </button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="volume-tab" data-bs-toggle="tab" data-bs-target="#volume-chart"
+                                    type="button" role="tab" aria-controls="volume-chart" aria-selected="false">Volume
+                                Evolution
+                            </button>
+                        </li>
+                    </ul>
+                    <div class="tab-content" id="chartTabContent">
+                        <div class="tab-pane fade show active" id="price-chart" role="tabpanel"
+                             aria-labelledby="price-tab">
+                            <div class="chart-wrapper">
+                                <canvas id="crypto-price-chart"></canvas>
+                            </div>
                         </div>
-                        <div class="d-flex justify-content-between mb-2">
-                            <span class="fw-semibold text-dark">Concept:</span>
-                            <span class="text-muted">Decentralized, transparent, and secure digital currency.</span>
-                        </div>
-                        <div class="d-flex justify-content-between mb-1">
-                            <span class="fw-semibold text-dark">Innovation:</span>
-                            <span class="text-muted">Introduced blockchain technology, creating a trustless ledger.</span>
-                        </div>
-                        <div class="d-flex justify-content-between mb-2">
-                            <span class="fw-semibold text-dark">Impact:</span>
-                            <span class="text-muted">Revolutionized finance and inspired thousands of cryptocurrencies.</span>
+                        <div class="tab-pane fade" id="volume-chart" role="tabpanel" aria-labelledby="volume-tab">
+                            <div class="chart-wrapper">
+                                <canvas id="crypto-volume-chart"></canvas>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-
         </div>
 
-        <!-- Gráfico Interactivo -->
-        <!-- Contenedor principal para el gráfico (precio y volumen) -->
-        <div class="col-lg-8 col-md-6 col-sm-12 mb-3 h-100 p-5 rounded-3 shadow-lg bg-white">
-
-            <!-- Contenedor del gráfico de Price Evolution -->
-            <div class="crypto-chart-container">
-                <!-- Título del gráfico de evolución de precios -->
-                <h4 class=" mb-3 text-center">Price Evolution</h4>
-
-                <!-- Contenedor interno que define el área y tamaño del canvas -->
-                <div class="chart-wrapper">
-                    <!-- Canvas donde se dibujará el gráfico de precios con Chart.js -->
-                    <canvas id="crypto-chart"></canvas>
-                </div>
-            </div>
-
-            <!-- Contenedor del gráfico complementario de Volume Evolution -->
-            <div class="crypto-chart-container mt-5">
-                <!-- Título del gráfico de evolución de volumen -->
-                <h4 class=" mb-3 text-center">Volume Evolution</h4>
-
-                <!-- Contenedor interno que define el área y tamaño del canvas -->
-                <div class="chart-wrapper">
-                    <!-- Canvas donde se dibujará el gráfico de volumen con Chart.js -->
-                    <canvas id="volume-chart"></canvas>
-                </div>
-            </div>
-        </div>
-
-
-        <!-- TARJETAS TOP LOSERS -->
-        <div class="row d-flex justify-content-center rounded-3 shadow-lg bg-white p-3">
+        <!-- Sección: Más Recomendaciones de Criptos -->
+        <div class="more-crypto-section mb-5">
             <h4 class="fw-bold mb-4 text-center">More Crypto</h4>
-            <!-- Card 1 -->
-            <div class="col-md-4 mb-4">
-                <div class="card p-4 text-center rounded-4" style="background-color: #ffffff;">
-                    <div class="card-body d-flex align-items-center justify-content-center">
-                        <!-- Imagen y nombre de la criptomoneda -->
-                        <img src="https://cryptologos.cc/logos/xrp-xrp-logo.png" alt="XRP logo" class="img-fluid me-3" style="max-height: 40px;">
-                        <div>
-                            <h5 class="fw-bold">XRP </h5>
-                            <h4 class="fw-bold text-dark">$34.50</h4>
-                            <p class="text-danger">-8.2% (24h)</p>
+            <div class="row row-cols-1 row-cols-md-3 g-4">
+                <!-- Card 1 -->
+                <div class="col">
+                    <div class="card p-4 text-center rounded-4 shadow-sm bg-white">
+                        <div class="card-body d-flex align-items-center justify-content-center">
+                            <img src="https://cryptologos.cc/logos/xrp-xrp-logo.png" alt="XRP logo"
+                                 class="img-fluid me-3" style="max-height: 40px;">
+                            <div>
+                                <h5 class="fw-bold">XRP</h5>
+                                <h4 class="fw-bold text-dark">$34.50</h4>
+                                <p class="text-danger">-8.2% (24h)</p>
+                            </div>
                         </div>
+                        <a href="#" class="btn btn-sell btn-sm w-100 mt-3 rounded-5">See More</a>
                     </div>
-                    <a href="#" class="btn btn-sell btn-sm w-100 mt-3 rounded-5">See More</a>
                 </div>
-            </div>
-
-            <!-- Card 2 -->
-            <div class="col-md-4 ">
-                <div class="card p-4 text-center rounded-4" style="background-color: #ffffff;">
-                    <div class="card-body d-flex align-items-center justify-content-center">
-                        <!-- Imagen y nombre de la criptomoneda -->
-                        <img src="https://cryptologos.cc/logos/dogecoin-doge-logo.png" alt="Dogecoin logo" class="img-fluid me-3" style="max-height: 40px;">
-                        <div>
-                            <h5 class="fw-bold">Dogecoin</h5>
-                            <h4 class="fw-bold text-dark">$0.075</h4>
-                            <p class="text-danger">-5.7% (24h)</p>
+                <!-- Card 2 -->
+                <div class="col">
+                    <div class="card p-4 text-center rounded-4 shadow-sm bg-white">
+                        <div class="card-body d-flex align-items-center justify-content-center">
+                            <img src="https://cryptologos.cc/logos/dogecoin-doge-logo.png" alt="Dogecoin logo"
+                                 class="img-fluid me-3" style="max-height: 40px;">
+                            <div>
+                                <h5 class="fw-bold">Dogecoin</h5>
+                                <h4 class="fw-bold text-dark">$0.075</h4>
+                                <p class="text-danger">-5.7% (24h)</p>
+                            </div>
                         </div>
+                        <a href="#" class="btn btn-sell btn-sm w-100 mt-3 rounded-5">See More</a>
                     </div>
-                    <a href="#" class="btn btn-sell btn-sm w-100 mt-3 rounded-5">See More</a>
                 </div>
-            </div>
-
-            <!-- Card 3 -->
-            <div class="col-md-4 mb-4">
-                <div class="card p-4 text-center rounded-4" style="background-color: #ffffff;">
-                    <div class="card-body d-flex align-items-center justify-content-center">
-                        <!-- Imagen y nombre de la criptomoneda -->
-                        <img src="https://cryptologos.cc/logos/shiba-inu-shib-logo.png" alt="Shiba Inu logo" class="img-fluid me-3" style="max-height: 40px;">
-                        <div>
-                            <h5 class="fw-bold">Shiba Inu </h5>
-                            <h4 class="fw-bold text-dark">$5.20</h4>
-                            <p class="text-danger">-4.9% (24h)</p>
+                <!-- Card 3 -->
+                <div class="col">
+                    <div class="card p-4 text-center rounded-4 shadow-sm bg-white">
+                        <div class="card-body d-flex align-items-center justify-content-center">
+                            <img src="https://cryptologos.cc/logos/shiba-inu-shib-logo.png" alt="Shiba Inu logo"
+                                 class="img-fluid me-3" style="max-height: 40px;">
+                            <div>
+                                <h5 class="fw-bold">Shiba Inu</h5>
+                                <h4 class="fw-bold text-dark">$5.20</h4>
+                                <p class="text-danger">-4.9% (24h)</p>
+                            </div>
                         </div>
+                        <a href="#" class="btn btn-sell btn-sm w-100 mt-3 rounded-5">See More</a>
                     </div>
-                    <a href="#" class="btn btn-sell btn-sm w-100 mt-3 rounded-5">See More</a>
                 </div>
             </div>
         </div>
+
+        <!-- Carousel de Crypto News (sin API) -->
+        <div id="cryptoNewsCarousel" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <!-- Noticia 1 -->
+                <div class="carousel-item active">
+                    <div class="card mb-3">
+                        <div class="row g-0">
+                            <div class="col-md-4">
+                                <img src="images/bitcoin-news.jpg" class="img-fluid rounded-start" alt="Bitcoin News">
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <h5 class="card-title">Bitcoin Price Hits New High</h5>
+                                    <h6 class="card-subtitle mb-2 text-muted">Market Update</h6>
+                                    <p class="card-text">Bitcoin has reached a new all-time high as investors rally behind the cryptocurrency...</p>
+                                    <a href="#" class="card-link">Read more</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Noticia 2 -->
+                <div class="carousel-item">
+                    <div class="card mb-3">
+                        <div class="row g-0">
+                            <div class="col-md-4">
+                                <img src="images/ethereum-news.jpg" class="img-fluid rounded-start" alt="Ethereum News">
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <h5 class="card-title">Ethereum Upgrade: The Merge</h5>
+                                    <h6 class="card-subtitle mb-2 text-muted">Network Improvements</h6>
+                                    <p class="card-text">Ethereum completes its long-awaited upgrade, paving the way for improved scalability and energy efficiency...</p>
+                                    <a href="#" class="card-link">Read more</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Noticia 3 -->
+                <div class="carousel-item">
+                    <div class="card mb-3">
+                        <div class="row g-0">
+                            <div class="col-md-4">
+                                <img src="images/regulation-news.jpg" class="img-fluid rounded-start" alt="Regulation News">
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <h5 class="card-title">Crypto Regulation Update</h5>
+                                    <h6 class="card-subtitle mb-2 text-muted">Legal News</h6>
+                                    <p class="card-text">Governments around the world are introducing new regulations to ensure greater security in crypto markets...</p>
+                                    <a href="#" class="card-link">Read more</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Puedes añadir más noticias de forma similar -->
+            </div>
+            <!-- Controles del carousel -->
+            <button class="carousel-control-prev" type="button" data-bs-target="#cryptoNewsCarousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#cryptoNewsCarousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+
+
+
     </div>
 </main>
-<!-- CONFIRMATION MODAL -->
-<div class="modal fade" id="confirm-modal">
+<!-- Confirmation Modal -->
+<div class="modal fade" id="confirmationModal" tabindex="-1" aria-labelledby="confirmationModalLabel"
+     aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Confirm Purchase</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                <h5 class="modal-title align-content-center">⚠️Warning⚠️</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <h5 class="fw-bold">Are you sure you want to proceed?</h5>
-                <span class="text-muted">Investing in crypto involves risks. Make sure you understand the market.</span>
+                Investing or selling cryptocurrencies can result in financial losses. Are you sure you want to continue?
             </div>
             <div class="modal-footer">
-                <button class="btn btn-sell py-2 btn-BuySell " data-bs-dismiss="modal">Cancel</button>
-                <button class="btn btn-danger py-2 btn-BuySell" id="confirm-buy">Continue</button>
+                <button class="btn btn-sell btn-BuySell" data-bs-dismiss="modal">Cancel</button>
+                <button class="btn btn-danger btn-BuySell" id="confirm-action">Yes, Continue</button>
             </div>
         </div>
     </div>
 </div>
 
-<!-- PURCHASE MODAL -->
-<div class="modal fade" id="purchase-modal" tabindex="-1">
+<!-- Buy Modal -->
+<div class="modal fade" id="buyModal" tabindex="-1" aria-labelledby="buyModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Complete Your Purchase</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                <h5 class="modal-title" id="buyModalLabel">Buy Cryptocurrency</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <label for="crypto-amount" class="form-label">Enter amount to purchase:</label>
-                <div class="input-group">
-                    <input type="number" id="crypto-amount" class="form-control" placeholder="Amount" min="0.01" step="0.01">
-                    <span class="input-group-text">BTC</span>
-                </div>
-                <p class="text-muted mt-2">Your wallet balance will be updated after confirmation.</p>
+                <form id="buy-form">
+                    <div class="mb-3">
+                        <label for="buy-amount" class="form-label">Amount to Buy</label>
+                        <input type="number" class="form-control" id="buy-amount" min="0.01" step="0.01"
+                               placeholder="Enter amount">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Current Price per Unit (USD)</label>
+                        <p id="buy-current-price">$<span id="currentPriceBuy"></span></p>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Estimated Total (USD)</label>
+                        <p id="buy-total-price">$0.00</p>
+                    </div>
+                </form>
             </div>
             <div class="modal-footer">
-                <button class="btn btn-sell" data-bs-dismiss="modal">Cancel</button>
-                <button class="btn btn-danger" id="finalize-purchase">Confirm Purchase</button>
+                <button class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button class="btn btn-danger" id="confirm-buy">Confirm Purchase</button>
             </div>
         </div>
     </div>
 </div>
 
-
+<!-- Sell Modal -->
+<div class="modal fade" id="sellModal" tabindex="-1" aria-labelledby="sellModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="sellModalLabel">Sell Cryptocurrency</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="sell-form">
+                    <div class="mb-3">
+                        <label for="sell-amount" class="form-label">Amount to Sell</label>
+                        <input type="number" class="form-control" id="sell-amount" min="0.01" step="0.01"
+                               placeholder="Enter amount">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Current Price per Unit (USD)</label>
+                        <p id="sell-current-price">$<span id="currentPriceSell"></span></p>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Estimated Total (USD)</label>
+                        <p id="sell-total-price">$0.00</p>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button class="btn btn-danger" id="confirm-sell">Confirm Sale</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 <footer>
@@ -463,6 +605,7 @@
 
             <ul class="nav col-md-4 justify-content-end footer-info">
                 <li><a href="dashboard.html" class="px-2">Dashboard</a></li>
+                <li><a href="subscriptions.html" class="px-2">Subscriptions</a></li>
                 <li><a href="privacyPolicy.html" class="px-2">Privacy & Policy</a></li>
                 <li><a href="faqs.html" class="px-2">FAQs</a></li>
             </ul>
@@ -495,5 +638,12 @@
 <script src="/js/HistoryJs/History.js"></script>
 <script src="/js/javaScript.js"></script>
 <script src="js/infoCrypto.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-chart-financial"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

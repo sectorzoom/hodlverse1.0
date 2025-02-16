@@ -1,31 +1,7 @@
-<!-- CSS MAIN PROFILE-->
-    /* Contenedor General */
-#section-1, #section-2 {
-    background-color: var(--azulclaro);
-    border-radius: 8px;
-    min-height: 400px; /* Asegura que las secciones tengan un tamaño mínimo uniforme */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-}
 
 /* Títulos */
 h1 span {
     color: var(--oro);
-}
-
-/* Contenedor General */
-#main-sections {
-    max-width: 1200px;
-    margin: 0 auto; /* Centra todo el contenedor */
-    background-color: var(--azulclaro);
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-}
-
-/* Secciones Internas */
-#section-1, #section-2-info, #section-2-plans, #chart-section {
-    background-color: white;
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 /* Botones */
@@ -35,7 +11,7 @@ h1 span {
     border: none;
     padding: 10px 20px;
     font-size: 14px;
-    border-radius: 6px;
+    border-radius: 10px;
 }
 
 .btn-azuloscuro:hover {
@@ -54,14 +30,66 @@ h1 span {
 .btn-oro:hover {
     background-color: darkgoldenrod;
 }
-.progress-bar{
-    background: var(--oro);
+
+
+/* Estilos para la sección */
+
+
+/* Icono con animación */
+.wallet-icon i {
+    animation: bounce 1.5s infinite alternate;
+    color: var(--azuloscuro);
 }
-.bi {
+
+/* Animación de rebote */
+@keyframes bounce {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-5px); }
+}
+
+/* Efecto hover */
+#total-balance-section .card:hover {
+    transform: scale(1.02);
+}
+.small-token-card{
+    border: solid 1px var(--azuloscuro);
+
+}
+
+/* Para reducir el espacio entre las secciones dentro de la tarjeta */
+.small-token-card .card-body {
+    padding: 0.75rem; /* Ajusta el padding para reducir el espacio entre los elementos */
+}
+
+
+
+/* Reduce el espacio entre la barra vertical y el contenido de la derecha */
+.small-token-card .vr {
+    margin:  1.5rem; /* Ajusta el espacio de la barra vertical */
+    border: solid 1px var(--azuloscuro);
+
+}
+.token-icon img{
+    width: 60px;
+    height: 60px;
+}
+
+.tip-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+}
+
+.tip-card i {
     transition: transform 0.3s ease;
 }
 
-.bi:hover {
-    transform: scale(1.1);
+
+.tip-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.tip-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.1);
 }
 

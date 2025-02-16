@@ -1,3 +1,4 @@
+/* GRAFICO (OLD) */
 window.onload = function () {
     // ================================
     // GRÁFICO DE EVOLUCIÓN DE PRECIOS
@@ -155,26 +156,136 @@ window.onload = function () {
         }
     });
 };
-
-const confirmModal = new bootstrap.Modal(document.getElementById('confirm-modal'));
-const purchaseModal = new bootstrap.Modal(document.getElementById('purchase-modal'));
-
-document.getElementById('buy-btn').addEventListener('click', () => confirmModal.show());
-
-document.getElementById('confirm-buy').addEventListener('click', () => {
-    confirmModal.hide();
-    setTimeout(() => purchaseModal.show(), 500); // Pequeño delay para mejor transición
-});
-
-document.getElementById('finalize-purchase').addEventListener('click', () => {
-    let amount = document.getElementById('crypto-amount').value;
-    if (amount && amount > 0) {
-        purchaseModal.hide();
-        alert(`✅ Purchase successful! You bought ${amount} BTC.`);
-    } else {
-        alert("⚠️ Please enter a valid amount.");
-    }
-});
-document.getElementById("dropdownMenu").addEventListener("click", function(event) {
+document.getElementById("dropdownMenu").addEventListener("click", function (event) {
     window.location.href = "highlights.html";
 });
+
+/*  BUY/SELL CRYPTO EVENT */
+document.addEventListener('DOMContentLoaded', function () {
+    // Assume currentPrice is fetched or extracted from the main crypto info (e.g., "$668.31")
+    let currentPrice = 668.31;
+
+    // Update the current price in both modals
+    document.getElementById('currentPriceBuy').innerText = currentPrice.toFixed(2);
+    document.getElementById('currentPriceSell').innerText = currentPrice.toFixed(2);
+
+    let actionType = '';
+    const confirmationModal = new bootstrap.Modal(document.getElementById('confirmationModal'));
+    const buyModal = new bootstrap.Modal(document.getElementById('buyModal'));
+    const sellModal = new bootstrap.Modal(document.getElementById('sellModal'));
+
+    document.getElementById('buy-btn').addEventListener('click', function () {
+        actionType = 'buy';
+        confirmationModal.show();
+    });
+
+    document.getElementById('sell-btn').addEventListener('click', function () {
+        actionType = 'sell';
+        confirmationModal.show();
+    });
+
+    document.getElementById('confirm-action').addEventListener('click', function () {
+        confirmationModal.hide();
+        setTimeout(() => {
+            if (actionType === 'buy') {
+                buyModal.show();
+            } else if (actionType === 'sell') {
+                sellModal.show();
+            }
+        }, 300);
+    });
+
+    // Function to update the estimated total based on the input amount and current price
+    function updateTotal(inputId, outputId) {
+        const amount = parseFloat(document.getElementById(inputId).value) || 0;
+        const total = amount * currentPrice;
+        document.getElementById(outputId).innerText = `$${total.toFixed(2)}`;
+    }
+
+    document.getElementById('buy-amount').addEventListener('input', function () {
+        updateTotal('buy-amount', 'buy-total-price');
+    });
+
+    document.getElementById('sell-amount').addEventListener('input', function () {
+        updateTotal('sell-amount', 'sell-total-price');
+    });
+
+    document.getElementById('confirm-buy').addEventListener('click', function () {
+        // Aquí iría la lógica real de compra
+        alert('Purchase confirmed!');
+
+        buyModal.hide();
+    });
+
+    document.getElementById('confirm-sell').addEventListener('click', function () {
+        // Aquí iría la lógica real de venta
+        alert('Sale confirmed!');
+        sellModal.hide();
+    });
+});
+
+/*TOOLTIP INFO */
+// Inicializar tooltips
+let tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+let tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+    return new bootstrap.Tooltip(tooltipTriggerEl);
+});
+
+/* API CAROUSEL NEWS */
+
+async function loadCryptoNews() {
+    try {
+        // Realizamos la solicitud a la API de CryptoPanic con el token de autenticación
+        const response = await fetch("https://cryptopanic.com/api/v1/posts/?auth_token=a4c7721b1d6af749de0f98cd0412b15e62d326a3", {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        });
+
+        // Esperamos la respuesta en formato JSON
+        const data = await response.json();
+
+        // Verificamos si la respuesta tiene los resultados
+        if (data.results) {
+            // Llamamos a la función para mostrar las noticias en el carrusel
+            displayNewsCarousel(data.results);
+        } else {
+            console.log("No news available.");
+        }
+    } catch (error) {
+        console.error("Error fetching news:", error);
+    }
+}
+
+function displayNewsCarousel(news) {
+    // Seleccionamos el contenedor del carrusel
+    const carouselInner = document.querySelector("#cryptoNewsCarousel .carousel-inner");
+
+    // Limpiamos cualquier contenido anterior en el carrusel
+    carouselInner.innerHTML = "";
+
+    // Iteramos sobre las noticias y añadimos los elementos al carrusel
+    news.slice(0, 5).forEach((article, index) => {
+        // Establecemos el primer artículo como activo
+        const isActive = index === 0 ? "active" : "";
+
+        // Construimos el HTML para cada artículo
+        const newsItem = `
+            <div class="carousel-item ${isActive}">
+                <img src="${article.thumbnail || 'placeholder.jpg'}" class="d-block w-100" alt="${article.title}">
+                <div class="carousel-caption d-none d-md-block">
+                    <h5>${article.title}</h5>
+                    <p>${article.text || "No description available."}</p>
+                    <a href="${article.url}" class="btn btn-primary" target="_blank">Read More</a>
+                </div>
+            </div>
+        `;
+
+        // Añadimos el artículo al carrusel
+        carouselInner.innerHTML += newsItem;
+    });
+}
+
+// Llamamos a la función loadCryptoNews cuando el contenido de la página se haya cargado completamente
+document.addEventListener("DOMContentLoaded", loadCryptoNews);

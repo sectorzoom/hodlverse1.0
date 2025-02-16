@@ -1,72 +1,24 @@
-(function() {
-    let width, height, largeHeader, canvas, ctx, points, target, animateHeader = true;
+document.addEventListener("DOMContentLoaded", function () {
+    const toggleSwitch = document.getElementById("toggleRankingSwitch");
 
-    // Main
-    initHeader();
-    initAnimation();
-    addListeners();
-
-    function initHeader() {
-        console.log(canvas, ctx);
-        width = window.innerWidth;
-        height = window.innerHeight;
-        target = {x: width/2, y: height/2};
-
-        largeHeader = document.getElementById('large-header');
-        largeHeader.style.height = height+'px';
-
-        canvas = document.getElementById('demo-canvas');
-        canvas.width = width;
-        canvas.height = height;
-        ctx = canvas.getContext('2d');
-
-        // create points
-        points = [];
-        for(let x = 0; x < width; x = x + width/20) {
-            for(let y = 0; y < height; y = y + height/20) {
-                let px = x + Math.random()*width/20;
-                let py = y + Math.random()*height/20;
-                let p = {x: px, originX: px, y: py, originY: py };
-                points.push(p);
-            }
-        }
-
-        // for each point find the 5 closest points
-        for(let i = 0; i < points.length; i++) {
-            let closest = [];
-            let p1 = points[i];
-            for(let j = 0; j < points.length; j++) {
-                let p2 = points[j]
-                if(!(p1 == p2)) {
-                    let placed = false;
-                    for(let k = 0; k < 5; k++) {
-                        if(!placed) {
-                            if(closest[k] == undefined) {
-                                closest[k] = p2;
-                                placed = true;
-                            }
-                        }
-                    }
-
-                    for(let k = 0; k < 5; k++) {
-                        if(!placed) {
-                            if(getDistance(p1, p2) < getDistance(p1, closest[k])) {
-                                closest[k] = p2;
-                                placed = true;
-                            }
-                        }
-                    }
-                }
-            }
-            p1.closest = closest;
-        }
-
-        // assign a circle to each point
-        for(let i in points) {
-            let c = new Circle(points[i], 2+Math.random()*2, 'rgba(255,255,255,0.3)');
-            points[i].circle = c;
-        }
+    if (!toggleSwitch) {
+        console.error("No se encontró el switch.");
+        return;
     }
+
+    toggleSwitch.addEventListener("click", function () {
+        console.log("Switch clicked!"); // Para comprobar que el evento funciona
+        const rankingSection = document.getElementById("rankingCards");
+
+        if (!rankingSection) {
+            console.error("No se encontró la sección de rankings.");
+            return;
+        }
+
+        rankingSection.classList.toggle("hidden");
+        this.nextElementSibling.textContent = this.checked ? "Show Rankings" : "Hide Rankings";
+    });
+});
 
     // Event handling
     function addListeners() {
@@ -173,5 +125,3 @@
     function getDistance(p1, p2) {
         return Math.pow(p1.x - p2.x, 2) + Math.pow(p1.y - p2.y, 2);
     }
-
-})();

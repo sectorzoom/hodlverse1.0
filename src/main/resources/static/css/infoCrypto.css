@@ -1,12 +1,8 @@
-.card{
-    border-radius: 20px;
-}
 .card:hover{
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
     border: 1px solid var(--azuloscuro);
 }
 /* GRAFICO INTERACTIVO*/
-
 .crypto-chart-container {
     border-radius: 15px;
     padding: 20px;
@@ -22,14 +18,6 @@
 
 #crypto-chart {
     border-radius: 10px;
-    background: rgba(240, 240, 240, 0.5);
-}
-
-
-/* Contenedor principal */
-.container {
-    max-width: 1200px;
-    margin: auto;
 }
 
 /* Tarjetas (secciones) */
@@ -172,6 +160,7 @@
         margin-bottom: 20px; /* Añadido un pequeño margen entre secciones */
     }
 }
+
 /* Personalización del modal (opcional) */
 #confirm-modal .modal-content {
     border-radius: 15px;
@@ -201,6 +190,39 @@ body.modal-open main {
     filter: blur(5px);
     pointer-events: none; /* Evita clics en el fondo */
 }
+.small-info-icon {
+    font-size: 0.7rem; /* Ajusta el tamaño según necesites */
+    vertical-align: middle; /* Alineación con el texto */
+    opacity: 0.5; /* Opcional: hace el icono menos llamativo */
+}
+.tooltip .tooltip-inner {
+    background-color: var(--azuloscuro); /* Color de fondo */
+    color: #ffffff; /* Color del texto */
+    font-size: 0.8rem; /* Tamaño del texto */
+    padding: 8px 12px; /* Espaciado interno */
+    border-radius: 5px; /* Bordes redondeados */
+}
+
+.tooltip.bs-tooltip-top .tooltip-arrow::before {
+    border-top-color: #061428; /* Color de la flecha */
+}
+.tooltip.bs-tooltip-bottom .tooltip-arrow::before {
+    border-bottom-color: #061428;
+}
+.tooltip.bs-tooltip-start .tooltip-arrow::before {
+    border-left-color: #061428;
+}
+.tooltip.bs-tooltip-end .tooltip-arrow::before {
+    border-right-color: #061428;
+}
+
+@media (max-width: 1157px) {
+    .col-md-12 {
+        flex: 0 0 100%;  /* Ocuparán todo el ancho */
+        max-width: 100%;
+    }
+}
+
 
 
 
