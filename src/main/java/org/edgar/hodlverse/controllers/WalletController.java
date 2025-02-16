@@ -1,8 +1,10 @@
 package org.edgar.hodlverse.controllers;
 
 import org.edgar.hodlverse.entities.Currency;
+import org.edgar.hodlverse.entities.Transaction;
 import org.edgar.hodlverse.entities.Wallet;
 import org.edgar.hodlverse.services.NotFoundException;
+import org.edgar.hodlverse.services.TransactionService;
 import org.edgar.hodlverse.services.WalletService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,9 +20,11 @@ import java.util.List;
 public class WalletController {
 
     private final WalletService walletService;
+    private final TransactionService transactionService;
 
-    public WalletController(WalletService walletService) {
+    public WalletController(WalletService walletService, TransactionService transactionService) {
         this.walletService = walletService;
+        this.transactionService = transactionService;
     }
 
     // Obtener todas las billeteras
@@ -78,33 +82,75 @@ public class WalletController {
         return walletService.getCurrenciesByUserId(userId);
     }
 
-    @GetMapping("/totalBalance/{userId}/on/{date}")
-    public ResponseEntity<BigDecimal> getUserBalanceOnDate(
+    // Endpoint para calcular el balance total de un usuario en una fecha específica
+    @GetMapping("/user/{userId}/balance/on/{date}")
+    public ResponseEntity<BigDecimal> getUserBalanceOnSpecificDate(
             @PathVariable Long userId,
             @PathVariable String date) {
 
         try {
             // Parsear la fecha desde la URL
-            LocalDateTime targetDate = LocalDateTime.parse(date);
+            LocalDate targetDate = LocalDate.parse(date);
 
-            // Calcular el balance total del usuario en la fecha especificada
-            BigDecimal totalBalance = walletService.calculateUserBalanceOnDate(userId, LocalDate.from(targetDate));
+            // Obtener el balance actual del usuario
+            BigDecimal currentBalance = walletService.calculateTotalWalletValueInUSD(userId);
 
-            if (totalBalance.compareTo(BigDecimal.ZERO) == 0) {
-                // Si el balance es 0, lanzar una excepción o devolver un mensaje informativo
-                throw new NotFoundException("No se encontraron datos para el usuario con ID " + userId + " en la fecha " + date);
-            }
+            // Obtener todas las transacciones del usuario ordenadas por fecha descendente
+            List<Transaction> transactions = transactionService.findTransactionsByUserIdAndTransactionDateGreaterThanEqual(userId, targetDate);
 
-            // Devolver el balance total como respuesta
-            return ResponseEntity.ok(totalBalance);
+            // Retroceder en el tiempo aplicando los cambios inversos de cada transacción
+            BigDecimal historicalBalance = calculateHistoricalBalance(currentBalance, transactions, targetDate);
 
-        } catch (DateTimeParseException e) {
-            // Manejar errores de formato de fecha
-            return ResponseEntity.badRequest().body(BigDecimal.ZERO); // O puedes personalizar el mensaje de error
+            return ResponseEntity.ok(historicalBalance);
+
         } catch (NotFoundException e) {
-            // Manejar casos donde no se encuentren datos
-            return ResponseEntity.status(404).body(BigDecimal.ZERO); // O puedes personalizar el mensaje de error
+            // Manejar caso donde no se encuentran datos
+            return ResponseEntity.status(404).body(BigDecimal.ZERO);
+
+        } catch (Exception e) {
+            // Manejar otros errores
+            return ResponseEntity.badRequest().body(BigDecimal.ZERO);
         }
     }
 
+    // Método privado para calcular el balance histórico
+    private BigDecimal calculateHistoricalBalance(BigDecimal currentBalance, List<Transaction> transactions, LocalDate targetDate) {
+        // Inicializar el balance con el valor actual
+        BigDecimal balance = currentBalance;
+
+        // Recorrer las transacciones en orden cronológico inverso
+        for (Transaction transaction : transactions) {
+            if (!transaction.getTransactionDate().isBefore(targetDate)) {
+                // Si la transacción ocurrió después o en la fecha objetivo, omitirla
+                continue;
+            }
+
+            // Ajustar el balance según el tipo de transacción
+            switch (transaction.getTransactionType()) {
+                case "buy":
+                    // Restar el monto gastado y sumar el monto recibido
+                    balance = balance.subtract(transaction.getOriginTransactionAmount().multiply(transaction.getOriginUnitPrice()));
+                    balance = balance.add(transaction.getDestinationTransactionAmount().multiply(transaction.getDestinationUnitPrice()));
+                    break;
+
+                case "sell":
+                    // Sumar el monto recibido y restar el monto enviado
+                    balance = balance.add(transaction.getOriginTransactionAmount().multiply(transaction.getOriginUnitPrice()));
+                    balance = balance.subtract(transaction.getDestinationTransactionAmount().multiply(transaction.getDestinationUnitPrice()));
+                    break;
+
+                case "exchange":
+                    // Restar el monto enviado y sumar el monto recibido
+                    balance = balance.subtract(transaction.getOriginTransactionAmount().multiply(transaction.getOriginUnitPrice()));
+                    balance = balance.add(transaction.getDestinationTransactionAmount().multiply(transaction.getDestinationUnitPrice()));
+                    break;
+
+                default:
+                    // Ignorar transacciones con tipos desconocidos
+                    continue;
+            }
+        }
+
+        return balance;
+    }
 }
