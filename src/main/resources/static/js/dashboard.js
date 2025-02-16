@@ -19,47 +19,73 @@ document.addEventListener("DOMContentLoaded", async function () {
         }
     }
 
+    function getLocalISODate(date) {
+        return date.getFullYear() + '-' +
+            String(date.getMonth() + 1).padStart(2, '0') + '-' +
+            String(date.getDate()).padStart(2, '0');
+    }
+
     const startDate = await fetchStartDate();
-    const formattedStartDate = new Date("2025-02-25"); // Formato YYYY-MM-DD
-    const isoDate = formattedStartDate.toISOString().split("T")[0];
-    console.log(isoDate);
+    if (!startDate) {
+        console.error("❌ No se pudo obtener la fecha de inicio.");
+        return;
+    }
+
+    const formattedStartDate = new Date(startDate);
+    const isoDate = getLocalISODate(formattedStartDate);
+    console.log("📅 Fecha de inicio:", isoDate);
+
     const endDate = new Date();
 
-    function generateDateArray(isoDate) {
-        const endDate = new Date(); // Fecha actual
-
-        // Si la fecha de inicio está en el futuro, devolvemos un array vacío
-        if (isoDate > endDate) {
-            console.warn("⚠️ Advertencia: startDate está en el futuro. No hay fechas disponibles.");
-            return [];
-        }
-
+    function generateDateArray(start) {
         let dates = [];
-        let current = new Date(isoDate); // Clonamos la fecha inicial
-
+        let current = new Date(start);
         while (current <= endDate) {
-            dates.push(new Date(current)); // Guardamos la fecha
-            current.setDate(current.getDate() + 1); // Avanzamos un día
+            dates.push(new Date(current)); // Guardamos la fecha como objeto Date
+            current.setDate(current.getDate() + 1);
         }
-
         return dates;
     }
 
-    const dateArray = generateDateArray(isoDate);
-    console.log(dateArray); // Debería imprimir un array vacío con advertencia
+    const dateArray = generateDateArray(startDate);
+    console.log("📅 Fechas generadas:", dateArray);
 
+    async function fetchData() {
+        try {
+            const userId = await User.getUserId();
 
-    let data = [];
-    let current = new Date(startDate.getTime());
+            // Usamos Promise.all() para esperar todas las promesas antes de continuar
+            const data = await Promise.all(
+                dateArray.map(async (date) => {
+                    return await Wallet.getUserBalanceOnSpecificDate(userId, date);
+                })
+            );
 
-    while (current <= endDate) {
-        let time = current.getTime();
-        let value = Math.round(Math.random() * 200 + 50);
-        data.push([time, value]);
-        current.setDate(current.getDate() + 1);
+            console.log("📊 Datos obtenidos:", data);
+            return data;
+        } catch (error) {
+            console.error('❌ Error al obtener datos de balance:', error);
+            return [];
+        }
     }
 
-    console.log("📊 Datos generados:", data);
+    // Obtener valores de balance
+    let balanceValues = await fetchData();
+
+    if (balanceValues.length === 0) {
+        console.error("❌ No se obtuvieron datos de balance.");
+        return;
+    }
+
+    let data = [];
+
+    for (let i = 0; i < dateArray.length; i++) {
+        let time = dateArray[i].getTime(); // Convertimos la fecha a timestamp
+        let value = balanceValues[i] ?? 0; // Si no hay valor, asignamos 0 por seguridad
+        data.push([time, value]);
+    }
+
+    console.log("📊 Datos procesados para gráfico:", data);
 
     let option = {
         title: {
@@ -79,7 +105,7 @@ document.addEventListener("DOMContentLoaded", async function () {
             }
         },
         grid: {
-            bottom: 95  // ⬆ Aumentamos espacio inferior para la barra de zoom
+            bottom: 95
         },
         xAxis: {
             type: 'time',
@@ -91,7 +117,7 @@ document.addEventListener("DOMContentLoaded", async function () {
             nameGap: 30,
             axisLabel: {
                 formatter: function (value) {
-                    return new Date(value).toLocaleDateString('es-ES', {day: '2-digit', month: 'short'});
+                    return new Date(value).toLocaleDateString('es-ES', { day: '2-digit', month: 'short' });
                 }
             }
         },
@@ -107,8 +133,8 @@ document.addEventListener("DOMContentLoaded", async function () {
             }
         },
         dataZoom: [
-            {type: 'inside', start: 0, end: 100},
-            {start: 0, end: 100}
+            { type: 'inside', start: 0, end: 100 },
+            { start: 0, end: 100 }
         ],
         series: [
             {
@@ -119,7 +145,7 @@ document.addEventListener("DOMContentLoaded", async function () {
                     width: 2
                 },
                 areaStyle: {
-                    color: 'rgba(126, 172, 237, 0.3)' // 🔹 Color del fondo con transparencia
+                    color: 'rgba(126, 172, 237, 0.3)'
                 },
                 data: data
             }
@@ -140,6 +166,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     }
 });
 
+
 document.addEventListener("DOMContentLoaded", async function () {
     const calendarContainer = document.getElementById("calendar");
     const daysRemainingText = document.getElementById("daysRemaining");
@@ -148,7 +175,8 @@ document.addEventListener("DOMContentLoaded", async function () {
     async function fetchEndDate() {
         try {
             const userId = await User.getUserId(); // Obtener ID del usuario
-            const game = await Game.getLastFinishedGameByUserId(userId); // Obtener el usuario por su ID
+            console.log(userId);
+            const game = await Game.getActiveGameByUserId(userId); // Obtener el usuario por su ID
             return date = game.endDate;
         } catch (error) {
             console.error('❌ Error al obtener el usuario:', error);
