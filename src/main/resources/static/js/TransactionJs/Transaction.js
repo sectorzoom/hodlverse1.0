@@ -211,25 +211,16 @@ class Transaction {
 
     // Obtener las transacciones de un usuario por su ID
     static async getTransactionsByUserId(userId) {
-        return new Promise((resolve, reject) => {
-            $.ajax({
+        try {
+            const response = await $.ajax({
                 url: `/transactions/all/${userId}`,
-                type: 'GET',
-                success: (data) => {
-                    const userTransactions = data.map(t => new Transaction(
-                        t.id, t.transactionType, t.originTransactionAmount, t.destinationTransactionAmount,
-                        t.originUnitPrice, t.destinationUnitPrice, t.transactionDate,
-                        t.user, t.originCurrency, t.destinationCurrency
-                    ));
-                    console.log(`✅ Transacciones obtenidas para el usuario ${userId}:`, userTransactions);
-                    resolve(userTransactions); // Devolvemos las transacciones correctamente
-                },
-                error: (error) => {
-                    console.error(`❌ Error al obtener las transacciones para el usuario ${userId}:`, error);
-                    reject(error);
-                }
+                type: 'GET'
             });
-        });
+            return response;
+        } catch (error) {
+            console.error('Error al obtener el ID del usuario:', error);
+            return null;
+        }
     }
 
     // Obtener las últimas 3 transacciones de un usuario por su ID

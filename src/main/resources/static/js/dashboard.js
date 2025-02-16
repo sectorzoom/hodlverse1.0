@@ -288,11 +288,67 @@ document.addEventListener("DOMContentLoaded", function () {
             console.error('❌ Error en fetchTransactionsById:', error);
         }
     }
+    async function fetchTransactionsAllById() {
+        try {
+            const userId = await User.getUserId(); // Obtener ID del usuario
+            console.log('✅ ID del usuario:', userId);
+
+            const transactions = await Transaction.getTransactionsByUserId(userId); // Obtener transacciones
+            console.log('✅ Transacciones todas del usuario:', transactions);
+
+            // Llenar la tabla con las transacciones
+            populateTransactionTableAll(transactions);
+
+        } catch (error) {
+            console.error('❌ Error en fetchTransactionsById:', error);
+        }
+    }
 
     fetchTransactionsById();
+    fetchTransactionsAllById();
 
     function populateTransactionTable(transactions) {
         const tableBody = document.getElementById("transactionTableBody");
+        tableBody.innerHTML = ""; // Limpiar la tabla antes de agregar datos
+
+        transactions.forEach(transaction => {
+            const row = document.createElement("tr");
+
+            let badgeClass = "";
+            switch (transaction.transactionType.toLowerCase()) {
+                case "buy":
+                    badgeClass = "badge-buy";
+                    break;
+                case "sell":
+                    badgeClass = "badge-sell";
+                    break;
+                case "exchange":
+                    badgeClass = "badge-exchange";
+                    break;
+                default:
+                    badgeClass = "badge-secondary";
+            }
+
+            row.innerHTML = `
+            <td class="col-4">
+                <img src="${transaction.destinationCurrency.image}" alt="Logo de ${transaction.destinationCurrency.name}" height="24">
+                ${transaction.destinationCurrency.name}
+            </td>
+            <td class="col-2 text-center">
+                <span class="badge ${badgeClass}">${transaction.transactionType}</span>
+            </td>
+            <td class="col-3 text-end">${transaction.destinationUnitPrice.toFixed(2)}</td>
+            <td class="col-3 text-end">$${transaction.destinationTransactionAmount.toFixed(2)}</td>
+        `;
+
+            tableBody.appendChild(row);
+        });
+
+        console.log("✅ Tabla actualizada con transacciones.");
+    }
+
+    function populateTransactionTableAll(transactions) {
+        const tableBody = document.getElementById("transactionTableBodyFull");
         tableBody.innerHTML = ""; // Limpiar la tabla antes de agregar datos
 
         transactions.forEach(transaction => {
