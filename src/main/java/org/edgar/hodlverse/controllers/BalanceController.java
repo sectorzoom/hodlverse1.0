@@ -5,6 +5,7 @@ import org.edgar.hodlverse.services.BalanceService;
 import org.edgar.hodlverse.services.NotFoundException;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @RestController
@@ -61,14 +62,6 @@ public class BalanceController {
         balanceService.deleteById(id);
     }
 
-    @GetMapping("/wallet/{walletId}")
-    public List<Balance> balancesByWallet(@PathVariable Long walletId) {
-        if (balanceService.findByWalletId(walletId).isEmpty()) {
-            throw new NotFoundException("Cartera con ID " + walletId + " no encontrado.");
-        }
-        return balanceService.findByWalletId(walletId);
-    }
-
     @GetMapping("/currency/{currencyId}")
     public List<Balance> balancesByCurrency(@PathVariable Long currencyId) {
         if (balanceService.findByCurrencyId(currencyId).isEmpty()) {
@@ -77,4 +70,12 @@ public class BalanceController {
         return balanceService.findByCurrencyId(currencyId);
     }
 
+    // Endpoint para obtener la suma de walletAmount
+    @GetMapping("/total/{walletId}/{currencyId}")
+    public BigDecimal getTotalWalletAmount(
+            @PathVariable Long walletId,
+            @PathVariable Long currencyId
+    ) {
+        return balanceService.getTotalWalletAmount(walletId, currencyId);
+    }
 }

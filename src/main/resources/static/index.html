@@ -10,6 +10,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet"/>
     <script src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/index.css">
 </head>
@@ -31,11 +32,11 @@
                         </div>
                         <div class="awards-item text-center gap-1">
                             <span class="fw-bold d-block">Market Cap: </span>
-                            <p>$3.743</p><span class="percentage"><i class="fa-solid fa-caret-down"></i> 1.2%</span>
+                            <p class="marketCapValue"></p><span class="percentage"><i class="fa-solid fa-caret-down"></i> 1.2%</span>
                         </div>
                         <div class="awards-item text-center gap-1">
                             <span class="fw-bold d-block">24h Vol: </span>
-                            <p>$90.712</p>
+                            <p class="trendingCoinsValue"></p>
                         </div>
                         <div class="awards-item text-center gap-1">
                             <span class="fw-bold d-block">Dominance: </span>
@@ -64,7 +65,7 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0 nav-underline">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" data-bs-toggle="modal" data-bs-target="#modalSignin" ><i
+                        <a class="nav-link" aria-current="page" data-bs-toggle="modal" data-bs-target="#modalSignin" ><i
                                 class="fa-solid fa-gauge-high"></i>Dashboard</a>
                     </li>
                     <li class="nav-item dropdown">
@@ -319,7 +320,7 @@
     </nav>
 </header>
 <main>
-    <div class="container my-5 rounded shadow bg-white">
+    <div class="container my-4 rounded shadow bg-white">
         <div class="py-3 bg-body-tertiary">
             <div class="text-center mb-4">
                 <h2 class="fw-bold text-dark mb-3" style="font-size: 2.5rem; letter-spacing: 1px;">
@@ -334,12 +335,12 @@
                     <div class="card shadow-sm">
                         <div class="card-body">
                             <div class="d-flex flex-column gap-2">
-                                <h4 class="m-0" id="marketCapValue">$3,626,054,335,529</h4>
+                                <h4 class="m-0 marketCapValue"></h4>
                                 <div class="d-flex align-items-center gap-1">
-                                    <h5 class="m-0">Market Cap</h5>
+                                    <h5 class="m-0 text">Market Cap</h5>
                                     <div class="d-flex align-items-center percentage">
                                         <i class="fa-solid fa-caret-down"></i>
-                                        <span id="marketCapPercentage">1.9%</span>
+                                        <span id="marketCapPercentage">1.2%</span>
                                     </div>
                                 </div>
                             </div>
@@ -353,8 +354,8 @@
                     <div class="card shadow-sm">
                         <div class="card-body">
                             <div class="d-flex flex-column gap-2">
-                                <h4 class="mb-2" id="trendingCoinsValue">$130,259,966,208</h4>
-                                <h5>24h Trading Volume</h5>
+                                <h4 class="mb-2 trendingCoinsValue"></h4>
+                                <h5 class="text">24h Trading Volume</h5>
                             </div>
                             <div class="d-flex justify-content-center align-items-center"
                                  id="trendingCoinsChart" style="height: 100px;">
@@ -552,7 +553,6 @@
 
             <ul class="nav col-md-4 justify-content-end footer-info">
                 <li><a href="dashboard.html" class="px-2">Dashboard</a></li>
-                <li><a href="subscriptions.html" class="px-2">Subscriptions</a></li>
                 <li><a href="privacyPolicy.html" class="px-2">Privacy & Policy</a></li>
                 <li><a href="faqs.html" class="px-2">FAQs</a></li>
             </ul>
@@ -573,7 +573,6 @@
                 <!-- Centrar los enlaces -->
                 <ul class="nav justify-content-center border-bottom pb-3 mb-3">
                     <li><a href="dashboard.html" class="px-2">Dashboard</a></li>
-                    <li><a href="subscriptions.html" class="px-2">Subscriptions</a></li>
                     <li><a href="privacyPolicy.html" class="px-2">Privacy & Policy</a></li>
                     <li><a href="faqs.html" class="px-2">FAQs</a></li>
                 </ul>
@@ -582,6 +581,9 @@
         </div>
     </div>
 </footer>
-<script src="js/index.js"></script>
+<script src="/js/HistoryJs/History.js"></script>
+<script src="/js/CurrencyJs/Currency.js"></script>
+<script src="/js/javaScript.js"></script>
+<script src="/js/index.js"></script>
 </body>
 </html>

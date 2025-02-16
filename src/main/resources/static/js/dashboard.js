@@ -1,55 +1,4 @@
-document.addEventListener("DOMContentLoaded", () => {
-    const carousel = document.querySelector(".awards-carousel");
-    const itemsWrapper = document.querySelector(".awards-items-wrapper");
-    const items = Array.from(document.querySelectorAll(".awards-item"));
-
-    // Función para duplicar elementos y garantizar desplazamiento continuo
-    function duplicateItems() {
-        const carouselWidth = carousel.offsetWidth;
-
-        while (itemsWrapper.scrollWidth < carouselWidth * 10) {
-            items.forEach(item => {
-                const clone = item.cloneNode(true);
-                itemsWrapper.appendChild(clone);
-            });
-        }
-    }
-
-    // Llama a la función para garantizar suficientes elementos
-    duplicateItems();
-
-    let scrollSpeed = 1; // Ajusta la velocidad de desplazamiento
-
-    function scrollCarousel() {
-        carousel.scrollLeft += scrollSpeed;
-
-        // Si el primer conjunto de elementos sale completamente de la vista, se reposiciona
-        if (carousel.scrollLeft >= itemsWrapper.scrollWidth / 2) {
-            carousel.scrollLeft -= itemsWrapper.scrollWidth / 2;
-        }
-    }
-
-    // Inicia el desplazamiento continuo
-    setInterval(scrollCarousel, 80);
-});
-
-document.addEventListener("DOMContentLoaded", () => {
-    const offcanvas = document.querySelector("#offcanvasRight");
-
-    // Escuchar el evento `show.bs.collapse` para detectar cuándo se abre un dropdown
-    offcanvas.addEventListener("show.bs.collapse", (event) => {
-        // Seleccionar todas las secciones colapsables dentro del offcanvas
-        const dropdowns = offcanvas.querySelectorAll(".collapse");
-
-        // Cerrar todas las secciones excepto la que se está abriendo
-        dropdowns.forEach((dropdown) => {
-            if (dropdown !== event.target) {
-                bootstrap.Collapse.getOrCreateInstance(dropdown).hide();
-            }
-        });
-    });
-});
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", async function () {
     let chartDom = document.getElementById("chart-container");
 
     if (!chartDom) {
@@ -59,15 +8,55 @@ document.addEventListener("DOMContentLoaded", function () {
 
     let myChart = echarts.init(chartDom);
 
-    // 🔹 Generación de datos (100 días de ganancias aleatorias)
-    let base = new Date(2024, 0, 1).getTime();
-    let oneDay = 24 * 3600 * 1000;
-    let data = [];
+    async function fetchStartDate() {
+        try {
+            const userId = await User.getUserId(); // Obtener ID del usuario
+            const game = await Game.getActiveGameByUserId(userId);
+            return new Date(game.startDate);
+        } catch (error) {
+            console.error('❌ Error al obtener el usuario:', error);
+            return null;
+        }
+    }
 
-    for (let i = 0; i < 100; i++) {
-        let time = base + i * oneDay;
+    const startDate = await fetchStartDate();
+    const formattedStartDate = new Date("2025-02-25"); // Formato YYYY-MM-DD
+    const isoDate = formattedStartDate.toISOString().split("T")[0];
+    console.log(isoDate);
+    const endDate = new Date();
+
+    function generateDateArray(isoDate) {
+        const endDate = new Date(); // Fecha actual
+
+        // Si la fecha de inicio está en el futuro, devolvemos un array vacío
+        if (isoDate > endDate) {
+            console.warn("⚠️ Advertencia: startDate está en el futuro. No hay fechas disponibles.");
+            return [];
+        }
+
+        let dates = [];
+        let current = new Date(isoDate); // Clonamos la fecha inicial
+
+        while (current <= endDate) {
+            dates.push(new Date(current)); // Guardamos la fecha
+            current.setDate(current.getDate() + 1); // Avanzamos un día
+        }
+
+        return dates;
+    }
+
+    const dateArray = generateDateArray(isoDate);
+    console.log(dateArray); // Debería imprimir un array vacío con advertencia
+
+
+    let data = [];
+    let current = new Date(startDate.getTime());
+
+    while (current <= endDate) {
+        let time = current.getTime();
         let value = Math.round(Math.random() * 200 + 50);
         data.push([time, value]);
+        current.setDate(current.getDate() + 1);
     }
 
     console.log("📊 Datos generados:", data);
@@ -102,7 +91,7 @@ document.addEventListener("DOMContentLoaded", function () {
             nameGap: 30,
             axisLabel: {
                 formatter: function (value) {
-                    return new Date(value).toLocaleDateString('es-ES', { day: '2-digit', month: 'short' });
+                    return new Date(value).toLocaleDateString('es-ES', {day: '2-digit', month: 'short'});
                 }
             }
         },
@@ -118,15 +107,15 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         },
         dataZoom: [
-            { type: 'inside', start: 0, end: 100 },
-            { start: 0, end: 100 }
+            {type: 'inside', start: 0, end: 100},
+            {start: 0, end: 100}
         ],
         series: [
             {
                 type: 'line',
                 symbol: 'none',
                 lineStyle: {
-                    color: '#7EACED',
+                    color: '#061428',
                     width: 2
                 },
                 areaStyle: {
@@ -151,14 +140,28 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 });
 
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", async function () {
     const calendarContainer = document.getElementById("calendar");
     const daysRemainingText = document.getElementById("daysRemaining");
     const timeRemainingText = document.getElementById("timeRemaining");
 
+    async function fetchEndDate() {
+        try {
+            const userId = await User.getUserId(); // Obtener ID del usuario
+            const game = await Game.getLastFinishedGameByUserId(userId); // Obtener el usuario por su ID
+            return date = game.endDate;
+        } catch (error) {
+            console.error('❌ Error al obtener el usuario:', error);
+            return null;
+        }
+    }
+
+    const endDate = await fetchEndDate();
+    console.log("📈 Fecha objetivo:", endDate);
+
     const today = new Date();
     const currentDay = today.getDate();
-    const markedDay = 20; // Cambia este número según el día que desees marcar
+    const markedDay = 28; // Cambia este número según el día que desees marcar
     const daysInMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0).getDate();
 
     // Crear fecha objetivo (inicio del día marcado, es decir, a las 00:00:00)
@@ -199,8 +202,8 @@ document.addEventListener("DOMContentLoaded", function() {
 document.addEventListener("DOMContentLoaded", function () {
     // Datos de progreso iniciales
     const partidas = [
-        { nombre: "2022", porcentaje: 40 }, // Partida anterior
-        { nombre: "2023", porcentaje: 75 }, // Partida actual
+        {nombre: "2022", porcentaje: 40}, // Partida anterior
+        {nombre: "2023", porcentaje: 75}, // Partida actual
     ];
 
     // Elementos de progreso de partidas
@@ -224,8 +227,8 @@ document.addEventListener("DOMContentLoaded", function () {
         partidaActualText.textContent = partidas[1].nombre;
 
         // Ajustar la altura de las líneas según el porcentaje
-        lineaAnterior.style.height = `${partidas[0].porcentaje }px`;
-        lineaActual.style.height = `${partidas[1].porcentaje }px`;
+        lineaAnterior.style.height = `${partidas[0].porcentaje}px`;
+        lineaActual.style.height = `${partidas[1].porcentaje}px`;
     }
 
     // Función para animar la barra de progreso circular (una sola vez)
@@ -235,6 +238,7 @@ document.addEventListener("DOMContentLoaded", function () {
         progressCircle.style.strokeDashoffset = nuevoOffset;
         progressText.textContent = `${partidas[1].porcentaje}%`;
     }
+
     // Llamar a la función una sola vez después de cargar
     setTimeout(() => {
         actualizarPartidas();
@@ -246,7 +250,7 @@ document.addEventListener("DOMContentLoaded", function () {
             const userId = await User.getUserId(); // Obtener ID del usuario
             console.log('✅ ID del usuario:', userId);
 
-            const transactions = await Transaction.getTransactionsByUserId(userId); // Obtener transacciones
+            const transactions = await Transaction.getLatestTransactionsByUserId(userId); // Obtener transacciones
             console.log('✅ Transacciones del usuario:', transactions);
 
             // Llenar la tabla con las transacciones
@@ -256,6 +260,7 @@ document.addEventListener("DOMContentLoaded", function () {
             console.error('❌ Error en fetchTransactionsById:', error);
         }
     }
+
     fetchTransactionsById();
 
     function populateTransactionTable(transactions) {
@@ -266,12 +271,10 @@ document.addEventListener("DOMContentLoaded", function () {
             const row = document.createElement("tr");
 
             row.innerHTML = `
-            <td class="col-4"><img src="${transaction.destinationCurrency.image}" alt="Logo de ${transaction.destinationCurrency.name}" height="24">${transaction.destinationCurrency.name}</td>
+            <td class="col-4"><img src="${transaction.destinationCurrency.image}" alt="Logo de ${transaction.destinationCurrency.name}" height="24"> ${transaction.destinationCurrency.name}</td>
             <td class="col-2 text-center">${transaction.transactionType}</td>
-            <td class="col-3 text-end">${transaction.originUnitPrice.toFixed(2)} USD</td>
-            <td class="col-2 text-end ${transaction.destinationUnitPrice >= transaction.originUnitPrice ? 'text-success' : 'text-danger'}">
-                ${((transaction.destinationUnitPrice - transaction.originUnitPrice) / transaction.originUnitPrice * 100).toFixed(2)}%
-            </td>
+            <td class="col-3 text-end">${transaction.destinationUnitPrice.toFixed(2)}</td>
+            <td class="col-3 text-end">$${transaction.destinationTransactionAmount.toFixed(2)}</td>
         `;
 
             tableBody.appendChild(row);
@@ -281,30 +284,95 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 });
+document.addEventListener("DOMContentLoaded", async () => {
+    let user;
 
-/* CAROUSEL YOUR CRYPTO */
-let swiper = new Swiper(".mySwiper", {
-    slidesPerView: 3,
-    spaceBetween: 10,
-    grabCursor: true,
-    scrollbar: {
-        el: ".swiper-scrollbar",
-        hide: false,
-    },
-});
+    async function getCryptos(){
+        try{
+            const userId = await User.getUserId(); // Obtener ID del usuario
+            user = await User.getUserById(userId);
+            const currencies = await Wallet.getWalletsCurrenciesById(userId);
+            console.log(currencies);
+            return currencies || []; // Retorna un array vacío si es null/undefined
 
-window.onload = function () {
-    const colorThief = new ColorThief();
-    document.querySelectorAll('.crypto-logo').forEach(img => {
-        if (img.complete) {
-            setBgColor(img);
-        } else {
-            img.addEventListener('load', () => setBgColor(img));
+        } catch (error) {
+            console.error('❌ Error al obtener el usuario:', error);
+            return []; // Devuelve un array vacío en caso de error
         }
-    });
-
-    function setBgColor(img) {
-        const color = colorThief.getColor(img);
-        img.parentElement.style.backgroundColor = `rgb(${color[0]}, ${color[1]}, ${color[2]})`;
     }
-};
+    const cryptos = await getCryptos();
+
+    let currencies = await getCurrencies();
+
+    async function getCurrencies(){
+        try{
+            const response = await $.ajax({
+                url: `/wallets/${user.wallet.walletId}/currencies`,
+                type: 'GET'
+            });
+            return response;
+        } catch (error) {
+            console.error('❌ Error al obtener el usuario:', error);
+            return [];
+        }
+    }
+
+    async function getTotalValue() {
+        try {
+            let promises = currencies.map(async (currency) => {
+                const response = await $.ajax({
+                    url: `/balances/total/${user.wallet.walletId}/${currency.currencyId}`,
+                    type: 'GET'
+                });
+                return response; // Retorna el valor de la solicitud
+            });
+
+            let totalsValue = await Promise.all(promises); // Espera a que todas las promesas se resuelvan
+            console.log("📊 totalValue cargado:", totalsValue);
+            return totalsValue;
+        } catch (error) {
+            console.error('❌ Error al obtener los valores totales:', error);
+            return [];
+        }
+    }
+
+
+    let totalValue = await getTotalValue();
+    console.log(totalValue);
+
+    // Verifica que cryptos sea un array antes de iterar
+    if (!Array.isArray(cryptos)) {
+        console.error("❌ Error: cryptos no es un array", cryptos);
+        return;
+    }
+
+    const container = document.getElementById("cryptosContainer");
+
+    let contador = 0;
+    // Genera y añade una card para cada crypto
+    cryptos.forEach(crypto => {
+        const card = document.createElement("div");
+        card.classList.add("card", "crypto", "shadow-sm", "mb-2");
+        let amount = totalValue[contador];
+        console.log(amount);
+        card.innerHTML = `
+      <div class="card-body d-flex align-items-center justify-content-between">
+        <div>
+          <div class="mb-2">
+            <h5 class="text">${crypto.name}</h5>
+            <h5 class="text">${crypto.value}</h5>
+            <div class="d-flex align-items-center gap-2">
+              <h6 class="text-muted">${crypto.ticker}</h6>
+              <h6 class="text-muted">${amount}</h6>
+            </div>
+          </div>
+        </div>
+        <div class="img-container">
+          <img src="${crypto.image}" alt="${crypto.name}" height="55">
+        </div>
+      </div>
+    `;
+        container.appendChild(card);
+        contador++;
+    });
+});

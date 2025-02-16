@@ -13,10 +13,26 @@ import java.util.Optional;
 
 @Repository
 public interface HistoryRepository extends JpaRepository<History, Long> {
-    List<History> findAllByOrderByPriceChangePercentage24hDesc(); // Ordenar por priceChangePercentage24h descendente
-    List<History> findAllByOrderByPriceChangePercentage24hAsc(); // Ordenar por priceChangePercentage24h ascendente
-    List<History> findAllByOrderByMarketCapRankAsc(); //Ordenar por marketCapRank de forma ascendente
-    List<History> findAllByOrderByTotalVolumeDesc(); // Ordenar por totalVolume descendente
+
+    @Query("SELECT h FROM History h WHERE h.historyId IN ( " +
+            "SELECT MAX(h2.historyId) FROM History h2 GROUP BY h2.currency.currencyId ) " +
+            "ORDER BY h.priceChangePercentage24h DESC")
+    List<History> findLatestHistoriesOrderByPriceChangePercentageDesc();
+
+    @Query("SELECT h FROM History h WHERE h.historyId IN ( " +
+            "SELECT MAX(h2.historyId) FROM History h2 GROUP BY h2.currency.currencyId ) " +
+            "ORDER BY h.priceChangePercentage24h ASC")
+    List<History> findLatestHistoriesOrderByPriceChangePercentageAsc();
+
+    @Query("SELECT h FROM History h WHERE h.historyId IN ( " +
+            "SELECT MAX(h2.historyId) FROM History h2 GROUP BY h2.currency.currencyId ) " +
+            "ORDER BY h.marketCapRank ASC")
+    List<History> findLatestHistoriesOrderByMarketCapRankAsc();
+
+    @Query("SELECT h FROM History h WHERE h.historyId IN ( " +
+            "SELECT MAX(h2.historyId) FROM History h2 GROUP BY h2.currency.currencyId ) " +
+            "ORDER BY h.totalVolume DESC")
+    List<History> findLatestHistoriesOrderByTotalVolumeDesc();
 
     @Query("SELECT h FROM History h WHERE h.currency.currencyId = :currencyId AND h.lastUpdated > :start ORDER BY h.lastUpdated ASC")
     Optional<History> findFirstByCurrencyIdAndLastUpdatedAfterOrderByLastUpdatedAsc(@Param("currencyId") Long currencyId, @Param("start") LocalDateTime start);
@@ -25,6 +41,15 @@ public interface HistoryRepository extends JpaRepository<History, Long> {
     Optional<History> findFirstByCurrencyIdAndLastUpdatedBeforeOrderByLastUpdatedDesc(@Param("currencyId") Long currencyId, @Param("end") LocalDateTime end);
 
     Optional<History> findTopByCurrencyOrderByLastUpdatedDesc(Currency currency);
+
+    @Query("SELECT h FROM History h WHERE h.historyId IN ( " +
+            "SELECT MAX(h2.historyId) FROM History h2 GROUP BY h2.currency.currencyId )")
+    List<History> findLatestHistories();
+
+    // Obtener el historial más reciente de una divisa antes o en la fecha especificada
+    @Query("SELECT h FROM History h WHERE h.currency = :currency AND h.lastUpdated <= :date ORDER BY h.lastUpdated DESC")
+    Optional<History> findLatestHistoryByCurrencyBeforeDate(
+            org.edgar.hodlverse.entities.Currency currency, LocalDate date);
 
 }
 

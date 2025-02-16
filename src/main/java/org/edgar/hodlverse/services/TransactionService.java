@@ -4,6 +4,7 @@ import org.edgar.hodlverse.entities.Transaction;
 import org.edgar.hodlverse.repositories.TransactionRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -35,8 +36,14 @@ public class TransactionService {
     public void deleteById(Long id) {
         transactionRepository.deleteById(id);
     }
+
     // Método para obtener las transacciones por userId
     public List<Transaction> findTransactionsByUserId(Long userId) {
         return transactionRepository.findByUser_UserId(userId);
+    }
+
+    // Obtener todas las transacciones del usuario desde una fecha específica (la buena)
+    public List<Transaction> findTransactionsByUserIdAndTransactionDateGreaterThanEqual(Long userId, LocalDate startDate) {
+        return transactionRepository.findTransactionsByUser_UserIdAndTransactionDateGreaterThanEqualOrderByTransactionDateDesc(userId, startDate);
     }
 }

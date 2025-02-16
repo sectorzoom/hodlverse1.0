@@ -1,17 +1,18 @@
 package org.edgar.hodlverse.entities;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
-
+import lombok.Setter;
 import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-@Entity
-@NoArgsConstructor
 @AllArgsConstructor
+@Entity
 public class Game {
+    public Game() {}
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -32,12 +33,13 @@ public class Game {
     @Column(nullable = false)
     private LocalDateTime startDate;
 
-    @JsonIgnore
-    @OneToOne
-    @JoinColumn(name = "user_id", nullable = false, unique = true)
+    @Column(nullable = false)
+    private LocalDateTime endDate; // Calculado automáticamente
+
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    @JsonIgnore
     @OneToOne(mappedBy = "game", cascade = CascadeType.ALL, orphanRemoval = true)
     private Result result;
 
@@ -46,6 +48,19 @@ public class Game {
         EXPERIENCED,
         PERSONALIZED
     }
+
+    // Constructor con lógica corregida para calcular endDate correctamente
+    public Game(Difficulty difficulty, BigDecimal initialCredit, BigDecimal objective, int duration, LocalDateTime startDate, User user) {
+        this.difficulty = difficulty;
+        this.initialCredit = initialCredit;
+        this.objective = objective;
+        this.duration = duration;
+        this.startDate = startDate;
+        this.endDate = startDate.plusDays(duration); // Ahora usa duration correctamente
+        this.user = user;
+    }
+
+    // Getters y Setters
 
     public Long getId() {
         return id;
@@ -85,6 +100,9 @@ public class Game {
 
     public void setDuration(int duration) {
         this.duration = duration;
+        if (this.startDate != null) {
+            this.endDate = this.startDate.plusDays(duration); // Asegura que endDate se actualice si cambia duration
+        }
     }
 
     public LocalDateTime getStartDate() {
@@ -93,6 +111,13 @@ public class Game {
 
     public void setStartDate(LocalDateTime startDate) {
         this.startDate = startDate;
+        if (this.duration > 0) {
+            this.endDate = startDate.plusDays(duration); // Asegura que endDate se actualice si cambia startDate
+        }
+    }
+
+    public LocalDateTime getEndDate() {
+        return endDate;
     }
 
     public User getUser() {
