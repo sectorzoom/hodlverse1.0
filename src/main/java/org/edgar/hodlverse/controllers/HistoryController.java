@@ -11,6 +11,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/history") // Ruta base para el controlador
@@ -135,6 +136,18 @@ public class HistoryController {
     @GetMapping("/total-volume")
     public BigDecimal getTotalVolume() {
         return historyService.getTotalVolume();
+    }
+
+    // Endpoint para obtener la última entrada de History
+    @GetMapping("/latest")
+    public ResponseEntity<History> getLatestHistory() {
+        Optional<History> latestHistory = historyService.getLatestHistory();
+
+        if (latestHistory.isEmpty()) {
+            throw new NotFoundException("No se encontró ninguna entrada de History.");
+        }
+
+        return ResponseEntity.ok(latestHistory.get());
     }
 
 }

@@ -150,6 +150,10 @@ class History {
 
     // 🔍 Obtener una entrada de historial por su ID desde la API
     static getHistoryById(historyId, callback) {
+        if (typeof historyId !== 'number' || isNaN(historyId)) {
+            console.error('El ID de la entrada de historial debe ser un número válido.');
+            return;
+        }
         $.ajax({
             url: `/history/${historyId}`,
             type: 'GET',
@@ -246,6 +250,11 @@ class History {
 
     // 🔄 Actualizar una entrada de historial en la API
     static updateHistory(historyId, updatedData, callback) {
+        if (typeof historyId !== 'number' || isNaN(historyId)) {
+            console.error('El ID de la entrada de historial debe ser un número válido.');
+            return;
+        }
+
         try {
             History.validateHistoryData({ ...updatedData, historyId });
             $.ajax({
@@ -292,6 +301,11 @@ class History {
 
     // ❌ Eliminar una entrada de historial de la API
     static deleteHistory(historyId, callback) {
+        if (typeof historyId !== 'number' || isNaN(historyId)) {
+            console.error('El ID de la entrada de historial debe ser un número válido.');
+            return;
+        }
+
         $.ajax({
             url: `/history/${historyId}`,
             type: 'DELETE',
@@ -302,6 +316,72 @@ class History {
             },
             error: (error) => {
                 console.error('Error al eliminar la entrada de historial:', error);
+            }
+        });
+    }
+
+    // 📊 Obtener la suma total del Market Cap de todas las monedas
+    static getTotalMarketCap(callback) {
+        $.ajax({
+            url: '/history/total-market-cap',
+            type: 'GET',
+            success: (data) => {
+                console.log('Total Market Cap:', data);
+                if (callback) callback(data);
+            },
+            error: (error) => {
+                console.error('Error al obtener el Total Market Cap:', error);
+            }
+        });
+    }
+
+    // 🔊 Obtener la suma total del volumen de todas las monedas
+    static getTotalVolume(callback) {
+        $.ajax({
+            url: '/history/total-volume',
+            type: 'GET',
+            success: (data) => {
+                console.log('Total Volume:', data);
+                if (callback) callback(data);
+            },
+            error: (error) => {
+                console.error('Error al obtener el Total Volume:', error);
+            }
+        });
+    }
+
+    // *** NUEVA FUNCIÓN PARA OBTENER LA ÚLTIMA ENTRADA DE HISTORY ***
+    static getLatestHistory(callback) {
+        $.ajax({
+            url: '/history/latest', // Endpoint para obtener la última entrada de History
+            type: 'GET',
+            success: (data) => {
+                try {
+                    History.validateHistoryData(data);
+                    let latestHistory = new History(
+                        data.historyId,
+                        data.currentPrice,
+                        data.marketCap,
+                        data.marketCapRank,
+                        data.totalVolume,
+                        data.high24h,
+                        data.low24h,
+                        data.priceChange24h,
+                        data.priceChangePercentage24h,
+                        data.marketCapChange24h,
+                        data.marketCapChangePercentage24h,
+                        data.totalSupply,
+                        new Date(data.lastUpdated),
+                        new Currency(data.currency)
+                    );
+                    console.log('Última entrada de historial obtenida:', latestHistory);
+                    if (callback) callback(latestHistory);
+                } catch (error) {
+                    console.error('Error al validar la última entrada de historial:', error.message);
+                }
+            },
+            error: (error) => {
+                console.error('Error al obtener la última entrada de historial:', error);
             }
         });
     }
@@ -399,3 +479,19 @@ class History {
         });
     }
 }
+
+// =============================
+// 🔥 Cargar automáticamente todas las entradas de historial al iniciar
+// =============================
+$(document).ready(function () {
+    History.loadHistories((histories) => {
+        console.log('Historial cargado en la aplicación:', histories);
+    });
+
+    // Ejemplo de uso para obtener la última entrada de historial
+    $('#getLatestHistory').click(() => {
+        History.getLatestHistory((latestHistory) => {
+            console.log('Última entrada de historial:', latestHistory);
+        });
+    });
+});
