@@ -38,7 +38,7 @@ jobs:
           host: ${{ secrets.EC2_HOST }}
           username: ${{ secrets.EC2_USERNAME }}
           key: ${{ secrets.EC2_PRIVATE_KEY }}
-          source: target/HodlVerse-0.0.1-SNAPSHOT.jar
+          source: target/HodlVerse-0.0.1-SNAPSHOT.war
           target: /home/ubuntu/
           strip_components: 1
 
@@ -53,12 +53,12 @@ jobs:
           script: |
 
             # 3️⃣ Mover el archivo .war a la carpeta de despliegue de Tomcat.
-            sudo mv /home/ubuntu/HodlVerse-0.0.1-SNAPSHOT.jar /var/lib/tomcat10/webapps/demo.jar
+            sudo mv /home/ubuntu/HodlVerse-0.0.1-SNAPSHOT.war /var/lib/tomcat10/webapps/demo.war
 
 
             # 4️⃣ Cambiar el propietario y permisos del archivo para que Tomcat pueda acceder.
-            sudo chown tomcat:tomcat /var/lib/tomcat10/webapps/demo.jar
-            sudo chmod 755 /var/lib/tomcat10/webapps/demo.jar
+            sudo chown tomcat:tomcat /var/lib/tomcat10/webapps/demo.war
+            sudo chmod 755 /var/lib/tomcat10/webapps/demo.war
 
 
             # 5️⃣ Reiniciar el servicio Tomcat para cargar el nuevo archivo .war.
