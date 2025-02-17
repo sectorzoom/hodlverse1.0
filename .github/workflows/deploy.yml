@@ -6,7 +6,6 @@ on:
       - master                              # Solo se ejecuta si el push es en la rama main.
 
 
-
 jobs:
   build-and-deploy:                       # Define el trabajo llamado build-and-deploy.
     runs-on: ubuntu-latest                # El trabajo se ejecuta en Ubuntu.
