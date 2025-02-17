@@ -1,6 +1,5 @@
 name: Deploy Spring Boot to EC2 (Ubuntu)  # Nombre del workflow
 
-
 on:
   push:                                   # Workflow se activa cuando se hace push.
     branches:
