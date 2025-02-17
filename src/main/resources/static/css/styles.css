@@ -303,3 +303,9 @@ hr{
 .text{
     color: var(--azuloscuro) !important;
 }
+/* Solo aplica el blur al contenido detrás del modal */
+body.modal-open main {
+    filter: blur(5px);
+    pointer-events: none; /* Evita clics en el fondo */
+}
+

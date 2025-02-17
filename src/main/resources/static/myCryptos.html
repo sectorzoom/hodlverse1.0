@@ -10,7 +10,11 @@
     <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet"/>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.4.3/echarts.min.js"></script>
     <link rel="stylesheet" href="css/myCryptos.css">
+    <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
 <header>
@@ -30,7 +34,8 @@
                         </div>
                         <div class="awards-item text-center gap-1">
                             <span class="fw-bold d-block">Market Cap: </span>
-                            <p class="marketCapValue"></p><span class="percentage"><i class="fa-solid fa-caret-down"></i> 1.2%</span>
+                            <p class="marketCapValue"></p><span class="percentage"><i
+                                class="fa-solid fa-caret-down"></i> 1.2%</span>
                         </div>
                         <div class="awards-item text-center gap-1">
                             <span class="fw-bold d-block">24h Vol: </span>
@@ -63,11 +68,12 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0 nav-underline">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="dashboard.html"><i
+                        <a class="nav-link" aria-current="page" href="dashboard.html"><i
                                 class="fa-solid fa-gauge-high"></i>Dashboard</a>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown" href="highlights.html" id="dropdownMenu" role="button" data-bs-toggle="dropdown"
+                        <a class="nav-link dropdown" href="highlights.html" id="dropdownMenu" role="button"
+                           data-bs-toggle="dropdown"
                            aria-expanded="false"><i class="fa-solid fa-chart-line"></i>Highlights</a>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenu">
                             <li><a class="dropdown-item" href="#">Trending Coins</a></li>
@@ -164,7 +170,8 @@
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                      class="bi bi-currency-bitcoin" viewBox="0 0 16 16">
                                     <path d="M5.5 13v1.25c0 .138.112.25.25.25h1a.25.25 0 0 0 .25-.25V13h.5v1.25c0 .138.112.25.25.25h1a.25.25 0 0 0 .25-.25V13h.084c1.992 0 3.416-1.033 3.416-2.82 0-1.502-1.007-2.323-2.186-2.44v-.088c.97-.242 1.683-.974 1.683-2.19C11.997 3.93 10.847 3 9.092 3H9V1.75a.25.25 0 0 0-.25-.25h-1a.25.25 0 0 0-.25.25V3h-.573V1.75a.25.25 0 0 0-.25-.25H5.75a.25.25 0 0 0-.25.25V3l-1.998.011a.25.25 0 0 0-.25.25v.989c0 .137.11.25.248.25l.755-.005a.75.75 0 0 1 .745.75v5.505a.75.75 0 0 1-.75.75l-.748.011a.25.25 0 0 0-.25.25v1c0 .138.112.25.25.25zm1.427-8.513h1.719c.906 0 1.438.498 1.438 1.312 0 .871-.575 1.362-1.877 1.362h-1.28zm0 4.051h1.84c1.137 0 1.756.58 1.756 1.524 0 .953-.626 1.45-2.158 1.45H6.927z"/>
-                                </svg> My Cryptos
+                                </svg>
+                                My Cryptos
                             </button>
                         </li>
                         <hr>
@@ -179,136 +186,123 @@
                     </ul>
                 </div>
             </div>
-            <!-- Modal Configuración -->
-            <div class="modal fade" id="settingsModal" tabindex="-1" aria-labelledby="settingsModalLabel"
-                 aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="settingsModalLabel">Settings</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                    aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <!-- Opciones de Configuración -->
-                            <div class="mb-3">
-                                <i class="fa-solid fa-language"></i>
-                                <label for="languageSelect" class="form-label">Language</label>
-                                <select class="form-select" id="languageSelect">
-                                    <option value="en">English</option>
-                                    <option value="es">Spanish</option>
-                                    <option value="fr">French</option>
-                                </select>
-                            </div>
+        </div>
+    </nav>
+</header>
+<main class="container my-4">
+    <div class="p-5 bg-white rounded shadow">
+        <!-- Encabezado de Highlights -->
+        <div class="d-flex flex-column mb-3">
+            <h1 class="h2">YOUR CRYPTOS</h1>
+            <p class="text-secondary text-sm" style="font-style: italic;">
+                Manage and monitor your cryptocurrency portfolio with ease. Track your holdings, view real-time market
+                prices, and assess your gains or losses. Stay on top of your investments with up-to-date information,
+                helping you make informed decisions in the dynamic world of crypto.
+            </p>
+        </div>
 
-                            <div class="mb-3">
-                                <i class="fa-solid fa-money-bill"></i>
-                                <label for="currencySelect" class="form-label">Currency</label>
-                                <select class="form-select" id="currencySelect">
-                                    <option value="usd">USD</option>
-                                    <option value="eur">EUR</option>
-                                    <option value="gbp">GBP</option>
-                                </select>
-                            </div>
+        <div class="row mt-5">
+            <!-- Columna para el gráfico (centrado y grande) -->
+            <div class="col-12 mb-5">
+                <!-- Pie Chart con ECharts -->
+                <div id="cryptoPieChart" style="height: 700px;"></div>
+            </div>
+        </div>
 
-                            <div class="mb-3 d-flex align-items-center">
-                                <i class="fa-solid fa-moon"></i>
-                                <label for="darkModeSwitch">Dark Mode</label>
-                                <div class="form-check form-switch ms-auto">
-                                    <input class="form-check-input dark-mode-toggle" type="checkbox"
-                                           id="darkModeSwitch">
-                                </div>
+        <!-- CRYPTO COINS OWNED -->
+        <div class="row">
+            <div class="col-12">
+                <div class="card shadow-sm">
+                    <div class="card-body pb-1">
+                        <div class="d-flex justify-content-between align-items-center mb-1">
+                            <div class="d-flex align-items-center gap-1 mb-3">
+                                <h4 class="m-0 fw-bold">Your Cryptocurrencies</h4>
                             </div>
                         </div>
+                        <!-- Tabla resumida con efecto stripe y hover -->
+                        <table class="table table-striped table-hover">
+                            <thead class="fw-bold text-muted border-bottom pb-2 extra-small-text">
+                            <tr>
+                                <th>Coin</th>
+                                <th>Quantity</th>
+                                <th>Current Price</th>
+                                <th>Gains</th>
+                            </tr>
+                            </thead>
+                            <tbody id="cryptoHoldingsTable">
+                            <!-- Filas de ejemplo; en producción se llenará dinámicamente -->
+                            <tr>
+                                <td>Bitcoin</td>
+                                <td>0.5</td>
+                                <td>$20,000</td>
+                                <td class="text-success">+5%</td>
+                            </tr>
+                            <tr>
+                                <td>Ethereum</td>
+                                <td>2</td>
+                                <td>$1,500</td>
+                                <td class="text-danger">-3%</td>
+                            </tr>
+                            <tr>
+                                <td>Solana</td>
+                                <td>1.5</td>
+                                <td>$200</td>
+                                <td class="text-success">+10%</td>
+                            </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
         </div>
-    </nav>
-</header>
-<main class="container mt-4 bg-light rounded p-3 shadow mb-3">
-    <div class="text-center mb-4">
-        <h2 class="fw-bold text-dark mb-3" style="font-size: 2.5rem; letter-spacing: 1px;">
-            <span class="d-inline-block position-relative">My Cryptos</span></h2>
     </div>
-    <div class="row">
-        <div class="col-md-4">
-            <div class="card p-3 card-item">
-                <h5>Current Balance</h5>
-                <h3>$1,092,452</h3>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="card p-3">
-                <h5>24h Portfolio Change</h5>
-                <h3 class="text-success">+250,319 (14%)</h3>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="card p-3">
-                <h5>Total Profit/Loss</h5>
-                <h3 class="text-success">+952,129 (22%)</h3>
-            </div>
-        </div>
-    </div>
-
-    <div class="row mt-4">
-        <div class="col-md-6">
-            <div class="card p-3 d-flex flex-column justify-content-center" style="height: 400px">
-                <h5>Cryptos</h5>
-                <canvas id="holdingsChart" style="max-width: 100%; max-height: 80%;"></canvas>
-            </div>
-        </div>
-        <div class="col-md-6">
-            <div class="card p-3 d-flex flex-column justify-content-center" style="height: 400px">
-                <h5>Performance</h5>
-                <canvas id="performanceChart" style="max-width: 100%; max-height: 80%;"></canvas>
-            </div>
-        </div>
-    </div>
-
-    <div class="row mt-4 mb-2 px-3">
-        <div class="table-responsive mb-3">
-            <table class="table table-striped text-center shadow-sm">
-                <thead>
-                <tr>
-                    <th class="sticky-col start-0 text-end">#</th>
-                    <th class="sticky-col start-0 text-start">Name</th>
-                    <th class="text-end">Price</th>
-                    <th>1h%</th>
-                    <th>24h%</th>
-                    <th>7d%</th>
-                    <th class="text-end">Market Cap</th>
-                    <th class="text-center">Action</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <td>1</td>
-                    <td class="text-start">Bitcoin BTC</td>
-                    <td class="text-end">$25,960.55</td>
-                    <td class="text-danger">0.0%</td>
-                    <td class="text-success">2.0%</td>
-                    <td class="text-success">12.0%</td>
-                    <td class="text-end">$505,950,573,182</td>
-                    <td><button class="btn btn-success">Buy</button></td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td class="text-start">Ethereum ETH</td>
-                    <td class="text-end">$1,638.58</td>
-                    <td class="text-danger">0.0%</td>
-                    <td class="text-success">2.0%</td>
-                    <td class="text-success">12.0%</td>
-                    <td class="text-end">$196,983,024,058</td>
-                    <td><button class="btn btn-success ">Buy</button></td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-
 </main>
+
+<!-- Modal Configuración -->
+<div class="modal fade" id="settingsModal" tabindex="-1" aria-labelledby="settingsModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="settingsModalLabel">Settings</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Opciones de Configuración -->
+                <div class="mb-3">
+                    <i class="fa-solid fa-language"></i>
+                    <label for="languageSelect" class="form-label">Language</label>
+                    <select class="form-select" id="languageSelect">
+                        <option value="en">English</option>
+                        <option value="es">Spanish</option>
+                        <option value="fr">French</option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <i class="fa-solid fa-money-bill"></i>
+                    <label for="currencySelect" class="form-label">Currency</label>
+                    <select class="form-select" id="currencySelect">
+                        <option value="usd">USD</option>
+                        <option value="eur">EUR</option>
+                        <option value="gbp">GBP</option>
+                    </select>
+                </div>
+
+                <div class="mb-3 d-flex align-items-center">
+                    <i class="fa-solid fa-moon"></i>
+                    <label for="darkModeSwitch">Dark Mode</label>
+                    <div class="form-check form-switch ms-auto">
+                        <input class="form-check-input dark-mode-toggle" type="checkbox"
+                               id="darkModeSwitch">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <footer>
     <!-- Footer para pantallas grandes (pantallas de 768px o más) -->
     <div class="d-none d-lg-block">
