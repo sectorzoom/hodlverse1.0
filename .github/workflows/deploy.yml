@@ -10,11 +10,6 @@ on:
 jobs:
   build-and-deploy:                       # Define el trabajo llamado build-and-deploy.
     runs-on: ubuntu-latest                # El trabajo se ejecuta en Ubuntu.
-    env:
-      DB_ENDPOINT: ${{ secrets.DB_ENDPOINT }}
-      DB_USERNAME: ${{ secrets.DB_USERNAME }}
-      DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
-
 
     steps:
       # 1️⃣ Descargar el código fuente del repositorio.
