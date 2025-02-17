@@ -1,19 +1,6 @@
 class Transaction {
     constructor(id, transactionType, originTransactionAmount, destinationTransactionAmount, originUnitPrice, destinationUnitPrice, transactionDate, user, originCurrency, destinationCurrency) {
         // Validar cada propiedad antes de inicializar el objeto
-        this.validateData({
-            id,
-            transactionType,
-            originTransactionAmount,
-            destinationTransactionAmount,
-            originUnitPrice,
-            destinationUnitPrice,
-            transactionDate,
-            user,
-            originCurrency,
-            destinationCurrency
-        });
-
         this.id = id;
         this.transactionType = transactionType;
         this.originTransactionAmount = originTransactionAmount;
@@ -138,27 +125,23 @@ class Transaction {
     }
 
     // Crear una nueva transacción
-    static createTransaction(transactionData, callback) {
+    static async createTransaction(transactionData) {
+        // Primero validamos los datos; si son inválidos se lanza un error y se interrumpe la ejecución.
         try {
-            this.validateData(transactionData); // Validar los datos antes de enviarlos
-            $.ajax({
+            const data = await $.ajax({
                 url: '/transactions',
                 type: 'POST',
                 contentType: 'application/json',
-                data: JSON.stringify(transactionData),
-                success: (data) => {
-                    console.log('Transacción creada:', data);
-                    if (callback) callback(data);
-                    Transaction.loadTransactions(); // Recargar la lista
-                },
-                error: (error) => {
-                    console.error('Error al crear la transacción:', error);
-                }
+                data: JSON.stringify(transactionData)
             });
-        } catch (error) {
-            console.error('Datos inválidos para crear la transacción:', error.message);
+            console.log('Transacción creada:', data);
+            Transaction.loadTransactions(); // Recargar la lista de transacciones
+            return data;
+        } catch (ajaxError) {
+            console.error('Error al crear la transacción:', ajaxError);
         }
     }
+
 
     // Actualizar una transacción existente
     static updateTransaction(id, updatedData, callback) {

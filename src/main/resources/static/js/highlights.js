@@ -18,6 +18,74 @@ document.addEventListener("DOMContentLoaded", function () {
         rankingSection.classList.toggle("hidden");
         this.nextElementSibling.textContent = this.checked ? "Show Rankings" : "Hide Rankings";
     });
+    function listas (lista, value){
+        lista.innerHTML = "";
+        value.forEach(coin => {
+            let li = document.createElement("li");
+            li.classList.add("row", "py-1", "mt-2", "mb-2", "card-item");
+            li.innerHTML = `
+                <div class="col-6" onclick="window.location.href='infoCrypto.html?ticker=${coin.currency.ticker}'">
+                    <img src="${coin.currency.image}" alt="Logo de ${coin.currency.name}" height="24" class="me-2">${coin.currency.name}
+                </div>
+                <div class="col-4 text-end">$${coin.currentPrice}</div>
+                <div class="col-2 text-end text-danger fw-bold">-5.1%</div>
+                `;
+            lista.appendChild(li);
+        });
+    }
+
+    async function trendingCoins(){
+        try{
+            const coins = await History.getTrendingCoins();
+            const top5Coins = coins.slice(0, 5);
+            console.log(top5Coins);
+            let lista = document.getElementById("top-trending-list");
+            listas(lista, top5Coins);
+        } catch (error) {
+            console.error(error);
+        }
+    }
+    trendingCoins();
+
+    async function topLosers(){
+        try{
+            const coins = await History.getTopLosers();
+            const top5Coins = coins.slice(0, 5);
+            console.log(top5Coins);
+            let lista = document.getElementById("top-losers-list");
+            listas(lista, top5Coins);
+        } catch (error) {
+            console.error(error);
+        }
+    }
+    topLosers();
+
+    async function topWinners(){
+        try{
+            const coins = await History.getTopWinners();
+            const top5Coins = coins.slice(0, 5);
+            console.log(top5Coins);
+            let lista = document.getElementById("top-winners-list");
+            listas(lista, top5Coins);
+        } catch (error) {
+            console.error(error);
+        }
+    }
+    topWinners();
+
+    async function highestVolume(){
+        try{
+            const coins = await History.getHighestVolume();
+            const top5Coins = coins.slice(0, 5);
+            console.log(top5Coins);
+            let lista = document.getElementById("highest-volume-list");
+            listas(lista, top5Coins);
+        } catch (error) {
+            console.error(error);
+        }
+    }
+    highestVolume();
+
 });
 
     // Event handling

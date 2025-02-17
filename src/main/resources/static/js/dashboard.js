@@ -117,7 +117,7 @@ document.addEventListener("DOMContentLoaded", async function () {
             nameGap: 30,
             axisLabel: {
                 formatter: function (value) {
-                    return new Date(value).toLocaleDateString('es-ES', { day: '2-digit', month: 'short' });
+                    return new Date(value).toLocaleDateString('es-ES', {day: '2-digit', month: 'short'});
                 }
             }
         },
@@ -133,8 +133,8 @@ document.addEventListener("DOMContentLoaded", async function () {
             }
         },
         dataZoom: [
-            { type: 'inside', start: 0, end: 100 },
-            { start: 0, end: 100 }
+            {type: 'inside', start: 0, end: 100},
+            {start: 0, end: 100}
         ],
         series: [
             {
@@ -288,6 +288,7 @@ document.addEventListener("DOMContentLoaded", function () {
             console.error('❌ Error en fetchTransactionsById:', error);
         }
     }
+
     async function fetchTransactionsAllById() {
         try {
             const userId = await User.getUserId(); // Obtener ID del usuario
@@ -388,13 +389,12 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 
-
 });
 document.addEventListener("DOMContentLoaded", async () => {
     let user;
 
-    async function getCryptos(){
-        try{
+    async function getCryptos() {
+        try {
             const userId = await User.getUserId(); // Obtener ID del usuario
             user = await User.getUserById(userId);
             const currencies = await Wallet.getWalletsCurrenciesById(userId);
@@ -406,22 +406,11 @@ document.addEventListener("DOMContentLoaded", async () => {
             return []; // Devuelve un array vacío en caso de error
         }
     }
+
     const cryptos = await getCryptos();
+    console.log(cryptos);
 
-    let currencies = await getCurrencies();
-
-    async function getCurrencies(){
-        try{
-            const response = await $.ajax({
-                url: `/wallets/${user.wallet.walletId}/currencies`,
-                type: 'GET'
-            });
-            return response;
-        } catch (error) {
-            console.error('❌ Error al obtener el usuario:', error);
-            return [];
-        }
-    }
+    let currencies = await Wallet.getWalletsCurrenciesById(user.wallet.walletId);
 
     async function getTotalValue() {
         try {
@@ -442,9 +431,44 @@ document.addEventListener("DOMContentLoaded", async () => {
         }
     }
 
-
     let totalValue = await getTotalValue();
     console.log(totalValue);
+
+    async function getValueFinal() {
+        let value = [];
+        try {
+            currencies.forEach( async (currency) => {
+                let currencyValue = await History.getLatestHistoryByCurrencyId(currency.currencyId);
+                value.push(currencyValue.currentPrice);
+                console.log(value);
+            });
+
+            return value || []; // Retorna un array vacío si es null/undefined
+
+        } catch (error) {
+            console.error('❌ Error al obtener el usuario:', error);
+            return []; // Devuelve un array vacío en caso de error
+        }
+    }
+    let value = await getValueFinal();
+    function calculateTotalValueForCurrency(value, totalValue) {
+        let total = [];
+
+        for (let i = 0; i < value.length; i++) {
+            let price = Number(value[i]) || 0; // Convertimos a número y evitamos NaN
+            let balance = Number(totalValue[i]) || 0; // Convertimos a número y evitamos NaN
+
+            let totalValuePerCurrency = price * balance;
+            total.push(totalValuePerCurrency);
+        }
+
+        console.log("📊 Total calculado por moneda:", total);
+        return total;
+    }
+
+
+    let valueFinal = calculateTotalValueForCurrency(value, totalValue);
+    console.log(valueFinal);
 
     // Verifica que cryptos sea un array antes de iterar
     if (!Array.isArray(cryptos)) {
@@ -460,13 +484,14 @@ document.addEventListener("DOMContentLoaded", async () => {
         const card = document.createElement("div");
         card.classList.add("card", "crypto", "shadow-sm", "mb-2");
         let amount = totalValue[contador];
+        let final = valueFinal[contador];
         console.log(amount);
         card.innerHTML = `
       <div class="card-body d-flex align-items-center justify-content-between">
         <div>
           <div class="mb-2">
             <h5 class="text">${crypto.name}</h5>
-            <h5 class="text">${crypto.value}</h5>
+            <h5 class="text">${final}</h5>
             <div class="d-flex align-items-center gap-2">
               <h6 class="text-muted">${crypto.ticker}</h6>
               <h6 class="text-muted">${amount}</h6>
