@@ -204,8 +204,8 @@ document.addEventListener("DOMContentLoaded", async function () {
     const remainingMinutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
 
     // Mostrar la cuenta regresiva con los valores correctos
-    daysRemainingText.textContent = `${remainingDays} Días`;
-    timeRemainingText.textContent = `${remainingHours} horas, ${remainingMinutes} minutos`;
+    daysRemainingText.textContent = `${remainingDays} Days`;
+    timeRemainingText.textContent = `${remainingHours} hours, ${remainingMinutes} minutes`;
 
     // Crear el calendario
     for (let day = 1; day <= daysInMonth; day++) {
@@ -450,13 +450,16 @@ document.addEventListener("DOMContentLoaded", async () => {
             return []; // Devuelve un array vacío en caso de error
         }
     }
-    let value = await getValueFinal();
+    let value = [95903,1];
+    console.log(value);
     function calculateTotalValueForCurrency(value, totalValue) {
         let total = [];
 
         for (let i = 0; i < value.length; i++) {
-            let price = Number(value[i]) || 0; // Convertimos a número y evitamos NaN
-            let balance = Number(totalValue[i]) || 0; // Convertimos a número y evitamos NaN
+            let price = Number(value[i])
+            console.log(price);
+            let balance = Number(totalValue[i])
+            console.log(balance);
 
             let totalValuePerCurrency = price * balance;
             total.push(totalValuePerCurrency);
