@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>org.edgar</groupId>
-	<artifactId>HodlVerse</artifactId>
+	<artifactId>demo</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging> <!-- Asegúrate de que el empaquetado esté configurado como war -->
-	<name>HodlVerse</name>
+	<name>demo</name>
 	<description>HodlVerse</description>
 	<url/>
 	<licenses>
